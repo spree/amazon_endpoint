@@ -1,0 +1,245 @@
+{
+  "name": "amazon",
+  "display": "Amazon",
+  "description": "Gets orders from an Amazon seller account to import into a Spree store",
+  "help": "http://guides.spreecommerce.com/integration/amazon_integration.html",
+  "services": [
+  {
+    "name": "get_orders",
+    "path": "/get_orders",
+    "description": "Get orders from Amazon",
+    "requires": {
+      "parameters": [
+      {
+        "name": "aws_access_key",
+        "description": "AWS Access Key ID",
+        "data_type": "string"
+      },
+      {
+        "name": "secret_key",
+        "description": "AWS Secret Key",
+        "data_type": "string"
+      },
+      {
+        "name": "seller_id",
+        "description": "Amazon Seller ID",
+        "data_type": "string"
+      },
+      {
+        "name": "marketplace_id",
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
+      },
+      {
+        "name": "last_updated_after",
+        "description": "Date of last order imported",
+        "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string",
+        "optional": true
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["amazon:order:poll"]
+    }
+  },
+  {
+    "name": "confirm_shipment",
+    "path": "/confirm_shipment",
+    "description": "Confirm an order inside of Amazon",
+    "requires": {
+      "parameters": [
+      {
+        "name": "aws_access_key",
+        "description": "AWS Access Key ID",
+        "data_type": "string"
+      },
+      {
+        "name": "secret_key",
+        "description": "AWS Secret Key",
+        "data_type": "string"
+      },
+      {
+        "name": "seller_id",
+        "description": "Amazon Seller ID",
+        "data_type": "string"
+      },
+      {
+        "name": "marketplace_id",
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string",
+        "optional": true
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["shipment:confirm"],
+      "filters": [
+      {
+        "path": "payload.order.channel",
+        "operator": "eq",
+        "value": "Amazon.com"
+      }
+      ]
+    }
+  },
+  {
+    "name": "feed_status",
+    "path": "/feed_status",
+    "description": "Check the status of a submitted feed",
+    "required": true,
+    "requires": {
+      "parameters": [
+      {
+        "name": "aws_access_key",
+        "description": "AWS Access Key ID",
+        "data_type": "string"
+      },
+      {
+        "name": "secret_key",
+        "description": "AWS Secret Key",
+        "data_type": "string"
+      },
+      {
+        "name": "seller_id",
+        "description": "Amazon Seller ID",
+        "data_type": "string"
+      },
+      {
+        "name": "marketplace_id",
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["amazon:feed:status"]
+    }
+  },
+  {
+    "name": "get_order_by_number",
+    "path": "/get_order_by_number",
+    "description": "Get order by number from Amazon",
+    "requires": {
+      "amazon_order_id": "Amazon Order ID",
+      "parameters": [
+      {
+        "name": "aws_access_key",
+        "description": "AWS Access Key ID",
+        "data_type": "string"
+      },
+      {
+        "name": "secret_key",
+        "description": "AWS Secret Key",
+        "data_type": "string"
+      },
+      {
+        "name": "seller_id",
+        "description": "Amazon Seller ID",
+        "data_type": "string"
+      },
+      {
+        "name": "marketplace_id",
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["amazon:import:by_number"]
+    }
+  },
+  {
+    "name": "get_inventory_by_sku",
+    "path": "/get_inventory_by_sku",
+    "description": "Get inventory by sku from Amazon",
+    "requires": {
+      "sku": "Item sku",
+      "parameters": [
+      {
+        "name": "aws_access_key",
+        "description": "AWS Access Key ID",
+        "data_type": "string"
+      },
+      {
+        "name": "secret_key",
+        "description": "AWS Secret Key",
+        "data_type": "string"
+      },
+      {
+        "name": "seller_id",
+        "description": "Amazon Seller ID",
+        "data_type": "string"
+      },
+      {
+        "name": "marketplace_id",
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["stock:query"]
+    }
+  },
+  {
+    "name": "update_inventory_availabitity",
+    "path": "/update_inventory_availabitity",
+    "description": "Update Amazon Inventory Availability",
+    "requires": {
+      "sku": "Item sku",
+      "quantity": "Item quantity",
+      "paramaters": [
+      {
+        "name": "aws_access_key",
+        "value": "AWS Access Key ID"
+      },
+      {
+        "name": "secret_key",
+        "value": "AWS Secret Key"
+      },
+      {
+        "name": "seller_id",
+        "value": "Amazon Seller ID"
+      },
+      {
+        "name": "marketplace_id",
+        "value": "Amazon Marketplace ID"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["stock:actual"]
+    }
+  }
+  ]
+}
