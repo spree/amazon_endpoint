@@ -23,10 +23,20 @@ describe AmazonEndpoint do
     AmazonEndpoint
   end
 
+  before do
+   Timecop.freeze('2013-06-25T15:56:31-04:00')
+  end
+
+  after do
+   Timecop.return
+  end
+
   it 'gets orders from amazon' do
-    AmazonClient.any_instance.should_receive(:get_orders).and_return(message)
-    post '/get_orders', request.to_json, auth
-    last_response.status.should == 200
-    last_response.body.should match /1234567/
+   VCR.use_cassette('amazon_client_valid_orders') do
+     post '/get_orders', request.to_json, auth
+
+     last_response.status.should == 200
+     last_response.body.should match /1234567/
+   end
   end
 end
