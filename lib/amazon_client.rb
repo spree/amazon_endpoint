@@ -16,31 +16,17 @@ class AmazonClient
     if order_list.orders.nil?
       response
     elsif order_list.orders.first.is_a? Array
-      response.merge(assemble_single_order(order_list))
+      response.merge(assemble_orders([order_list.orders]))
     else
-      response.merge(assemble_multiple_orders(order_list))
+      response.merge(assemble_orders(order_list.orders))
     end
   end
 
-  def assemble_single_order(order)
+  def assemble_orders(order_list)
     messages_hash = { messages: [] }
-    messages_hash[:messages] << build_order_hash(order.orders)
+    last_updated_at = order_list.last.last_update_date
 
-    item_response = @client.orders.list_order_items(amazon_order_id: order.orders.amazon_order_id)
-
-    item_response.order_items.each do |item|
-        messages_hash[:messages][0][:payload][:order][:line_items] << build_item_hash(item)   
-      end
-
-    messages_hash[:parameters] = [{ name: 'last_created_after', value: order.orders.last_update_date }]
-    messages_hash
-  end
-
-  def assemble_multiple_orders(order_list)
-    messages_hash = { messages: [] }
-    last_updated_at = order_list.orders.last.last_update_date
-
-    order_list.orders.each_with_index do |order, index|
+    order_list.each_with_index do |order, index|
       messages_hash[:messages] << build_order_hash(order)
 
       item_response = @client.orders.list_order_items(amazon_order_id: order.amazon_order_id)
