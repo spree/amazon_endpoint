@@ -2,13 +2,18 @@ require 'spec_helper'
 
 describe AmazonEndpoint do
 
-  let(:config) { [{ name: "marketplace_id", value: 'abc1'}, 
-                  { name: "seller_id", value: 'abc2'}, 
-                  { name: 'created_after', value: '2013-06-12'}, 
-                  { name: 'aws_access_key', value: 'abc12'}, 
-                  { name: 'secret_key', value: 'abc123'}] }
+  let(:config) { [{ name: "marketplace_id", value: 'ATVPDKIKX0DER'}, 
+                  { name: "seller_id", value: 'A6WWS5LKYVEJ8'}, 
+                  { name: 'last_created_after', value: '2013-06-12'}, 
+                  { name: 'aws_access_key', value: 'AKIAIR24VLFSLJRUCXBQ'}, 
+                  { name: 'secret_key', value: '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'}] }
 
-  let(:message) { message_id: '1234567'}
+  let(:message) {{ message_id: '1234567' }}
+
+  let(:request) {{ message: 'amazon:order:poll', 
+                     message_id: '1234567', 
+                     payload: 
+                       { parameters: config }}}
   
   def auth
     {'HTTP_X_AUGURY_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"}
@@ -18,13 +23,16 @@ describe AmazonEndpoint do
     AmazonEndpoint
   end
 
-  def creds
-    { marketplace_id: 'abc1', seller_id: 'abc2', aws_access_key: 'abc12', secret_key: 'abc123' }
-  end
-
   before do
     @amazon_client = double 
-    AmazonClient.should_recieve(:new).with(creds).and_return(@amazon_client)
+    AmazonClient.should_receive(:new).with(config, message).and_return(@amazon_client)
   end
 
+  it 'gets orders from amazon' do
+    @amazon_client.should_receive(:get_orders).and_return(hash_including 'message' => ('spree:import:order'))
+
+    post '/get_orders', request.to_json, auth
+    
+    last_response.status.should == 200    
+  end   
 end

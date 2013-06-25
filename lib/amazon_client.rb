@@ -1,11 +1,11 @@
 class AmazonClient
 
-  def initialize(config, message_id)
+  def initialize(config, message)
     @client = MWS.new(aws_access_key_id: config['aws_access_key'], 
                       secret_access_key: config['secret_key'],
                       seller_id:         config['seller_id'], 
                       marketplace_id:    config['marketplace_id'])
-    @base_response = { message_id: message_id }
+    @base_response = { message_id: message[:message_id] }
     @config = config
   end
 
@@ -15,7 +15,7 @@ class AmazonClient
 
     if order_list.orders.nil?
       response
-    elsif order_list.orders.first.is_a? Array
+    elsif order_list.orders.is_a? MWS::API::Response
       response.merge(assemble_response([order_list.orders]))
     else
       response.merge(assemble_response(order_list.orders))

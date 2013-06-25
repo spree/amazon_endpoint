@@ -5,7 +5,7 @@ class AmazonEndpoint < EndpointBase
   set :logging, true
 
   post '/get_orders' do
-    amazon_client = AmazonClient.new(@config, @message[:message_id])
+    amazon_client = AmazonClient.new(@config, @message)
 
     begin
       response = amazon_client.get_orders
@@ -14,7 +14,7 @@ class AmazonEndpoint < EndpointBase
       code = 500
       response = {'error' => e.message}
     end
-    
+
     puts JSON.pretty_generate response
     process_result code, response
   end
