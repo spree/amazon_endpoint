@@ -16,13 +16,13 @@ class AmazonClient
     if order_list.orders.nil?
       response
     elsif order_list.orders.first.is_a? Array
-      response.merge(assemble_orders([order_list.orders]))
+      response.merge(assemble_response([order_list.orders]))
     else
-      response.merge(assemble_orders(order_list.orders))
+      response.merge(assemble_response(order_list.orders))
     end
   end
 
-  def assemble_orders(order_list)
+  def assemble_response(order_list)
     messages_hash = { messages: [] }
     last_updated_at = order_list.last.last_update_date
 
