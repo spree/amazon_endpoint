@@ -18,4 +18,13 @@ describe AmazonEndpoint do
     AmazonEndpoint
   end
 
+  def creds
+    { marketplace_id: 'abc1', seller_id: 'abc2', aws_access_key: 'abc12', secret_key: 'abc123' }
+  end
+
+  before do
+    @amazon_client = double 
+    AmazonClient.should_recieve(:new).with(creds).and_return(@amazon_client)
+  end
+
 end
