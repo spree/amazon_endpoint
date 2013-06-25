@@ -11,8 +11,16 @@ describe AmazonClient do
 
   subject { AmazonClient.new(config, message) }
 
+  before do
+   Timecop.freeze('2013-06-25T15:56:31-04:00')
+  end
+
+  after do
+   Timecop.return
+  end
+
   it 'gets orders from amazon' do
-   VCR.use_cassette('amazon_client_valid_orders', record: :all) do
+   VCR.use_cassette('amazon_client_valid_orders') do
      response = subject.get_orders
      response[:messages].first[:payload][:order][:amazon_order_id].should eq '111-6494089-5358640'
      response[:messages].first[:payload][:order][:line_items].first[:name].should eq 'Munchkin 5 Pack Multi Bowl'
