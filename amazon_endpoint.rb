@@ -15,7 +15,6 @@ class AmazonEndpoint < EndpointBase
       response = {'error' => e.message}
     end
 
-    puts JSON.pretty_generate response
     process_result code, response
   end
 end

@@ -1,9 +1,9 @@
 class AmazonClient
 
   def initialize(config, message)
-    @client = MWS.new(aws_access_key_id: config['aws_access_key'], 
+    @client = MWS.new(aws_access_key_id: config['aws_access_key'],
                       secret_access_key: config['secret_key'],
-                      seller_id:         config['seller_id'], 
+                      seller_id:         config['seller_id'],
                       marketplace_id:    config['marketplace_id'])
     @base_response = { message_id: message[:message_id] }
     @config = config
@@ -22,6 +22,7 @@ class AmazonClient
     end
   end
 
+  private
   def assemble_response(order_list)
     messages_hash = { messages: [] }
     last_updated_at = order_list.last.last_update_date
@@ -30,9 +31,9 @@ class AmazonClient
       messages_hash[:messages] << build_order_hash(order)
 
       item_response = @client.orders.list_order_items(amazon_order_id: order.amazon_order_id)
-        
+
       item_response.order_items.each do |item|
-        messages_hash[:messages][index][:payload][:order][:line_items] << build_item_hash(item)   
+        messages_hash[:messages][index][:payload][:order][:line_items] << build_item_hash(item)
       end
     end
 
@@ -42,12 +43,12 @@ class AmazonClient
 
   def build_order_hash(order)
     order.shipping_address
-    { message: 'spree:import:order', 
-      payload: 
-        { order: 
-          { amazon_order_id: order.amazon_order_id, 
-            email: order.buyer_email, 
-            line_items: [], 
+    { message: 'spree:import:order',
+      payload:
+        { order:
+          { amazon_order_id: order.amazon_order_id,
+            email: order.buyer_email,
+            line_items: [],
             shipping_address: {
               firstname: order.shipping_address.name.split(' ').first,
               lastname: order.shipping_address.name.split(' ').last,
@@ -61,9 +62,9 @@ class AmazonClient
   end
 
   def build_item_hash(item)
-    { name: item.title, 
-      price: item.item_price.amount, 
-      sku: item.seller_sku, 
+    { name: item.title,
+      price: item.item_price.amount,
+      sku: item.seller_sku,
       quantity: item.quantity_shipped }
   end
 end
