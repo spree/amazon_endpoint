@@ -32,7 +32,7 @@
         ]
       },
       "reccomends": {
-        "keys": ["amazon:order:pull"]
+        "keys": ["amazon:order:poll"]
       },
       "produces": {
         "messages": [
