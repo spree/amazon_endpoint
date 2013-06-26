@@ -1,0 +1,47 @@
+{
+  "name": "amazon",
+  "display": "Amazon",
+  "description": "Gets orders from an Amazon seller account to import into a Spree store",
+  "consumers": [
+    {
+      "name": "get_orders",
+      "path": "/get_orders",
+      "description": "Get orders from Amazon",
+      "requires": {
+        "paramaters": [
+          {
+            "name": "aws_access_key",
+            "value": "AWS Access Key ID"
+          },
+          {
+            "name": "secret_key",
+            "value": "AWS Secret Key"
+          },
+          {
+            "name": "seller_id",
+            "value": "Amazon Seller ID"
+          },
+          {
+            "name": "marketplace_id",
+            "value": "Amazon Marketplace ID"
+          },
+          {
+            "name": "last_created_after",
+            "value": "Date of last order imported"
+          }
+        ]
+      },
+      "reccomends": {
+        "keys": ["amazon:order:pull"]
+      },
+      "produces": {
+        "messages": [
+          {
+            "message": "spree:import:order",
+            "schema": "/spree.import.order.json"
+          }
+        ]
+      }
+    }
+  ] 
+}
