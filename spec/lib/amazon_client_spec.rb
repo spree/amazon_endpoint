@@ -10,7 +10,7 @@ describe AmazonClient do
   let(:message) { { message_id: 'XXX' } }
 
   before do
-   Timecop.freeze('2013-07-02T14:24:42-04:00')
+   Timecop.freeze('2013-07-02T16:23:22-04:00')
   end
 
   after do
@@ -36,6 +36,16 @@ describe AmazonClient do
       response = client.get_orders
       response[:messages].count.should == 1
       response[:messages][0][:message].should eq 'spree:import:order'
+    end
+  end
+
+  it 'gets no orders from amazon' do
+    VCR.use_cassette('amazon_client_valid_no_orders') do
+      config['amazon.last_created_after'] = '2013-06-21'
+      client = AmazonClient.new(config, message)
+      
+      response = client.get_orders
+      response.should eq nil
     end
   end
 end

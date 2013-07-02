@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&CreatedAfter=2013-06-21&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=F9F27idQxhLScglrdwmJ9mXPH0jGfzXyV4PRobs54tg=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-02T16:23:22-04:00&Version=2011-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - ruby-mws/0.0.4 (Language=Ruby/1.9.3-p0)
+      Content-Type:
+      - text/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 02 Jul 2013 20:26:51 GMT
+      Server:
+      - Server
+      X-Amz-Date:
+      - Tue, 02 Jul 2013 20:26:51 GMT
+      X-Mws-Request-Id:
+      - d478c039-d166-4a72-a1fa-96dbc5ad95a7
+      X-Mws-Timestamp:
+      - '2013-07-02T20:26:51.054Z'
+      X-Mws-Response-Context:
+      - xO0eZmGACegOAvF1nDnX1HcrTY+dOP5ClQ0lEkytaqE5F2RxQVTaTN+8xECdT9IIhgf5LquYVwE=
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '342'
+      Vary:
+      - Accept-Encoding,User-Agent
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\"?>\n<ListOrdersResponse xmlns=\"https://mws.amazonservices.com/Orders/2011-01-01\">\n
+        \ <ListOrdersResult>\n    <Orders/>\n    <CreatedBefore>2013-07-02T20:24:51Z</CreatedBefore>\n
+        \ </ListOrdersResult>\n  <ResponseMetadata>\n    <RequestId>d478c039-d166-4a72-a1fa-96dbc5ad95a7</RequestId>\n
+        \ </ResponseMetadata>\n</ListOrdersResponse>\n"
+    http_version: 
+  recorded_at: Tue, 02 Jul 2013 20:23:22 GMT
+recorded_with: VCR 2.5.0
