@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe AmazonEndpoint do
 
-  let(:config) { [{ name: "marketplace_id", value: 'ATVPDKIKX0DER'},
-                  { name: "seller_id", value: 'A6WWS5LKYVEJ8'},
-                  { name: 'last_created_after', value: '2013-06-12'},
-                  { name: 'aws_access_key', value: 'AKIAIR24VLFSLJRUCXBQ'},
-                  { name: 'secret_key', value: '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'}] }
+  let(:config) { [{ name: "amazon.marketplace_id", value: 'ATVPDKIKX0DER'},
+                  { name: "amazon.seller_id", value: 'A6WWS5LKYVEJ8'},
+                  { name: 'amazon.last_created_after', value: '2013-06-12'},
+                  { name: 'amazon.aws_access_key', value: 'AKIAIR24VLFSLJRUCXBQ'},
+                  { name: 'amazon.secret_key', value: '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'}] }
 
   let(:message) {{ message_id: '1234567' }}
 
