@@ -11,8 +11,7 @@ class AmazonClient
 
   def get_orders
     response = @base_response
-    order_list = @client.orders.list_orders(
-      created_after: @config['amazon.last_created_after'])
+    order_list = @client.orders.list_orders( created_after: @config['amazon.last_created_after'])
 
     if order_list.orders.nil?
       response

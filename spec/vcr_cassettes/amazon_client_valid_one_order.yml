@@ -1,0 +1,136 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&CreatedAfter=2013-06-18&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=N2hfXyFa/qC8S3RqeEJHd4xEPppeCsueL5Rqsj%2BwJFk=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-02T14:24:42-04:00&Version=2011-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - ruby-mws/0.0.4 (Language=Ruby/1.9.3-p0)
+      Content-Type:
+      - text/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 02 Jul 2013 18:27:08 GMT
+      Server:
+      - Server
+      X-Amz-Date:
+      - Tue, 02 Jul 2013 18:27:08 GMT
+      X-Mws-Request-Id:
+      - e7896182-6a59-404e-ba4e-b4ad3903116b
+      X-Mws-Timestamp:
+      - '2013-07-02T18:27:08.801Z'
+      X-Mws-Response-Context:
+      - UQFqBgKQdIzCW49RD2WynZzRi2e2RDWw2Rehm7xxcIISB/R7Hr5bv2BFnhFe7QKZc7lbcwenXTJA
+        nqIx9c18Jg==
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1764'
+      Vary:
+      - Accept-Encoding,User-Agent
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\"?>\n<ListOrdersResponse xmlns=\"https://mws.amazonservices.com/Orders/2011-01-01\">\n
+        \ <ListOrdersResult>\n    <Orders>\n      <Order>\n        <ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>\n
+        \       <OrderTotal>\n          <Amount>16.19</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </OrderTotal>\n        <ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>\n
+        \       <MarketplaceId>ATVPDKIKX0DER</MarketplaceId>\n        <ShippingAddress>\n
+        \         <Phone>2409971905</Phone>\n          <PostalCode>20837-3004</PostalCode>\n
+        \         <Name>Wesley Scott Ketchum</Name>\n          <CountryCode>US</CountryCode>\n
+        \         <StateOrRegion>MARYLAND</StateOrRegion>\n          <AddressLine1>19944
+        SPURRIER AVE</AddressLine1>\n          <City>POOLESVILLE</City>\n        </ShippingAddress>\n
+        \       <SalesChannel>Amazon.com</SalesChannel>\n        <ShippedByAmazonTFM>false</ShippedByAmazonTFM>\n
+        \       <OrderType>StandardOrder</OrderType>\n        <BuyerEmail>knsrqr1h8bkp9yh@marketplace.amazon.com</BuyerEmail>\n
+        \       <FulfillmentChannel>MFN</FulfillmentChannel>\n        <OrderStatus>Unshipped</OrderStatus>\n
+        \       <BuyerName>wes ketchum</BuyerName>\n        <LastUpdateDate>2013-06-19T17:45:49Z</LastUpdateDate>\n
+        \       <PurchaseDate>2013-06-19T17:15:29Z</PurchaseDate>\n        <NumberOfItemsUnshipped>2</NumberOfItemsUnshipped>\n
+        \       <NumberOfItemsShipped>0</NumberOfItemsShipped>\n        <AmazonOrderId>111-2374817-1293015</AmazonOrderId>\n
+        \       <PaymentMethod>Other</PaymentMethod>\n      </Order>\n    </Orders>\n
+        \   <CreatedBefore>2013-07-02T18:25:08Z</CreatedBefore>\n  </ListOrdersResult>\n
+        \ <ResponseMetadata>\n    <RequestId>e7896182-6a59-404e-ba4e-b4ad3903116b</RequestId>\n
+        \ </ResponseMetadata>\n</ListOrdersResponse>\n"
+    http_version: 
+  recorded_at: Tue, 02 Jul 2013 18:24:42 GMT
+- request:
+    method: get
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=111-2374817-1293015&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=xUFBUW8hUIH8KqxBz0Nw/OneBLXGOX4H36NI5qFYSK8=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-02T14:24:42-04:00&Version=2011-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - ruby-mws/0.0.4 (Language=Ruby/1.9.3-p0)
+      Content-Type:
+      - text/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 02 Jul 2013 18:27:09 GMT
+      Server:
+      - Server
+      X-Amz-Date:
+      - Tue, 02 Jul 2013 18:27:09 GMT
+      X-Mws-Request-Id:
+      - 554795bc-b690-47e6-aaa2-72468036fbf8
+      X-Mws-Timestamp:
+      - '2013-07-02T18:27:09.140Z'
+      X-Mws-Response-Context:
+      - UQFqBgKQdIzCW49RD2WynZzRi2e2RDWw2Rehm7xxcIISB/R7Hr5bv2BFnhFe7QKZc7lbcwenXTJA
+        nqIx9c18Jg==
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '3177'
+      Vary:
+      - Accept-Encoding,User-Agent
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\"?>\n<ListOrderItemsResponse xmlns=\"https://mws.amazonservices.com/Orders/2011-01-01\">\n
+        \ <ListOrderItemsResult>\n    <OrderItems>\n      <OrderItem>\n        <OrderItemId>01029183238402</OrderItemId>\n
+        \       <GiftWrapPrice>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapPrice>\n        <QuantityOrdered>1</QuantityOrdered>\n        <GiftWrapTax>\n
+        \         <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapTax>\n        <SellerSKU>SV-Q5JI-31JT</SellerSKU>\n        <Title>10
+        Strawberry Street Catering Set 10-1/2-Inch Dinner Plate, Set of 12</Title>\n
+        \       <ShippingTax>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingTax>\n        <ShippingPrice>\n          <Amount>13.75</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ShippingPrice>\n        <ItemTax>\n
+        \         <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ItemTax>\n        <ItemPrice>\n          <Amount>0.01</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ItemPrice>\n        <PromotionDiscount>\n
+        \         <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </PromotionDiscount>\n        <ASIN>B002LAAFYS</ASIN>\n        <ConditionId>Refurbished</ConditionId>\n
+        \       <QuantityShipped>0</QuantityShipped>\n        <ConditionSubtypeId>Refurbished</ConditionSubtypeId>\n
+        \       <ShippingDiscount>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingDiscount>\n      </OrderItem>\n      <OrderItem>\n        <OrderItemId>35505926518458</OrderItemId>\n
+        \       <GiftWrapPrice>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapPrice>\n        <QuantityOrdered>1</QuantityOrdered>\n        <GiftWrapTax>\n
+        \         <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapTax>\n        <SellerSKU>II-Y842-W27J</SellerSKU>\n        <Title>OXO
+        Tot Plate, Aqua</Title>\n        <ShippingTax>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ShippingTax>\n        <ShippingPrice>\n
+        \         <Amount>2.42</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingPrice>\n        <ItemTax>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ItemTax>\n        <ItemPrice>\n
+        \         <Amount>0.01</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ItemPrice>\n        <PromotionDiscount>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </PromotionDiscount>\n
+        \       <ASIN>B0038JDURU</ASIN>\n        <ConditionId>New</ConditionId>\n
+        \       <QuantityShipped>0</QuantityShipped>\n        <ConditionSubtypeId>New</ConditionSubtypeId>\n
+        \       <ShippingDiscount>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingDiscount>\n      </OrderItem>\n    </OrderItems>\n    <AmazonOrderId>111-2374817-1293015</AmazonOrderId>\n
+        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>554795bc-b690-47e6-aaa2-72468036fbf8</RequestId>\n
+        \ </ResponseMetadata>\n</ListOrderItemsResponse>\n"
+    http_version: 
+  recorded_at: Tue, 02 Jul 2013 18:24:42 GMT
+recorded_with: VCR 2.5.0
