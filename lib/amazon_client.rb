@@ -5,7 +5,6 @@ class AmazonClient
                       secret_access_key: config['amazon.secret_key'],
                       seller_id:         config['amazon.seller_id'],
                       marketplace_id:    config['amazon.marketplace_id'])
-    @base_response = { message_id: message[:message_id] }
     @config = config
   end
 
@@ -16,9 +15,9 @@ class AmazonClient
     if order_list.orders.nil?
       response
     elsif order_list.orders.is_a? MWS::API::Response
-      response.merge(assemble_response([order_list.orders]))
+      assemble_response([order_list.orders])
     else
-      response.merge(assemble_response(order_list.orders))
+      assemble_response(order_list.orders)
     end
   end
 

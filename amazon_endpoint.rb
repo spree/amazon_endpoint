@@ -6,6 +6,7 @@ class AmazonEndpoint < EndpointBase
 
   post '/get_orders' do
     amazon_client = AmazonClient.new(@config, @message)
+    @base_response = { message_id: @message[:message_id] } 
 
     begin
       response = amazon_client.get_orders
@@ -15,6 +16,10 @@ class AmazonEndpoint < EndpointBase
       response = {'error' => e.message}
     end
 
-    process_result code, response
+    process_result code, merged_response(response)
+  end
+
+  def merged_response(response)
+    response == nil ? @base_response : @base_response.merge(response)
   end
 end
