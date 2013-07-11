@@ -35,7 +35,7 @@ describe AmazonClient do
 
       response = client.get_orders
       response[:messages].count.should == 1
-      response[:messages][0][:message].should eq 'spree:import:order'
+      response[:messages][0][:message].should eq 'order:new'
     end
   end
 
@@ -43,7 +43,7 @@ describe AmazonClient do
     VCR.use_cassette('amazon_client_valid_no_orders') do
       config['amazon.last_created_after'] = '2013-06-21'
       client = AmazonClient.new(config, message)
-      
+
       response = client.get_orders
       response.should eq nil
     end

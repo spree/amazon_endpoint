@@ -27,13 +27,19 @@ class AmazonClient
     last_updated_at = order_list.last.last_update_date
 
     order_list.each_with_index do |order, index|
+      shipping_total = 0
       messages_hash[:messages] << build_order_hash(order)
 
       item_response = @client.orders.list_order_items(amazon_order_id: order.amazon_order_id)
 
       item_response.order_items.each do |item|
-        messages_hash[:messages][index][:payload][:order][:line_items] << build_item_hash(item)
+        shipping_total = shipping_total + item.shipping_price.amount.to_f
+        item_hash = build_item_hash(item)
+
+        messages_hash[:messages][index][:payload][:order][:line_items] << item_hash
+        messages_hash[:messages][index][:payload][:order][:shipments][:items] << item_hash
       end
+      messages_hash[:messages][index][:payload][:order][:shipments][:cost] = shipping_total
     end
 
     messages_hash[:parameters] = [{ name: 'last_created_after', value: last_updated_at }]
@@ -42,10 +48,12 @@ class AmazonClient
 
   def build_order_hash(order)
     order.shipping_address
-    { message: 'spree:import:order',
+    { message: 'order:new',
       payload:
         { order:
           { amazon_order_id: order.amazon_order_id,
+            channel: order.sales_channel,
+            status: order.order_status,
             email: order.buyer_email,
             line_items: [],
             shipping_address: {
@@ -55,9 +63,11 @@ class AmazonClient
               city: order.shipping_address.city,
               zipcode: order.shipping_address.postal_code,
               phone: order.shipping_address.phone,
-              country: { iso: order.shipping_address.country_code },
-              state: { name: order.shipping_address.state_or_region }},
-            shipping_method: { name: order.shipment_service_level_category }}}}
+              country: order.shipping_address.country_code,
+              state: order.shipping_address.state_or_region },
+            shipments: {
+              shipping_method: order.shipment_service_level_category,
+              items: [] }}}}
   end
 
   def build_item_hash(item)
