@@ -10,7 +10,7 @@ describe AmazonClient do
   let(:message) { { message_id: 'XXX' } }
 
   before do
-   Timecop.freeze('2013-07-02T16:23:22-04:00')
+   Timecop.freeze('2013-07-12 14:15:08-04:00')
   end
 
   after do
@@ -30,7 +30,7 @@ describe AmazonClient do
 
   it 'gets one order from amazon' do
     VCR.use_cassette('amazon_client_valid_one_order') do
-      config['amazon.last_updated_after'] = '2013-06-18'
+      config['amazon.last_updated_after'] = '2013-07-11'
       client = AmazonClient.new(config, message)
 
       response = client.get_orders
@@ -41,7 +41,7 @@ describe AmazonClient do
 
   it 'gets no orders from amazon' do
     VCR.use_cassette('amazon_client_valid_no_orders') do
-      config['amazon.last_updated_after'] = '2013-06-21'
+      config['amazon.last_updated_after'] = '2013-07-12T13:52:55Z'
       client = AmazonClient.new(config, message)
 
       response = client.get_orders

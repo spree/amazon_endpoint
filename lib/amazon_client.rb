@@ -32,7 +32,6 @@ class AmazonClient
       messages_hash[:messages] << build_order_hash(order)
 
       item_response = @client.orders.list_order_items(amazon_order_id: order.amazon_order_id)
-      binding.pry
 
       item_response.order_items.each do |item|
         shipping_total = shipping_total + item.shipping_price.amount.to_f

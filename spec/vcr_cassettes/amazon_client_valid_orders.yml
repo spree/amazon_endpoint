@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&CreatedAfter=2013-06-12&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=Mhh6ZcB%2B/7qX8HTeexcvyBXS%2Bj1PWxibdkMeJKW4TO0=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-02T16:23:22-04:00&Version=2011-01-01
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&CreatedAfter=2013-06-12&MarketplaceId.Id.1=ATVPDKIKX0DER&OrderStatus.Status.1=Unshipped&OrderStatus.Status.2=PartiallyShipped&OrderStatus.Status.3=Shipped&SellerId=A6WWS5LKYVEJ8&Signature=1qAQSjgpoig9MPiPCe7RVbGb/Hrsk4YBHhq17tn0WPQ=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
     body:
       encoding: US-ASCII
       string: ''
@@ -17,21 +17,21 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 02 Jul 2013 20:26:49 GMT
+      - Fri, 12 Jul 2013 18:18:25 GMT
       Server:
       - Server
       X-Amz-Date:
-      - Tue, 02 Jul 2013 20:26:49 GMT
+      - Fri, 12 Jul 2013 18:18:25 GMT
       X-Mws-Request-Id:
-      - 2f7aca58-eaa2-42fb-a347-f8cf12d20ee2
+      - 57f9741c-7d04-40b3-85f4-ef6852a7e875
       X-Mws-Timestamp:
-      - '2013-07-02T20:26:49.309Z'
+      - '2013-07-12T18:18:25.571Z'
       X-Mws-Response-Context:
-      - Zb3zfXW2epaENrw6cuWyUiphw2/6PwukoeFhInKt/QQVUEkatw9R2d2k48KbBpsuHCoVnt26uWE=
+      - 4GfbTMLUhnoVE0kcPBPc9gqiEEhzYOdSQXWJngMYvrRkkC2CvwRe5kznJe4kJnc9MKVAc+2IaoI=
       Content-Type:
       - text/xml
       Content-Length:
-      - '3170'
+      - '6045'
       Vary:
       - Accept-Encoding,User-Agent
     body:
@@ -66,15 +66,46 @@ http_interactions:
         \       <BuyerName>wes ketchum</BuyerName>\n        <LastUpdateDate>2013-06-19T17:45:49Z</LastUpdateDate>\n
         \       <PurchaseDate>2013-06-19T17:15:29Z</PurchaseDate>\n        <NumberOfItemsUnshipped>2</NumberOfItemsUnshipped>\n
         \       <NumberOfItemsShipped>0</NumberOfItemsShipped>\n        <AmazonOrderId>111-2374817-1293015</AmazonOrderId>\n
+        \       <PaymentMethod>Other</PaymentMethod>\n      </Order>\n      <Order>\n
+        \       <ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>\n
+        \       <OrderTotal>\n          <Amount>7.59</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </OrderTotal>\n        <ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>\n
+        \       <MarketplaceId>ATVPDKIKX0DER</MarketplaceId>\n        <ShippingAddress>\n
+        \         <Phone>2409971905</Phone>\n          <PostalCode>20837-3004</PostalCode>\n
+        \         <Name>Wesley Scott Ketchum</Name>\n          <CountryCode>US</CountryCode>\n
+        \         <StateOrRegion>MARYLAND</StateOrRegion>\n          <AddressLine1>19944
+        SPURRIER AVE</AddressLine1>\n          <City>POOLESVILLE</City>\n        </ShippingAddress>\n
+        \       <SalesChannel>Amazon.com</SalesChannel>\n        <ShippedByAmazonTFM>false</ShippedByAmazonTFM>\n
+        \       <OrderType>StandardOrder</OrderType>\n        <SellerOrderId>107-1057286-1357800</SellerOrderId>\n
+        \       <BuyerEmail>knsrqr1h8bkp9yh@marketplace.amazon.com</BuyerEmail>\n
+        \       <FulfillmentChannel>MFN</FulfillmentChannel>\n        <OrderStatus>Unshipped</OrderStatus>\n
+        \       <BuyerName>wes ketchum</BuyerName>\n        <LastUpdateDate>2013-07-03T13:44:36Z</LastUpdateDate>\n
+        \       <PurchaseDate>2013-07-03T13:14:16Z</PurchaseDate>\n        <NumberOfItemsUnshipped>3</NumberOfItemsUnshipped>\n
+        \       <NumberOfItemsShipped>0</NumberOfItemsShipped>\n        <AmazonOrderId>107-1057286-1357800</AmazonOrderId>\n
+        \       <PaymentMethod>Other</PaymentMethod>\n      </Order>\n      <Order>\n
+        \       <ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>\n
+        \       <OrderTotal>\n          <Amount>5.53</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </OrderTotal>\n        <ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>\n
+        \       <MarketplaceId>ATVPDKIKX0DER</MarketplaceId>\n        <ShippingAddress>\n
+        \         <Phone>2409971905</Phone>\n          <PostalCode>20837-3004</PostalCode>\n
+        \         <Name>Wesley Scott Ketchum</Name>\n          <CountryCode>US</CountryCode>\n
+        \         <StateOrRegion>MARYLAND</StateOrRegion>\n          <AddressLine1>19944
+        SPURRIER AVE</AddressLine1>\n          <City>POOLESVILLE</City>\n        </ShippingAddress>\n
+        \       <SalesChannel>Amazon.com</SalesChannel>\n        <ShippedByAmazonTFM>false</ShippedByAmazonTFM>\n
+        \       <OrderType>StandardOrder</OrderType>\n        <BuyerEmail>knsrqr1h8bkp9yh@marketplace.amazon.com</BuyerEmail>\n
+        \       <FulfillmentChannel>MFN</FulfillmentChannel>\n        <OrderStatus>Unshipped</OrderStatus>\n
+        \       <BuyerName>wes ketchum</BuyerName>\n        <LastUpdateDate>2013-07-12T13:52:55Z</LastUpdateDate>\n
+        \       <PurchaseDate>2013-07-12T13:22:40Z</PurchaseDate>\n        <NumberOfItemsUnshipped>1</NumberOfItemsUnshipped>\n
+        \       <NumberOfItemsShipped>0</NumberOfItemsShipped>\n        <AmazonOrderId>104-4489057-1313801</AmazonOrderId>\n
         \       <PaymentMethod>Other</PaymentMethod>\n      </Order>\n    </Orders>\n
-        \   <CreatedBefore>2013-07-02T20:24:49Z</CreatedBefore>\n  </ListOrdersResult>\n
-        \ <ResponseMetadata>\n    <RequestId>2f7aca58-eaa2-42fb-a347-f8cf12d20ee2</RequestId>\n
+        \   <CreatedBefore>2013-07-12T18:16:25Z</CreatedBefore>\n  </ListOrdersResult>\n
+        \ <ResponseMetadata>\n    <RequestId>57f9741c-7d04-40b3-85f4-ef6852a7e875</RequestId>\n
         \ </ResponseMetadata>\n</ListOrdersResponse>\n"
     http_version: 
-  recorded_at: Tue, 02 Jul 2013 20:23:22 GMT
+  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
 - request:
     method: get
-    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=111-6494089-5358640&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=4eFGhpru5axYNZweOAyqm3MFVf5K/EzmcCMuIjYex2w=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-02T16:23:22-04:00&Version=2011-01-01
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=111-6494089-5358640&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=Vc7KOxQ%2B0r7zTpd8UABo6mXs5FDfEgtgTbBmhLFzFMk=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
     body:
       encoding: US-ASCII
       string: ''
@@ -89,18 +120,17 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 02 Jul 2013 20:26:49 GMT
+      - Fri, 12 Jul 2013 18:18:26 GMT
       Server:
       - Server
       X-Amz-Date:
-      - Tue, 02 Jul 2013 20:26:49 GMT
+      - Fri, 12 Jul 2013 18:18:26 GMT
       X-Mws-Request-Id:
-      - c15590a9-140e-4b77-8954-ee582fc0687c
+      - aaebff80-d698-41a4-b289-b8c1d468e8ef
       X-Mws-Timestamp:
-      - '2013-07-02T20:26:49.659Z'
+      - '2013-07-12T18:18:26.277Z'
       X-Mws-Response-Context:
-      - IMGo8PokGkdA9sL71oy6Zn5uDUKda4X2pstFOFU+PbOyL5bH2a7zSU2wwfk7cNeBlXGNsw8HADTq
-        skKnj7aKsA==
+      - gOCLcPRZ0j0garDRnJGLPYxzphzGRwR7D9Qmg0f9Zr2mZhUsOF++7MQQqYG5j/prn7f0SjbGXuo=
       Content-Type:
       - text/xml
       Content-Length:
@@ -160,13 +190,13 @@ http_interactions:
         Good</ConditionSubtypeId>\n        <ShippingDiscount>\n          <Amount>0.00</Amount>\n
         \         <CurrencyCode>USD</CurrencyCode>\n        </ShippingDiscount>\n
         \     </OrderItem>\n    </OrderItems>\n    <AmazonOrderId>111-6494089-5358640</AmazonOrderId>\n
-        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>c15590a9-140e-4b77-8954-ee582fc0687c</RequestId>\n
+        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>aaebff80-d698-41a4-b289-b8c1d468e8ef</RequestId>\n
         \ </ResponseMetadata>\n</ListOrderItemsResponse>\n"
     http_version: 
-  recorded_at: Tue, 02 Jul 2013 20:23:22 GMT
+  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
 - request:
     method: get
-    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=111-2374817-1293015&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=fhItOxN%2BDsLnututsKMjRAt4MLR0CmfctpNIZclnfmg=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-02T16:23:22-04:00&Version=2011-01-01
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=111-2374817-1293015&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=4XwFYoOa3He1Lpkj%2BU9O9G4MV4%2BF33UhLOkRtwNnW68=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
     body:
       encoding: US-ASCII
       string: ''
@@ -181,17 +211,17 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 02 Jul 2013 20:26:50 GMT
+      - Fri, 12 Jul 2013 18:19:21 GMT
       Server:
       - Server
       X-Amz-Date:
-      - Tue, 02 Jul 2013 20:26:50 GMT
+      - Fri, 12 Jul 2013 18:19:22 GMT
       X-Mws-Request-Id:
-      - e3e59345-bf52-4b22-90ae-07cbae633cf3
+      - 62913c8c-7e68-4a18-924a-1fb87df6d0fd
       X-Mws-Timestamp:
-      - '2013-07-02T20:26:50.022Z'
+      - '2013-07-12T18:19:21.966Z'
       X-Mws-Response-Context:
-      - 45OwMpNM19iGt/SPIHEb1EgDflK2VdCBAWaz96r+BbfR6HyRiE7DxfU1YLfI7Zw62Wev54bsg1Q=
+      - 7GNP+8BRUjqycFjqGSweCNLtnt3PpDxzOHdXc33u780NNOOCQbVI6+g7N4ln/H/gCs4d4sh1sRY=
       Content-Type:
       - text/xml
       Content-Length:
@@ -234,8 +264,125 @@ http_interactions:
         \       <QuantityShipped>0</QuantityShipped>\n        <ConditionSubtypeId>New</ConditionSubtypeId>\n
         \       <ShippingDiscount>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
         \       </ShippingDiscount>\n      </OrderItem>\n    </OrderItems>\n    <AmazonOrderId>111-2374817-1293015</AmazonOrderId>\n
-        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>e3e59345-bf52-4b22-90ae-07cbae633cf3</RequestId>\n
+        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>62913c8c-7e68-4a18-924a-1fb87df6d0fd</RequestId>\n
         \ </ResponseMetadata>\n</ListOrderItemsResponse>\n"
     http_version: 
-  recorded_at: Tue, 02 Jul 2013 20:23:22 GMT
+  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
+- request:
+    method: get
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=107-1057286-1357800&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=Gfbwz1U%2Bxj10Mn2WY7cm/adT6squwi13X8I/WVLIK40=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - ruby-mws/0.0.4 (Language=Ruby/1.9.3-p0)
+      Content-Type:
+      - text/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 12 Jul 2013 18:19:27 GMT
+      Server:
+      - Server
+      X-Amz-Date:
+      - Fri, 12 Jul 2013 18:19:27 GMT
+      X-Mws-Request-Id:
+      - b39668b3-eb3a-4879-81f1-904be158a515
+      X-Mws-Timestamp:
+      - '2013-07-12T18:19:27.077Z'
+      X-Mws-Response-Context:
+      - 3ty57YNqdKIAnhV5f1volW+4ZsY4epU/5oczkLah5BIjtqWAk6sosgobERhyUzlQ2zWe0hylpFpB
+        alPdhaXysw==
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1782'
+      Vary:
+      - Accept-Encoding,User-Agent
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\"?>\n<ListOrderItemsResponse xmlns=\"https://mws.amazonservices.com/Orders/2011-01-01\">\n
+        \ <ListOrderItemsResult>\n    <OrderItems>\n      <OrderItem>\n        <OrderItemId>65880483461538</OrderItemId>\n
+        \       <GiftWrapPrice>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapPrice>\n        <QuantityOrdered>3</QuantityOrdered>\n        <GiftWrapTax>\n
+        \         <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapTax>\n        <SellerSKU>OX-M0NP-AOD1</SellerSKU>\n        <Title>Bakers
+        &amp; Chefs Dinner Forks - 36 pcs.</Title>\n        <ShippingTax>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ShippingTax>\n        <ShippingPrice>\n
+        \         <Amount>7.56</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingPrice>\n        <ItemTax>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ItemTax>\n        <ItemPrice>\n
+        \         <Amount>0.03</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ItemPrice>\n        <PromotionDiscount>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </PromotionDiscount>\n
+        \       <ASIN>B003DQ25RE</ASIN>\n        <ConditionId>Refurbished</ConditionId>\n
+        \       <QuantityShipped>0</QuantityShipped>\n        <ConditionSubtypeId>Refurbished</ConditionSubtypeId>\n
+        \       <ShippingDiscount>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingDiscount>\n      </OrderItem>\n    </OrderItems>\n    <AmazonOrderId>107-1057286-1357800</AmazonOrderId>\n
+        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>b39668b3-eb3a-4879-81f1-904be158a515</RequestId>\n
+        \ </ResponseMetadata>\n</ListOrderItemsResponse>\n"
+    http_version: 
+  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
+- request:
+    method: get
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=104-4489057-1313801&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=0rpynXMdBfKchUpADnhaJlEHru0/ousZeEN5TZ0VbRQ=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - ruby-mws/0.0.4 (Language=Ruby/1.9.3-p0)
+      Content-Type:
+      - text/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 12 Jul 2013 18:19:28 GMT
+      Server:
+      - Server
+      X-Amz-Date:
+      - Fri, 12 Jul 2013 18:19:28 GMT
+      X-Mws-Request-Id:
+      - bf4c8283-fd96-4f38-aea2-8864eaf5ba0a
+      X-Mws-Timestamp:
+      - '2013-07-12T18:19:28.790Z'
+      X-Mws-Response-Context:
+      - 7z3O/5DlE0LVNzojA8EiO5Q4KE6MCylX7wxjhUuhLoYYPNmRebTQPVZiA7BbOm9ewxK49uZVBb0=
+      Content-Type:
+      - text/xml
+      Content-Length:
+      - '1782'
+      Vary:
+      - Accept-Encoding,User-Agent
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\"?>\n<ListOrderItemsResponse xmlns=\"https://mws.amazonservices.com/Orders/2011-01-01\">\n
+        \ <ListOrderItemsResult>\n    <OrderItems>\n      <OrderItem>\n        <OrderItemId>04985691558298</OrderItemId>\n
+        \       <GiftWrapPrice>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapPrice>\n        <QuantityOrdered>1</QuantityOrdered>\n        <GiftWrapTax>\n
+        \         <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </GiftWrapTax>\n        <SellerSKU>OX-M0NP-AOD1</SellerSKU>\n        <Title>Bakers
+        &amp; Chefs Dinner Forks - 36 pcs.</Title>\n        <ShippingTax>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ShippingTax>\n        <ShippingPrice>\n
+        \         <Amount>5.52</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingPrice>\n        <ItemTax>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </ItemTax>\n        <ItemPrice>\n
+        \         <Amount>0.01</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ItemPrice>\n        <PromotionDiscount>\n          <Amount>0.00</Amount>\n
+        \         <CurrencyCode>USD</CurrencyCode>\n        </PromotionDiscount>\n
+        \       <ASIN>B003DQ25RE</ASIN>\n        <ConditionId>Refurbished</ConditionId>\n
+        \       <QuantityShipped>0</QuantityShipped>\n        <ConditionSubtypeId>Refurbished</ConditionSubtypeId>\n
+        \       <ShippingDiscount>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
+        \       </ShippingDiscount>\n      </OrderItem>\n    </OrderItems>\n    <AmazonOrderId>104-4489057-1313801</AmazonOrderId>\n
+        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>bf4c8283-fd96-4f38-aea2-8864eaf5ba0a</RequestId>\n
+        \ </ResponseMetadata>\n</ListOrderItemsResponse>\n"
+    http_version: 
+  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
 recorded_with: VCR 2.5.0
