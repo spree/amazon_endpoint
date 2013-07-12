@@ -26,7 +26,7 @@
             "value": "Amazon Marketplace ID"
           },
           {
-            "name": "last_created_after",
+            "name": "last_updated_after",
             "value": "Date of last order imported"
           }
         ]
@@ -43,5 +43,5 @@
         ]
       }
     }
-  ] 
+  ]
 }
