@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&CreatedAfter=2013-07-12T13:52:55Z&MarketplaceId.Id.1=ATVPDKIKX0DER&OrderStatus.Status.1=Unshipped&OrderStatus.Status.2=PartiallyShipped&OrderStatus.Status.3=Shipped&SellerId=A6WWS5LKYVEJ8&Signature=K6N0eNiMo4P4%2BW60uBfleJIylSChluegnt6JlWfKMag=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&LastUpdatedAfter=2013-07-12T13:58:55Z&MarketplaceId.Id.1=ATVPDKIKX0DER&OrderStatus.Status.1=Unshipped&OrderStatus.Status.2=PartiallyShipped&OrderStatus.Status.3=Shipped&SellerId=A6WWS5LKYVEJ8&Signature=Lx/QXpy6HrlRYFHOA2iDOgjXQEUYjFjqcLEwFZds6ZU=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:35:14-04:00&Version=2011-01-01
     body:
       encoding: US-ASCII
       string: ''
@@ -17,30 +17,29 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 12 Jul 2013 18:21:08 GMT
+      - Fri, 12 Jul 2013 18:38:02 GMT
       Server:
       - Server
       X-Amz-Date:
-      - Fri, 12 Jul 2013 18:21:08 GMT
+      - Fri, 12 Jul 2013 18:38:03 GMT
       X-Mws-Request-Id:
-      - 6816fc1b-0d47-4a4a-b8ab-934c228affca
+      - cf33685f-9b76-4a46-9cc0-ab1fee503827
       X-Mws-Timestamp:
-      - '2013-07-12T18:21:08.141Z'
+      - '2013-07-12T18:38:02.958Z'
       X-Mws-Response-Context:
-      - vdzSKud0kssnOawAp9psDBEibNT3v43qHUpD+zRs5zkPCgxVHBs4qp9+MxFniVj2/VBvwEAA3lY5
-        Rin4aYcfEA==
+      - 7z3O/5DlE0LVNzojA8EiO5Q4KE6MCylX7wxjhUuhLoYYPNmRebTQPVZiA7BbOm9ewxK49uZVBb0=
       Content-Type:
       - text/xml
       Content-Length:
-      - '342'
+      - '350'
       Vary:
       - Accept-Encoding,User-Agent
     body:
       encoding: US-ASCII
       string: ! "<?xml version=\"1.0\"?>\n<ListOrdersResponse xmlns=\"https://mws.amazonservices.com/Orders/2011-01-01\">\n
-        \ <ListOrdersResult>\n    <Orders/>\n    <CreatedBefore>2013-07-12T18:19:08Z</CreatedBefore>\n
-        \ </ListOrdersResult>\n  <ResponseMetadata>\n    <RequestId>6816fc1b-0d47-4a4a-b8ab-934c228affca</RequestId>\n
+        \ <ListOrdersResult>\n    <LastUpdatedBefore>2013-07-12T18:36:02Z</LastUpdatedBefore>\n
+        \   <Orders/>\n  </ListOrdersResult>\n  <ResponseMetadata>\n    <RequestId>cf33685f-9b76-4a46-9cc0-ab1fee503827</RequestId>\n
         \ </ResponseMetadata>\n</ListOrdersResponse>\n"
     http_version: 
-  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
+  recorded_at: Fri, 12 Jul 2013 18:35:14 GMT
 recorded_with: VCR 2.5.0

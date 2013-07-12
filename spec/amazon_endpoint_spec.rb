@@ -24,7 +24,7 @@ describe AmazonEndpoint do
   end
 
   before do
-   Timecop.freeze('2013-07-12 14:15:08-04:00')
+   Timecop.freeze('2013-07-12 14:35:14-04:00')
   end
 
   after do

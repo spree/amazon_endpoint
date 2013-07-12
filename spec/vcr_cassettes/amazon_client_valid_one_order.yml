@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&CreatedAfter=2013-07-11&MarketplaceId.Id.1=ATVPDKIKX0DER&OrderStatus.Status.1=Unshipped&OrderStatus.Status.2=PartiallyShipped&OrderStatus.Status.3=Shipped&SellerId=A6WWS5LKYVEJ8&Signature=qYSGN31ZZ9BtrJ0biatz82pPbNr8n4R/yX5Fhw9j520=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrders&LastUpdatedAfter=2013-07-11&MarketplaceId.Id.1=ATVPDKIKX0DER&OrderStatus.Status.1=Unshipped&OrderStatus.Status.2=PartiallyShipped&OrderStatus.Status.3=Shipped&SellerId=A6WWS5LKYVEJ8&Signature=HTmMkKGW0ckghqIQwV4hH/eqonRg8Byd2fhpfWw5Kio=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:35:14-04:00&Version=2011-01-01
     body:
       encoding: US-ASCII
       string: ''
@@ -17,27 +17,28 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 12 Jul 2013 18:19:36 GMT
+      - Fri, 12 Jul 2013 18:36:36 GMT
       Server:
       - Server
       X-Amz-Date:
-      - Fri, 12 Jul 2013 18:19:36 GMT
+      - Fri, 12 Jul 2013 18:36:36 GMT
       X-Mws-Request-Id:
-      - 592d2ea7-9949-4c5c-bf72-7deabaa864c5
+      - befa7b4c-e6e2-4ec3-ac66-4b5dcafdd195
       X-Mws-Timestamp:
-      - '2013-07-12T18:19:36.808Z'
+      - '2013-07-12T18:36:36.523Z'
       X-Mws-Response-Context:
-      - FJB7s8Jj964lfexlwXle+g+StojMh0yeUPerP5+gTLt1wS3H2XFP4HOMCM2z3ra3b2NQirhaWcw=
+      - 2HoCRR8XC3ojppZ7BWhMS+7okoK8F4vuVommsSu08elxRBIOOKxGh07jElKxJwJA7FqNQwDTWGs=
       Content-Type:
       - text/xml
       Content-Length:
-      - '1763'
+      - '1771'
       Vary:
       - Accept-Encoding,User-Agent
     body:
       encoding: US-ASCII
       string: ! "<?xml version=\"1.0\"?>\n<ListOrdersResponse xmlns=\"https://mws.amazonservices.com/Orders/2011-01-01\">\n
-        \ <ListOrdersResult>\n    <Orders>\n      <Order>\n        <ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>\n
+        \ <ListOrdersResult>\n    <LastUpdatedBefore>2013-07-12T18:34:36Z</LastUpdatedBefore>\n
+        \   <Orders>\n      <Order>\n        <ShipmentServiceLevelCategory>Standard</ShipmentServiceLevelCategory>\n
         \       <OrderTotal>\n          <Amount>5.53</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
         \       </OrderTotal>\n        <ShipServiceLevel>Std Cont US Street Addr</ShipServiceLevel>\n
         \       <MarketplaceId>ATVPDKIKX0DER</MarketplaceId>\n        <ShippingAddress>\n
@@ -52,14 +53,13 @@ http_interactions:
         \       <PurchaseDate>2013-07-12T13:22:40Z</PurchaseDate>\n        <NumberOfItemsUnshipped>1</NumberOfItemsUnshipped>\n
         \       <NumberOfItemsShipped>0</NumberOfItemsShipped>\n        <AmazonOrderId>104-4489057-1313801</AmazonOrderId>\n
         \       <PaymentMethod>Other</PaymentMethod>\n      </Order>\n    </Orders>\n
-        \   <CreatedBefore>2013-07-12T18:17:36Z</CreatedBefore>\n  </ListOrdersResult>\n
-        \ <ResponseMetadata>\n    <RequestId>592d2ea7-9949-4c5c-bf72-7deabaa864c5</RequestId>\n
+        \ </ListOrdersResult>\n  <ResponseMetadata>\n    <RequestId>befa7b4c-e6e2-4ec3-ac66-4b5dcafdd195</RequestId>\n
         \ </ResponseMetadata>\n</ListOrdersResponse>\n"
     http_version: 
-  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
+  recorded_at: Fri, 12 Jul 2013 18:35:14 GMT
 - request:
     method: get
-    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=104-4489057-1313801&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=0rpynXMdBfKchUpADnhaJlEHru0/ousZeEN5TZ0VbRQ=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:15:08-04:00&Version=2011-01-01
+    uri: https://mws.amazonservices.com/Orders/2011-01-01?AWSAccessKeyId=AKIAIR24VLFSLJRUCXBQ&Action=ListOrderItems&AmazonOrderId=104-4489057-1313801&MarketplaceId.Id.1=ATVPDKIKX0DER&SellerId=A6WWS5LKYVEJ8&Signature=bsuJEAy7SNi/1KgHnHyjtgcJZPOEp72P8y4lRNSvLcc=&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-07-12T14:35:14-04:00&Version=2011-01-01
     body:
       encoding: US-ASCII
       string: ''
@@ -74,17 +74,17 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 12 Jul 2013 18:19:37 GMT
+      - Fri, 12 Jul 2013 18:36:36 GMT
       Server:
       - Server
       X-Amz-Date:
-      - Fri, 12 Jul 2013 18:19:37 GMT
+      - Fri, 12 Jul 2013 18:36:36 GMT
       X-Mws-Request-Id:
-      - 04528b7d-6b89-429a-b588-0c41bd025496
+      - 6538d077-6ea4-4830-816a-4c7388076166
       X-Mws-Timestamp:
-      - '2013-07-12T18:19:37.190Z'
+      - '2013-07-12T18:36:36.865Z'
       X-Mws-Response-Context:
-      - 6D59qNRf7Wm9TI16fPOhtMBgTADSh6RgaJuHjiy4q17Dc/VLSIrxQSH51ymF7WbccI9Tc/g3x0E=
+      - 2HoCRR8XC3ojppZ7BWhMS+7okoK8F4vuVommsSu08elxRBIOOKxGh07jElKxJwJA7FqNQwDTWGs=
       Content-Type:
       - text/xml
       Content-Length:
@@ -111,8 +111,8 @@ http_interactions:
         \       <QuantityShipped>0</QuantityShipped>\n        <ConditionSubtypeId>Refurbished</ConditionSubtypeId>\n
         \       <ShippingDiscount>\n          <Amount>0.00</Amount>\n          <CurrencyCode>USD</CurrencyCode>\n
         \       </ShippingDiscount>\n      </OrderItem>\n    </OrderItems>\n    <AmazonOrderId>104-4489057-1313801</AmazonOrderId>\n
-        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>04528b7d-6b89-429a-b588-0c41bd025496</RequestId>\n
+        \ </ListOrderItemsResult>\n  <ResponseMetadata>\n    <RequestId>6538d077-6ea4-4830-816a-4c7388076166</RequestId>\n
         \ </ResponseMetadata>\n</ListOrderItemsResponse>\n"
     http_version: 
-  recorded_at: Fri, 12 Jul 2013 18:15:08 GMT
+  recorded_at: Fri, 12 Jul 2013 18:35:14 GMT
 recorded_with: VCR 2.5.0

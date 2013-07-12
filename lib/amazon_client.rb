@@ -5,13 +5,14 @@ class AmazonClient
                       secret_access_key: config['amazon.secret_key'],
                       seller_id:         config['amazon.seller_id'],
                       marketplace_id:    config['amazon.marketplace_id'])
+    @last_updated = config['amazon.last_updated_after']
     @config = config
   end
 
   def get_orders
     response = @base_response
     statuses = ['Unshipped', 'PartiallyShipped', 'Shipped']
-    order_list = @client.orders.list_orders(created_after: @config['amazon.last_updated_after'], order_status: statuses)
+    order_list = @client.orders.list_orders(last_updated_after: @last_updated, order_status: statuses)
 
     if order_list.orders.nil?
       response
@@ -48,7 +49,6 @@ class AmazonClient
   end
 
   def build_order_hash(order)
-
     { message: 'order:new',
       payload:
         { order:
