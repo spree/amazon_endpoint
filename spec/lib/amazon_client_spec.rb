@@ -3,7 +3,7 @@ require 'spec_helper'
 describe AmazonClient do
   let(:config) { { 'amazon.marketplace_id' => 'ATVPDKIKX0DER',
                  "amazon.seller_id" =>  'A6WWS5LKYVEJ8',
-                 'amazon.last_created_after' =>  '',
+                 'amazon.last_updated_after' =>  '',
                  'amazon.aws_access_key' =>  'AKIAIR24VLFSLJRUCXBQ',
                  'amazon.secret_key' =>  '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' } }
 
@@ -19,7 +19,7 @@ describe AmazonClient do
 
   it 'gets multiple orders from amazon' do
     VCR.use_cassette('amazon_client_valid_orders') do
-      config['amazon.last_created_after'] = '2013-06-12'
+      config['amazon.last_updated_after'] = '2013-06-12'
       client = AmazonClient.new(config, message)
 
       response = client.get_orders
@@ -30,7 +30,7 @@ describe AmazonClient do
 
   it 'gets one order from amazon' do
     VCR.use_cassette('amazon_client_valid_one_order') do
-      config['amazon.last_created_after'] = '2013-06-18'
+      config['amazon.last_updated_after'] = '2013-06-18'
       client = AmazonClient.new(config, message)
 
       response = client.get_orders
@@ -41,7 +41,7 @@ describe AmazonClient do
 
   it 'gets no orders from amazon' do
     VCR.use_cassette('amazon_client_valid_no_orders') do
-      config['amazon.last_created_after'] = '2013-06-21'
+      config['amazon.last_updated_after'] = '2013-06-21'
       client = AmazonClient.new(config, message)
 
       response = client.get_orders

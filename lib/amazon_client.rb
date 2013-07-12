@@ -10,7 +10,8 @@ class AmazonClient
 
   def get_orders
     response = @base_response
-    order_list = @client.orders.list_orders( created_after: @config['amazon.last_created_after'])
+    statuses = ['Unshipped', 'PartiallyShipped', 'Shipped']
+    order_list = @client.orders.list_orders(created_after: @config['amazon.last_updated_after'], order_status: statuses)
 
     if order_list.orders.nil?
       response
@@ -31,6 +32,7 @@ class AmazonClient
       messages_hash[:messages] << build_order_hash(order)
 
       item_response = @client.orders.list_order_items(amazon_order_id: order.amazon_order_id)
+      binding.pry
 
       item_response.order_items.each do |item|
         shipping_total = shipping_total + item.shipping_price.amount.to_f
@@ -42,12 +44,12 @@ class AmazonClient
       messages_hash[:messages][index][:payload][:order][:shipments][:cost] = shipping_total
     end
 
-    messages_hash[:parameters] = [{ name: 'last_created_after', value: last_updated_at }]
+    messages_hash[:parameters] = [{ name: 'last_updated_after', value: last_updated_at }]
     messages_hash
   end
 
   def build_order_hash(order)
-    order.shipping_address
+
     { message: 'order:new',
       payload:
         { order:
@@ -57,8 +59,8 @@ class AmazonClient
             email: order.buyer_email,
             line_items: [],
             shipping_address: {
-              firstname: order.shipping_address.name.split(' ').first,
-              lastname: order.shipping_address.name.split(' ').last,
+              firstname: order.buyer_name.split(' ').first,
+              lastname: order.buyer_name.split(' ').last,
               address1: order.shipping_address.address_line1,
               city: order.shipping_address.city,
               zipcode: order.shipping_address.postal_code,
