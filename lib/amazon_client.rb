@@ -50,6 +50,7 @@ class AmazonClient
         item_hash = build_item_hash(item)
 
         messages_hash[:messages][index][:payload][:order][:line_items] << item_hash
+        item_hash.delete(:price)
         messages_hash[:messages][index][:payload][:order][:shipments][:items] << item_hash
       end
 
