@@ -29,18 +29,29 @@ class AmazonClient
 
     order_list.each_with_index do |order, index|
       shipping_total = 0
+      shipping_adjustment = 0
+      promotion_adjustment = 0
+      tax_adjustment = 0
+      gift_wrap = 0
+      gift_tax = 0
       messages_hash[:messages] << build_order_hash(order)
 
       item_response = @client.orders.list_order_items(amazon_order_id: order.amazon_order_id)
 
       item_response.order_items.each do |item|
         shipping_total += item.shipping_price.amount.to_f
+        shipping_adjustment += item.shipping_discount.amount.to_f
+        promotion_adjustment += item.promotion_discount.amount.to_f
+        tax_adjustment += item.item_tax.amount.to_f
+        gift_wrap += item.gift_wrap_price.amount.to_f
+        gift_tax += item.gift_wrap_tax.amount.to_f
         item_hash = build_item_hash(item)
 
         messages_hash[:messages][index][:payload][:order][:line_items] << item_hash
         messages_hash[:messages][index][:payload][:order][:shipments][:items] << item_hash
       end
       messages_hash[:messages][index][:payload][:order][:shipments][:cost] = shipping_total
+      messages_hash[:messages][index][:payload][:order][:adjustments] = build_adjustment_hash(shipping_adjustment, promotion_adjustment, tax_adjustment, gift_wrap, gift_tax)
     end
 
     messages_hash[:parameters] = [{ name: 'last_updated_after', value: last_updated_at }]
@@ -56,7 +67,7 @@ class AmazonClient
             status: order.order_status,
             email: order.buyer_email,
             line_items: [],
-            shipping_address: address_hash(order),
+            shipping_address: build_address_hash(order),
             shipments: {
               shipping_method: order.shipment_service_level_category,
               items: [] }}}}
@@ -66,10 +77,21 @@ class AmazonClient
     { name: item.title,
       price: item.item_price.amount,
       sku: item.seller_sku,
-      quantity: item.quantity_shipped }
+      quantity: item.quantity_shipped,
+      shipping_discount: item.shipping_discount.amount,
+      promotion: item.promotion_discount.amount,
+      tax: item.item_tax.amount }
   end
 
-  def address_hash(order)
+  def build_adjustment_hash(shipping, promotion, tax, gift, gift_tax)
+    [{ name: 'Shipping Discount', value: shipping },
+     { name: 'Promotion Discount', value: promotion },
+     { name: 'Amazon Tax', value: tax },
+     { name: 'Gift Wrap Price', value: gift},
+     { name: 'Gift Wrap Tax', value: gift_tax}]
+  end
+
+  def build_address_hash(order)
     { firstname: order.buyer_name.split(' ').first,
       lastname: order.buyer_name.split(' ').last,
       address1: order.shipping_address.address_line1,
