@@ -22,9 +22,8 @@ describe AmazonClient do
       config['amazon.last_updated_after'] = '2013-06-12'
       client = AmazonClient.new(config, message)
 
-      response = client.get_orders
-      response[:messages].first[:payload][:order][:amazon_order_id].should eq '111-6494089-5358640'
-      response[:messages].first[:payload][:order][:line_items].first[:name].should eq 'Munchkin 5 Pack Multi Bowl'
+      orders = client.get_orders
+      orders.count.should > 1
    end
   end
 
@@ -33,9 +32,8 @@ describe AmazonClient do
       config['amazon.last_updated_after'] = '2013-07-11'
       client = AmazonClient.new(config, message)
 
-      response = client.get_orders
-      response[:messages].count.should == 1
-      response[:messages][0][:message].should eq 'order:new'
+      orders = client.get_orders
+      orders.count.should == 1
     end
   end
 
@@ -44,8 +42,8 @@ describe AmazonClient do
       config['amazon.last_updated_after'] = '2013-07-12T13:58:55Z'
       client = AmazonClient.new(config, message)
 
-      response = client.get_orders
-      response.should eq nil
+      orders = client.get_orders
+      orders.empty?.should eq true
     end
   end
 end

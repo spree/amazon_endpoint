@@ -8,3 +8,5 @@ class Builder
   def build_response
 
   end
+
+end

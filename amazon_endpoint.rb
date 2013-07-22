@@ -9,11 +9,12 @@ class AmazonEndpoint < EndpointBase
     @base_response = { message_id: @message[:message_id] }
 
     begin
-      response = amazon_client.get_orders
+      orders = amazon_client.get_orders
+      response = Builder.new(orders, @message[:message_id]).build_response
       code = 200
     rescue => e
-      code = 500
       response = {'error' => "#{e.backtrace} ------- #{e.message}"}
+      code = 500
     end
 
     process_result code, merged_response(response)
