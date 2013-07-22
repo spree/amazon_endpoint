@@ -72,6 +72,8 @@ class AmazonClient
             channel: order.sales_channel,
             currency: order.order_total.currency_code,
             status: order.order_status,
+            placed_on: order.purchase_date,
+            updated_at: order.last_update_date,
             email: order.buyer_email,
             line_items: [],
             shipping_address: build_address_hash(order),
