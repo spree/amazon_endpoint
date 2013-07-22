@@ -84,7 +84,7 @@ class AmazonClient
     { name: item.title,
       price: item.item_price.amount,
       sku: item.seller_sku,
-      quantity: item.quantity_shipped }
+      quantity: item.quantity_ordered }
   end
 
   def build_adjustment_hash(shipping, promotion, tax, gift, gift_tax)
