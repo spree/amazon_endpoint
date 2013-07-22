@@ -7,6 +7,7 @@ class AmazonClient
                       marketplace_id:    config['amazon.marketplace_id'])
     @last_updated = config['amazon.last_updated_after']
     @config = config
+    @orders = []
   end
 
   def get_orders
