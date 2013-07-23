@@ -10,7 +10,7 @@ class AmazonEndpoint < EndpointBase
 
     begin
       orders = amazon_client.get_orders
-      response = Builder.new(orders, @message[:message_id]).build_response
+      response = Builder.new(orders).build_response
       code = 200
     rescue => e
       response = {'error' => "#{e.backtrace} ------- #{e.message}"}

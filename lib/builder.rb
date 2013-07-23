@@ -1,12 +1,16 @@
 class Builder
 
-  def initialize(orders, message_id)
+  def initialize(orders)
     @orders = orders
-    @message_id
   end
 
   def build_response
-
+    if @orders.empty?
+      response = nil
+    else
+      response = { messages: [] }
+      @orders.each { |order| response[:messages] << order.to_h }
+      response
+    end
   end
-
 end
