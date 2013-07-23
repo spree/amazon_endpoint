@@ -56,6 +56,7 @@ class Item
     @price = item_hash['item_price']['amount'].to_f
     @sku = item_hash['seller_sku']
     @quantity = item_hash['quantity_ordered']
+    @quantity_shipped = item_hash['quantity_shipped']
     @item_price = item_hash['item_price']['amount'].to_f
     @shipping_price = item_hash['shipping_price']['amount'].to_f
     @item_tax = item_hash['item_tax']['amount'].to_f

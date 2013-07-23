@@ -60,6 +60,8 @@ class Order
     @line_items = []
     @attr_hash = attr_hash
     @order_total = attr_hash['order_total']['amount']
+    @shipping_method = attr_hash['shipment_service_level_category']
+    @status = attr_hash['order_status']
     @shipping_total = 0.00
     @shipping_discount = 0.00
     @promotion_discount = 0.00
@@ -75,6 +77,7 @@ class Order
     address_hash = assemble_address
     totals_hash = assemble_totals_hash
     adjustments_hash = assemble_adjustments_hash
+    shipment_hash = assemble_shipment_hash(items_hash)
 
     { message: 'order:new',
       payload:
@@ -91,10 +94,11 @@ class Order
           line_items: items_hash,
           payments: [{
             amount: @order_total,
-            type: 'Amazon',
+            payment_method: 'Amazon',
             status: 'complete'
           }],
-
+          shipments: shipment_hash,
+          shipments: shipment_hash,
           shipping_address: address_hash,
           billing_address: address_hash }}}
   end
@@ -140,5 +144,12 @@ class Order
      { name: 'Amazon Tax', value: @amazon_tax },
      { name: 'Gift Wrap Price', value: @gift_wrap },
      { name: 'Gift Wrap Tax', value: @gift_wrap_tax }]
+  end
+
+  def assemble_shipment_hash(line_items)
+    [{ cost: @shipping_total,
+       status: @status,
+       shipping_method: @shipping_method,
+       line_items: line_items }]
   end
 end
