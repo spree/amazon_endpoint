@@ -41,12 +41,22 @@
 #   "currency_code": "USD"
 # }
 
+# ITEM MESSAGE
+#    { name: item.title,
+#      price: item.item_price.amount,
+#      sku: item.seller_sku,
+#      quantity: item.quantity_ordered }
+
 class Item
 
   def initialize(item_hash)
-    @name = item_hash.title
-    @price = item_hash.item_price.amount
-    @sku = item_hash.seller_sku
-    @quantity = item_hash.quantity_ordered
+    @name = item_hash['title']
+    @price = item_hash['item_price.amount']
+    @sku = item_hash['seller_sku']
+    @quantity = item_hash['quantity_ordered']
+  end
+
+  def to_h
+    { name: @name, price: @price, sku: @sku, quanitity: @quantity }
   end
 end

@@ -4,8 +4,8 @@ module Factories
     def orders
       order1 = Order.new(order_responses[0])
       order2 = Order.new(order_responses[1])
-      order1.line_items << item_responses[0]
-      order2.line_items << item_responses[1]
+      order1.line_items << Item.new(item_responses[0])
+      order2.line_items << Item.new(item_responses[1])
       [order1, order2]
     end
 
@@ -60,7 +60,6 @@ module Factories
          "number_of_items_shipped"=>"0",
          "amazon_order_id"=>"111-2374817-1293015",
          "payment_method"=>"Other"} ]
-
     end
 
     def item_responses
