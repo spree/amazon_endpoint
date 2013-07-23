@@ -59,12 +59,21 @@ class Order
   def initialize(attr_hash)
     @line_items = []
     @attr_hash = attr_hash
+    @order_total = attr_hash['order_total']['amount']
+    @shipping_total = 0.00
+    @shipping_discount = 0.00
+    @promotion_discount = 0.00
+    @amazon_tax = 0.00
+    @gift_wrap = 0.00
+    @gift_wrap_tax = 0.00
+    @items_total = 0.00
   end
 
   def to_message
+    roll_up_item_values
     items_hash = assemble_line_items
     address_hash = assemble_address
-    shipments_hash = assemble_shipments
+    totals_hash = assemble_totals_hash
 
     { message: 'order:new',
       payload:
@@ -76,6 +85,7 @@ class Order
           placed_on: @attr_hash['purchase_date'],
           updated_at: @attr_hash['last_update_date'],
           email: @attr_hash['buyer_email'],
+          totals: totals_hash,
           line_items: items_hash,
           shipping_address: address_hash,
           billing_address: address_hash }}}
@@ -94,5 +104,25 @@ class Order
       phone: @attr_hash['shipping_address']['phone'],
       country: @attr_hash['shipping_address']['country_code'],
       state: @attr_hash['shipping_address']['state_or_region'] }
+  end
+
+  def roll_up_item_values
+    @line_items.each do |item|
+      @shipping_total += item.shipping_price
+      @shipping_discount += item.shipping_discount
+      @promotion_discount += item.promotion_discount
+      @amazon_tax += item.item_tax
+      @gift_wrap += item.gift_wrap
+      @gift_wrap_tax += item.gift_wrap_tax
+      @items_total += item.price
+    end
+  end
+
+  def assemble_totals_hash
+    { item: @items_total,
+      adjustment: @promotion_discount + @shipping_discount + @gift_wrap + @amazon_tax + @gift_wrap_tax,
+      tax: @amazon_tax + @gift_wrap_tax,
+      shipping: @shipping_total,
+      order:  @order_total }
   end
 end
