@@ -24,4 +24,4 @@ group :production do
 end
 
 gem 'endpoint_base', :git => 'git@github.com:spree/endpoint_base.git'
-# :path => '../endpoint_base'
+gem 'capistrano-spree', :git => 'git@github.com:spree/capistrano-spree.git', :require => nil
