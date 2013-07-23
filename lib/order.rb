@@ -54,13 +54,14 @@
 #       state: @attr_hash.shipping_address.state_or_region
 
 class Order
-  attr_accessor :line_items
+  attr_accessor :line_items, :last_update_date
 
   def initialize(attr_hash)
     @line_items = []
     @attr_hash = attr_hash
     @order_total = attr_hash['order_total']['amount']
     @shipping_method = attr_hash['shipment_service_level_category']
+    @last_update_date = attr_hash['last_update_date']
     @status = attr_hash['order_status']
     @shipping_total = 0.00
     @shipping_discount = 0.00
