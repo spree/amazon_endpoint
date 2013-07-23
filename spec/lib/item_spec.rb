@@ -9,6 +9,6 @@ describe Item do
   it 'should convert into a hash' do
     item_hash = subject.to_h
     item_hash.class.should eq Hash
-    item_hash['sku'].should eq "G9-LTWP-D1LD"
+    item_hash[:sku].should eq "G9-LTWP-D1LD"
   end
 end

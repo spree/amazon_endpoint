@@ -62,6 +62,8 @@ class Order
   end
 
   def to_message
+    line_item_hashes = assemble_line_items
+
     { message: 'order:new',
       payload:
       { order:
@@ -72,5 +74,9 @@ class Order
           placed_on: @attr_hash['purchase_date'],
           updated_at: @attr_hash['last_update_date'],
           email: @attr_hash['buyer_email'] }}}
+  end
+
+  def assemble_line_items
+    @line_items.each { |item| item.to_h }
   end
 end
