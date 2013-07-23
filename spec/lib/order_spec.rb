@@ -8,6 +8,7 @@ describe Order do
     message = subject.to_message
     message.class.should eq Hash
     message[:message].should eq "order:new"
+    binding.pry
   end
 
   it 'builds array of item hashes' do

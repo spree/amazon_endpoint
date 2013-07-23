@@ -74,6 +74,7 @@ class Order
     items_hash = assemble_line_items
     address_hash = assemble_address
     totals_hash = assemble_totals_hash
+    adjustments_hash = assemble_adjustments_hash
 
     { message: 'order:new',
       payload:
@@ -86,7 +87,14 @@ class Order
           updated_at: @attr_hash['last_update_date'],
           email: @attr_hash['buyer_email'],
           totals: totals_hash,
+          adjustments: adjustments_hash,
           line_items: items_hash,
+          payments: [{
+            amount: @order_total,
+            type: 'Amazon',
+            status: 'complete'
+          }],
+
           shipping_address: address_hash,
           billing_address: address_hash }}}
   end
@@ -124,5 +132,13 @@ class Order
       tax: @amazon_tax + @gift_wrap_tax,
       shipping: @shipping_total,
       order:  @order_total }
+  end
+
+  def assemble_adjustments_hash
+    [{ name: 'Shipping Discount', value: @shipping_discount },
+     { name: 'Promotion Discount', value: @promotion_discount },
+     { name: 'Amazon Tax', value: @amazon_tax },
+     { name: 'Gift Wrap Price', value: @gift_wrap },
+     { name: 'Gift Wrap Tax', value: @gift_wrap_tax }]
   end
 end
