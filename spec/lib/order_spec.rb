@@ -10,8 +10,9 @@ describe Order do
     message[:message].should eq "order:new"
   end
 
-  it 'builds item hashes' do
-    items_hash = subject.assemble_line_items
-    binding.pry
+  it 'builds array of item hashes' do
+    subject.line_items << Item.new(Factories.item_responses[1])
+    items_hash = subject.to_message[:payload][:order][:line_items]
+    items_hash.count.should eq 2
   end
 end
