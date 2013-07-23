@@ -51,9 +51,11 @@ class Item
 
   def initialize(item_hash)
     @name = item_hash['title']
-    @price = item_hash['item_price.amount']
+    @price = item_hash['item_price']['amount']
     @sku = item_hash['seller_sku']
     @quantity = item_hash['quantity_ordered']
+    @item_price = item_hash['item_price']
+    @shipping_price = ['shipping_price']['amount']
   end
 
   def to_h

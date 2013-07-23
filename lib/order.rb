@@ -63,6 +63,8 @@ class Order
 
   def to_message
     items_hash = assemble_line_items
+    address_hash = assemble_address
+    shipments_hash = assemble_shipments
 
     { message: 'order:new',
       payload:
@@ -74,10 +76,23 @@ class Order
           placed_on: @attr_hash['purchase_date'],
           updated_at: @attr_hash['last_update_date'],
           email: @attr_hash['buyer_email'],
-          line_items: items_hash }}}
+          line_items: items_hash,
+          shipping_address: address_hash,
+          billing_address: address_hash }}}
   end
 
   def assemble_line_items
     @line_items.collect { |item| item.to_h }
+  end
+
+  def assemble_address
+    { firstname: @attr_hash['buyer_name'].split(' ').first,
+      lastname: @attr_hash['buyer_name'].split(' ').last,
+      address1: @attr_hash['shipping_address']['address_line1'],
+      city: @attr_hash['shipping_address']['city'],
+      zipcode: @attr_hash['shipping_address']['postal_code'],
+      phone: @attr_hash['shipping_address']['phone'],
+      country: @attr_hash['shipping_address']['country_code'],
+      state: @attr_hash['shipping_address']['state_or_region'] }
   end
 end
