@@ -9,7 +9,7 @@ class Builder
       response = nil
     else
       response = { messages: [] }
-      @orders.each { |order| response[:messages] << order.to_h }
+      @orders.each { |order| response[:messages] << order.to_message }
       response
     end
   end
