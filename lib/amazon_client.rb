@@ -35,6 +35,7 @@ class AmazonClient
       item_response.order_items.each { |item| new_order.line_items << Item.new(item) }
 
       @orders << new_order
+      break if @orders.size == 30
     end
   end
 end
