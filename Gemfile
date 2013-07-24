@@ -25,3 +25,4 @@ end
 
 gem 'endpoint_base', :git => 'git@github.com:spree/endpoint_base.git'
 gem 'capistrano-spree', :git => 'git@github.com:spree/capistrano-spree.git', :require => nil
+gem 'crack'                     # for borked dep in httparty?
