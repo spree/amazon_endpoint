@@ -1,10 +1,10 @@
 GIT
   remote: git@github.com:spree/capistrano-spree.git
-  revision: 02a1dbf5ae4f80b8ed828130f1c987214438b77d
+  revision: 4cb35158a9cbafb3be00a239232fdda22de69aaf
   specs:
-    capistrano-spree (0.0.5)
+    capistrano-spree (0.0.7)
       statsd-ruby
-      tinder
+      tinder (>= 1.9.2)
 
 GIT
   remote: git@github.com:spree/endpoint_base.git
@@ -38,6 +38,10 @@ GEM
     diff-lcs (1.2.4)
     dotenv (0.8.0)
     eventmachine (1.0.3)
+    faraday (0.8.7)
+      multipart-post (~> 1.1)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     ffi (1.9.0)
     foreman (0.63.0)
       dotenv (>= 0.7)
@@ -52,13 +56,13 @@ GEM
     guard-rspec (3.0.2)
       guard (>= 1.8)
       rspec (~> 2.13)
-    hashie (2.0.5)
+    hashie (1.2.0)
     http_parser.rb (0.5.3)
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
     i18n (0.6.4)
-    json (1.8.0)
+    json (1.7.7)
     kgio (2.8.0)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
@@ -71,6 +75,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.7)
     multi_xml (0.5.4)
+    multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
@@ -87,8 +92,8 @@ GEM
       rack (>= 1.0)
     raindrops (0.11.0)
     rake (10.1.0)
-    rash (0.4.0)
-      hashie (~> 2.0.0)
+    rash (0.3.2)
+      hashie (~> 1.2.0)
     rb-fsevent (0.9.3)
     rb-inotify (0.9.0)
       ffi (>= 0.5.0)
@@ -136,12 +141,15 @@ GEM
       atomic
     tilt (1.4.1)
     timecop (0.6.2.2)
-    tinder (1.4.1)
-      activesupport
-      eventmachine
-      httparty
-      mime-types
-      twitter-stream
+    tinder (1.9.2)
+      eventmachine (~> 1.0)
+      faraday (~> 0.8)
+      faraday_middleware (~> 0.9)
+      hashie (~> 1.0)
+      json (~> 1.7.5)
+      mime-types (~> 1.19)
+      multi_json (~> 1.5)
+      twitter-stream (~> 0.1)
     tins (0.8.3)
     twitter-stream (0.1.16)
       eventmachine (>= 0.12.8)
@@ -163,7 +171,6 @@ PLATFORMS
 DEPENDENCIES
   capistrano (>= 3.0.0.pre13)
   capistrano-spree!
-  crack
   endpoint_base!
   foreman
   guard-rspec
