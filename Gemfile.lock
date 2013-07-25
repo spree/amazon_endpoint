@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:spree/capistrano-spree.git
-  revision: b8855ffa8c8d7bed76826e41050509573b4b59b4
+  revision: f60c57c3d558d6a87d33fb60eab02bf7c342d636
   specs:
-    capistrano-spree (0.0.9)
+    capistrano-spree (0.0.10)
       statsd-ruby
       tinder (>= 1.9.2)
 
