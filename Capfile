@@ -6,7 +6,7 @@ require 'capistrano/deploy'
 require 'capistrano/bundler'
 require 'capistrano/spree/campfire'
 require 'capistrano/spree/statsd'
-require 'capistrano/spree/foreman/upstart'
+require 'capistrano/spree/foreman/bluepill'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
