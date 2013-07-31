@@ -4,7 +4,7 @@ class Order
   def initialize(attr_hash)
     @line_items = []
     @attr_hash = attr_hash
-    @order_total = attr_hash['order_total']['amount']
+    @order_total = attr_hash['order_total']['amount'].to_f
     @shipping_method = attr_hash['shipment_service_level_category']
     @last_update_date = attr_hash['last_update_date']
     @status = attr_hash['order_status']
@@ -29,6 +29,7 @@ class Order
       payload:
       { order:
         { amazon_order_id: @attr_hash['amazon_order_id'],
+          number: '',
           channel: @attr_hash['sales_channel'],
           currency: @attr_hash['order_total']['currency_code'],
           status: @attr_hash['order_status'],
@@ -96,6 +97,9 @@ class Order
     [{ cost: @shipping_total,
        status: @status,
        shipping_method: @shipping_method,
-       line_items: line_items }]
+       items: line_items,
+       stock_location: '',
+       tracking: '',
+       number: '' }]
   end
 end

@@ -6,7 +6,7 @@ class Item
     @name = item_hash['title']
     @price = item_hash['item_price']['amount'].to_f
     @sku = item_hash['seller_sku']
-    @quantity = item_hash['quantity_ordered']
+    @quantity = item_hash['quantity_ordered'].to_i
     @quantity_shipped = item_hash['quantity_shipped']
     @item_price = item_hash['item_price']['amount'].to_f
     @shipping_price = item_hash['shipping_price']['amount'].to_f
@@ -18,6 +18,7 @@ class Item
   end
 
   def to_h
-    { name: @name, price: @price, sku: @sku, quanitity: @quantity }
+    { name: @name, price: @price, sku: @sku, quanitity: @quantity, variant_id: '', external_ref: '',
+      options: {} }
   end
 end
