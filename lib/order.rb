@@ -82,7 +82,8 @@ class Order
       adjustment: @promotion_discount + @shipping_discount + @gift_wrap + @amazon_tax + @gift_wrap_tax,
       tax: @amazon_tax + @gift_wrap_tax,
       shipping: @shipping_total,
-      order:  @order_total }
+      order:  @order_total,
+      payment: @order_total }
   end
 
   def assemble_adjustments_hash
