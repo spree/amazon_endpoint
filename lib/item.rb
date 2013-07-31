@@ -18,7 +18,7 @@ class Item
   end
 
   def to_h
-    { name: @name, price: @price, sku: @sku, quanitity: @quantity, variant_id: '', external_ref: '',
+    { name: @name, price: @price, sku: @sku, quantity: @quantity, variant_id: '', external_ref: '',
       options: {} }
   end
 end
