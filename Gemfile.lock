@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:spree/capistrano-spree.git
-  revision: f60c57c3d558d6a87d33fb60eab02bf7c342d636
+  revision: 0ad3a36c1ce34651bfce3e164dec2d403365c952
   specs:
-    capistrano-spree (0.0.10)
+    capistrano-spree (0.0.12)
       statsd-ruby
       tinder (>= 1.9.2)
 
@@ -38,8 +38,8 @@ GEM
     diff-lcs (1.2.4)
     dotenv (0.8.0)
     eventmachine (1.0.3)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     ffi (1.9.0)

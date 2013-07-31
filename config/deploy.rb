@@ -1,7 +1,7 @@
 set :application, 'amazon'
 set :repo_url, 'git@github.com:spree/amazon_endpoint.git'
 
-ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp.tap { |branch| puts "Deploying branch #{branch}"} }
 
 set :deploy_to, "/data/#{fetch :application}"
 set :scm, :git
