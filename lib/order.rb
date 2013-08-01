@@ -15,6 +15,7 @@ class Order
     @gift_wrap = 0.00
     @gift_wrap_tax = 0.00
     @items_total = 0.00
+    @states = states_hash
   end
 
   def to_message
@@ -62,7 +63,8 @@ class Order
       zipcode: @attr_hash['shipping_address']['postal_code'],
       phone: @attr_hash['shipping_address']['phone'],
       country: @attr_hash['shipping_address']['country_code'],
-      state: @attr_hash['shipping_address']['state_or_region'] }
+      state: @states[@attr_hash['shipping_address']['state_or_region']] || @attr_hash['shipping_address']['state_or_region']
+    }
   end
 
   def roll_up_item_values
@@ -102,5 +104,45 @@ class Order
        stock_location: '',
        tracking: '',
        number: '' }]
+  end
+
+  def states_hash
+       {"AL"=>"Alabama",
+        "AK"=>"Alaska",
+        "AZ"=>"Arizona",
+        "AR"=>"Arkansas",
+        "CA"=>"California",
+        "CO"=>"Colorado",
+        "CT"=>"Connecticut",
+        "DE"=>"Delaware",
+        "FL"=>"Florida",
+        "GA"=>"Georgia",
+        "HI"=>"Hawaii",
+        "ID"=>"Idaho",
+        "IL"=>"Illinois",
+        "IN"=>"Indiana",
+        "IA"=>"Iowa",
+        "KS"=>"Kansas",
+        "KY"=>"Kentucky",
+        "LA"=>"Louisiana",
+        "ME"=>"Maine",
+        "MD"=>"Maryland",
+        "MA"=>"Massachusetts",
+        "MI"=>"Michigan",
+        "MN"=>"Minnesota",
+        "MS"=>"Mississippi",
+        "MO"=>"Missouri",
+        "MT"=>"Montana",
+        "NE"=>"Nebraska",
+        "NV"=>"Nevada",
+        "NH"=>"New Hampshire",
+        "NJ"=>"New Jersey",
+        "NM"=>"New Mexico",
+        "NY"=>"New York",
+        "NC"=>"North Carolina", "ND"=>"North Dakota", "OH"=>"Ohio",
+        "OK"=>"Oklahoma", "OR"=>"Oregon", "PA"=>"Pennsylvania", "RI"=>"Rhode Island",
+        "SC"=>"South Carolina", "SD"=>"South Dakota", "TN"=>"Tennessee", "TX"=>"Texas",
+        "UT"=>"Utah", "VT"=>"Vermont", "VA"=>"Virginia", "WA"=>"Washington", "WV"=>"West Virginia",
+        "WI"=>"Wisconsin", "WY"=>"Wyoming"}
   end
 end
