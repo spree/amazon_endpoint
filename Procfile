@@ -1,1 +1,1 @@
-unicorn: bundle exec unicorn_rails -c /data/amazon/current/config/unicorn.rb -E production
+unicorn: bundle exec unicorn_rails -c config/unicorn.rb -E production
