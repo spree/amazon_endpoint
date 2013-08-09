@@ -56,9 +56,15 @@ class Order
   end
 
   def assemble_address
+    # Sometimes Amazon can respond with null address1. It is invalid for the integrator
+    # The property '#/order/shipping_address/address1' of type NilClass did not match the following type:
+    # string in schema augury/lib/augury/validators/schemas/address.json#
+    # ['shipping_address']['address_line1'].to_s
+    # "shipping_address": {
+    #   "address1": null
     { firstname: @attr_hash['buyer_name'].split(' ').first,
       lastname: @attr_hash['buyer_name'].split(' ').last,
-      address1: @attr_hash['shipping_address']['address_line1'],
+      address1: @attr_hash['shipping_address']['address_line1'].to_s,
       city: @attr_hash['shipping_address']['city'],
       zipcode: @attr_hash['shipping_address']['postal_code'],
       phone: @attr_hash['shipping_address']['phone'],
