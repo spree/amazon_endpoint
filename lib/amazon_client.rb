@@ -11,7 +11,7 @@ class AmazonClient
   end
 
   def get_orders
-    statuses = ['Unshipped', 'PartiallyShipped', 'Shipped']
+    statuses = %w(Unshipped PartiallyShipped Shipped)
     order_list = @client.orders.list_orders(last_updated_after: @last_updated, order_status: statuses)
 
     if order_list.orders.nil?

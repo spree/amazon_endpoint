@@ -26,7 +26,7 @@ class Order
     adjustments_hash = assemble_adjustments_hash
     shipment_hash = assemble_shipment_hash(items_hash)
 
-    { message: 'order:new',
+    { message: 'order:import',
       payload:
       { order:
         { amazon_order_id: @attr_hash['amazon_order_id'],
