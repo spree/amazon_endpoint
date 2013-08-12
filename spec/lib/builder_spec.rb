@@ -1,13 +1,25 @@
 require 'spec_helper'
 
 describe Builder do
-
   let(:orders) { Factories.orders }
 
-  subject { Builder.new(orders) }
+  subject { Builder.new orders }
 
-  it 'should build a response' do
-    response = subject.build_response
-    response[:messages].size.should eq 2
+  describe '#build_response' do
+    context 'with orders' do
+      it 'builds a response' do
+        response = subject.build_response
+        expect(response[:messages]).to have(2).items
+      end
+    end
+
+    context 'without orders' do
+      subject { Builder.new [] }
+
+      it 'returns nil' do
+        response = subject.build_response
+        expect(response).to be_nil
+      end
+    end
   end
 end

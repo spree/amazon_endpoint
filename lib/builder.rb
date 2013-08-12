@@ -1,20 +1,16 @@
 class Builder
-
   def initialize(orders)
     @orders = orders
-    @response = nil
   end
 
   def build_response
-    if @orders.empty?
-      @response
-    else
-      @response = { messages: [],
-        parameters: [{ name: 'last_updated_after', value: @orders.last.last_update_date }] }
+    return nil if @orders.empty?
 
-      @orders.each { |order| @response[:messages] << order.to_message }
-    end
+    response = { parameters: [{ name: 'amazon.last_updated_after',
+                                value: @orders.last.last_update_date }] }
 
-    @response
+    response[:messages] = @orders.map &:to_message
+
+    response
   end
 end
