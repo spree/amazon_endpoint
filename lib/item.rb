@@ -5,7 +5,7 @@ class Item
   def initialize(item_hash)
     @name = item_hash['title']
     @price = item_hash['item_price']['amount'].to_f
-    @sku = item_hash['seller_sku']
+    @sku = convert_tommy_john_sku item_hash['seller_sku']
     @quantity = item_hash['quantity_ordered'].to_i
     @quantity_shipped = item_hash['quantity_shipped']
     @item_price = item_hash['item_price']['amount'].to_f
@@ -20,5 +20,18 @@ class Item
   def to_h
     { name: @name, price: @price, sku: @sku, quantity: @quantity, variant_id: nil, external_ref: nil,
       options: {} }
+  end
+
+  private
+
+  # There is a mismatch between Amazon SKU's and Tommy John Spree SKU's
+  # 2001SS-BL-L should be converted to 2001SSBL
+  # this is a temporary fix to get production working Aug 13, 2013
+  def convert_tommy_john_sku(sku)
+    if sku =~ /\w-\w{2}-\w/
+      parts = sku.split('-')
+      sku = "#{parts[0]}#{parts[1][0]}#{parts[2]}"
+    end
+    sku
   end
 end
