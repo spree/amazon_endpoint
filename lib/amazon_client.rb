@@ -28,7 +28,7 @@ class AmazonClient
   private
   def get_line_items(order_list)
     order_list.each_with_index do |order, index|
-      new_order = Order.new(order)
+      new_order = Order.new(order, @config)
 
       item_response = @client.orders.list_order_items(amazon_order_id: order.amazon_order_id)
 

@@ -1,9 +1,9 @@
 module Factories
   class << self
 
-    def orders
-      order1 = Order.new(order_responses[0])
-      order2 = Order.new(order_responses[1])
+    def orders(config={})
+      order1 = Order.new(order_responses[0], config)
+      order2 = Order.new(order_responses[1], config)
       order1.line_items << Item.new(item_responses[0])
       order2.line_items << Item.new(item_responses[1])
       [order1, order2]

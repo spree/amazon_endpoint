@@ -15,5 +15,23 @@ describe Order do
       items_hash = subject.to_message[:payload][:order][:line_items]
       items_hash.count.should eq 2
     end
+
+    context 'when lookup parameters is absent' do
+      it 'returns shipping method from amazon' do
+        expect(subject.to_message[:payload][:order][:shipments].
+               first[:shipping_method]).to eq 'Standard'
+      end
+    end
+
+    context 'when lookup parameters is present' do
+      let(:shipping_us_express)  { 'US 2 DAY EXPRESS' }
+      let(:parameters) { { 'amazon.shipping_method_lookup' => [{ 'standard' => shipping_us_express }] } }
+      subject { Factories.orders(parameters).first }
+
+      it 'returns shipping method from lookup parameters' do
+        expect(subject.to_message[:payload][:order][:shipments].
+               first[:shipping_method]).to eq shipping_us_express
+      end
+    end
   end
 end

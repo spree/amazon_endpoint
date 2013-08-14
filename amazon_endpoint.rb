@@ -13,7 +13,7 @@ class AmazonEndpoint < EndpointBase
       response = Builder.new(orders).build_response
       code = 200
     rescue => e
-      response = {'error' => "#{e.message} ------- #{e.backtrace.to_a.join('\n')}"}
+      response = {'error' => "#{e.message} ------- #{e.backtrace.to_a.join('\n\t')}"}
       code = 500
     end
 
@@ -24,3 +24,4 @@ class AmazonEndpoint < EndpointBase
     response == nil ? @base_response : @base_response.merge(response)
   end
 end
+

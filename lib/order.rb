@@ -1,21 +1,20 @@
 class Order
   attr_accessor :line_items, :last_update_date
 
-  def initialize(attr_hash)
-    @line_items = []
-    @attr_hash = attr_hash
-    @order_total = attr_hash['order_total']['amount'].to_f
-    @shipping_method = attr_hash['shipment_service_level_category']
-    @last_update_date = attr_hash['last_update_date']
-    @status = attr_hash['order_status']
-    @shipping_total = 0.00
-    @shipping_discount = 0.00
+  def initialize(order_hash, config)
+    @line_items         = []
+    @order_hash         = order_hash
+    @config             = config
+    @order_total        = order_hash['order_total']['amount'].to_f
+    @last_update_date   = order_hash['last_update_date']
+    @status             = order_hash['order_status']
+    @shipping_total     = 0.00
+    @shipping_discount  = 0.00
     @promotion_discount = 0.00
-    @amazon_tax = 0.00
-    @gift_wrap = 0.00
-    @gift_wrap_tax = 0.00
-    @items_total = 0.00
-    @states = states_hash
+    @amazon_tax         = 0.00
+    @gift_wrap          = 0.00
+    @gift_wrap_tax      = 0.00
+    @items_total        = 0.00
   end
 
   def to_message
@@ -29,14 +28,14 @@ class Order
     { message: 'order:import',
       payload:
       { order:
-        { amazon_order_id: @attr_hash['amazon_order_id'],
+        { amazon_order_id: @order_hash['amazon_order_id'],
           number: '',
-          channel: @attr_hash['sales_channel'],
-          currency: @attr_hash['order_total']['currency_code'],
-          status: @attr_hash['order_status'],
-          placed_on: @attr_hash['purchase_date'],
-          updated_at: @attr_hash['last_update_date'],
-          email: @attr_hash['buyer_email'],
+          channel: @order_hash['sales_channel'],
+          currency: @order_hash['order_total']['currency_code'],
+          status: @order_hash['order_status'],
+          placed_on: @order_hash['purchase_date'],
+          updated_at: @order_hash['last_update_date'],
+          email: @order_hash['buyer_email'],
           totals: totals_hash,
           adjustments: adjustments_hash,
           line_items: items_hash,
@@ -51,8 +50,10 @@ class Order
           billing_address: address_hash }}}
   end
 
+  private
+
   def assemble_line_items
-    @line_items.collect { |item| item.to_h }
+    @line_items.collect &:to_h
   end
 
   def assemble_address
@@ -62,26 +63,25 @@ class Order
     # ['shipping_address']['address_line1'].to_s
     # "shipping_address": {
     #   "address1": null
-    { firstname: @attr_hash['buyer_name'].split(' ').first,
-      lastname: @attr_hash['buyer_name'].split(' ').last,
-      address1: @attr_hash['shipping_address']['address_line1'].to_s,
-      city: @attr_hash['shipping_address']['city'],
-      zipcode: @attr_hash['shipping_address']['postal_code'],
-      phone: @attr_hash['shipping_address']['phone'],
-      country: @attr_hash['shipping_address']['country_code'],
-      state: @states[@attr_hash['shipping_address']['state_or_region']] || @attr_hash['shipping_address']['state_or_region']
-    }
+    { firstname:  @order_hash['buyer_name'].split(' ').first,
+      lastname:   @order_hash['buyer_name'].split(' ').last,
+      address1:   @order_hash['shipping_address']['address_line1'].to_s,
+      city:       @order_hash['shipping_address']['city'],
+      zipcode:    @order_hash['shipping_address']['postal_code'],
+      phone:      @order_hash['shipping_address']['phone'],
+      country:    @order_hash['shipping_address']['country_code'],
+      state:      order_full_state }
   end
 
   def roll_up_item_values
     @line_items.each do |item|
-      @shipping_total += item.shipping_price
-      @shipping_discount += item.shipping_discount
+      @shipping_total     += item.shipping_price
+      @shipping_discount  += item.shipping_discount
       @promotion_discount += item.promotion_discount
-      @amazon_tax += item.item_tax
-      @gift_wrap += item.gift_wrap
-      @gift_wrap_tax += item.gift_wrap_tax
-      @items_total += item.price
+      @amazon_tax         += item.item_tax
+      @gift_wrap          += item.gift_wrap
+      @gift_wrap_tax      += item.gift_wrap_tax
+      @items_total        += item.price
     end
   end
 
@@ -105,50 +105,67 @@ class Order
   def assemble_shipment_hash(line_items)
     [{ cost: @shipping_total,
        status: @status,
-       shipping_method: @shipping_method,
+       shipping_method: order_shipping_method,
        items: line_items,
        stock_location: '',
        tracking: '',
        number: '' }]
   end
 
+  def order_shipping_method
+    amazon_shipping_method = @order_hash['shipment_service_level_category']
+    amazon_shipping_method_lookup.each do |shipping_method, value|
+      return value if shipping_method.downcase == amazon_shipping_method.downcase
+    end
+    amazon_shipping_method
+  end
+
+  def amazon_shipping_method_lookup
+    @config['amazon.shipping_method_lookup'].to_a.first.to_h
+  end
+
+  def order_full_state
+    states_hash[@order_hash['shipping_address']['state_or_region']] ||
+      @order_hash['shipping_address']['state_or_region']
+  end
+
   def states_hash
-       {"AL"=>"Alabama",
-        "AK"=>"Alaska",
-        "AZ"=>"Arizona",
-        "AR"=>"Arkansas",
-        "CA"=>"California",
-        "CO"=>"Colorado",
-        "CT"=>"Connecticut",
-        "DE"=>"Delaware",
-        "FL"=>"Florida",
-        "GA"=>"Georgia",
-        "HI"=>"Hawaii",
-        "ID"=>"Idaho",
-        "IL"=>"Illinois",
-        "IN"=>"Indiana",
-        "IA"=>"Iowa",
-        "KS"=>"Kansas",
-        "KY"=>"Kentucky",
-        "LA"=>"Louisiana",
-        "ME"=>"Maine",
-        "MD"=>"Maryland",
-        "MA"=>"Massachusetts",
-        "MI"=>"Michigan",
-        "MN"=>"Minnesota",
-        "MS"=>"Mississippi",
-        "MO"=>"Missouri",
-        "MT"=>"Montana",
-        "NE"=>"Nebraska",
-        "NV"=>"Nevada",
-        "NH"=>"New Hampshire",
-        "NJ"=>"New Jersey",
-        "NM"=>"New Mexico",
-        "NY"=>"New York",
-        "NC"=>"North Carolina", "ND"=>"North Dakota", "OH"=>"Ohio",
-        "OK"=>"Oklahoma", "OR"=>"Oregon", "PA"=>"Pennsylvania", "RI"=>"Rhode Island",
-        "SC"=>"South Carolina", "SD"=>"South Dakota", "TN"=>"Tennessee", "TX"=>"Texas",
-        "UT"=>"Utah", "VT"=>"Vermont", "VA"=>"Virginia", "WA"=>"Washington", "WV"=>"West Virginia",
-        "WI"=>"Wisconsin", "WY"=>"Wyoming"}
+    { "AL"=>"Alabama",
+     "AK"=>"Alaska",
+     "AZ"=>"Arizona",
+     "AR"=>"Arkansas",
+     "CA"=>"California",
+     "CO"=>"Colorado",
+     "CT"=>"Connecticut",
+     "DE"=>"Delaware",
+     "FL"=>"Florida",
+     "GA"=>"Georgia",
+     "HI"=>"Hawaii",
+     "ID"=>"Idaho",
+     "IL"=>"Illinois",
+     "IN"=>"Indiana",
+     "IA"=>"Iowa",
+     "KS"=>"Kansas",
+     "KY"=>"Kentucky",
+     "LA"=>"Louisiana",
+     "ME"=>"Maine",
+     "MD"=>"Maryland",
+     "MA"=>"Massachusetts",
+     "MI"=>"Michigan",
+     "MN"=>"Minnesota",
+     "MS"=>"Mississippi",
+     "MO"=>"Missouri",
+     "MT"=>"Montana",
+     "NE"=>"Nebraska",
+     "NV"=>"Nevada",
+     "NH"=>"New Hampshire",
+     "NJ"=>"New Jersey",
+     "NM"=>"New Mexico",
+     "NY"=>"New York",
+     "NC"=>"North Carolina", "ND"=>"North Dakota", "OH"=>"Ohio",
+     "OK"=>"Oklahoma", "OR"=>"Oregon", "PA"=>"Pennsylvania", "RI"=>"Rhode Island",
+     "SC"=>"South Carolina", "SD"=>"South Dakota", "TN"=>"Tennessee", "TX"=>"Texas",
+     "UT"=>"Utah", "VT"=>"Vermont", "VA"=>"Virginia", "WA"=>"Washington", "WV"=>"West Virginia",
+     "WI"=>"Wisconsin", "WY"=>"Wyoming" }
   end
 end
