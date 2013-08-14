@@ -125,7 +125,7 @@ class Order
   end
 
   def order_full_state
-    states_hash[@order_hash['shipping_address']['state_or_region']] ||
+    states_hash[@order_hash['shipping_address']['state_or_region'].upcase] ||
       @order_hash['shipping_address']['state_or_region']
   end
 

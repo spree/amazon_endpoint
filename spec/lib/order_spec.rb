@@ -16,6 +16,10 @@ describe Order do
       items_hash.count.should eq 2
     end
 
+    it 'converts amazon state to spree state' do
+      expect(subject.to_message[:payload][:order][:shipping_address][:state]).to eq 'Maryland'
+    end
+
     context 'when lookup parameters is absent' do
       it 'returns shipping method from amazon' do
         expect(subject.to_message[:payload][:order][:shipments].
