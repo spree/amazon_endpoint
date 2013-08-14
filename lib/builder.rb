@@ -9,7 +9,7 @@ class Builder
     response = { parameters: [{ name: 'amazon.last_updated_after',
                                 value: @orders.last.last_update_date }] }
 
-    response[:messages] = @orders.map &:to_message
+    response[:messages] = @orders.collect &:to_message
 
     response
   end
