@@ -63,8 +63,10 @@ class Order
     # ['shipping_address']['address_line1'].to_s
     # "shipping_address": {
     #   "address1": null
-    { firstname:  @order_hash['buyer_name'].split(' ').first,
-      lastname:   @order_hash['buyer_name'].split(' ').last,
+    #
+    # @order_hash['buyer_name'].to_s buyer_name can be nil as well
+    { firstname:  @order_hash['buyer_name'].to_s.split(' ').first.to_s,
+      lastname:   @order_hash['buyer_name'].to_s.split(' ').last.to_s,
       address1:   @order_hash['shipping_address']['address_line1'].to_s,
       city:       @order_hash['shipping_address']['city'],
       zipcode:    @order_hash['shipping_address']['postal_code'],
