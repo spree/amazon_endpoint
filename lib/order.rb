@@ -45,7 +45,6 @@ class Order
             status: 'complete'
           }],
           shipments: shipment_hash,
-          shipments: shipment_hash,
           shipping_address: address_hash,
           billing_address: address_hash }}}
   end
