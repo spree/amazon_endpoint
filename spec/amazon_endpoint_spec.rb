@@ -2,34 +2,28 @@ require 'spec_helper'
 
 describe AmazonEndpoint do
 
-  let(:config) { [{ name: "amazon.marketplace_id", value: 'ATVPDKIKX0DER'},
-                  { name: "amazon.seller_id", value: 'A6WWS5LKYVEJ8'},
+  let(:config) { [{ name: "amazon.marketplace_id",     value: 'ATVPDKIKX0DER'},
+                  { name: "amazon.seller_id",          value: 'A6WWS5LKYVEJ8'},
                   { name: 'amazon.last_updated_after', value: '2013-06-12'},
-                  { name: 'amazon.aws_access_key', value: 'AKIAIR24VLFSLJRUCXBQ'},
-                  { name: 'amazon.secret_key', value: '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'}] }
+                  { name: 'amazon.aws_access_key',     value: 'AKIAIR24VLFSLJRUCXBQ'},
+                  { name: 'amazon.secret_key',         value: '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' }] }
 
-  let(:message) {{ message_id: '1234567' }}
+  let(:message) { { message_id: '1234567' } }
 
-  let(:request) {{ message: 'amazon:order:poll',
-                     message_id: '1234567',
-                     payload:
-                       { parameters: config }}}
+  let(:request) { { message: 'amazon:order:poll',
+                    message_id: '1234567',
+                    payload: { parameters: config } } }
 
   def auth
-    {'HTTP_X_AUGURY_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"}
+    { 'HTTP_X_AUGURY_TOKEN' => 'x123', 'CONTENT_TYPE' => 'application/json' }
   end
 
   def app
     AmazonEndpoint
   end
 
-  before do
-   Timecop.freeze('2013-07-12 14:35:14-04:00')
-  end
-
-  after do
-   Timecop.return
-  end
+  before(:all) { Timecop.freeze('2013-08-16 08:55:14-05:00') }
+  after(:all)  { Timecop.return }
 
   it 'gets orders from amazon' do
    VCR.use_cassette('amazon_client_valid_orders') do
@@ -40,3 +34,4 @@ describe AmazonEndpoint do
    end
   end
 end
+

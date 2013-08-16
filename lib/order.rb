@@ -19,11 +19,11 @@ class Order
 
   def to_message
     roll_up_item_values
-    items_hash = assemble_line_items
-    address_hash = assemble_address
-    totals_hash = assemble_totals_hash
+    items_hash       = assemble_line_items
+    address_hash     = assemble_address
+    totals_hash      = assemble_totals_hash
     adjustments_hash = assemble_adjustments_hash
-    shipment_hash = assemble_shipment_hash(items_hash)
+    shipment_hash    = assemble_shipment_hash(items_hash)
 
     { message: 'order:import',
       payload:
@@ -46,7 +46,7 @@ class Order
           }],
           shipments: shipment_hash,
           shipping_address: address_hash,
-          billing_address: address_hash }}}
+          billing_address: address_hash } } }
   end
 
   private

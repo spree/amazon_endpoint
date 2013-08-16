@@ -7,26 +7,26 @@ class AmazonClient
                       marketplace_id:    config['amazon.marketplace_id'])
     @last_updated = config['amazon.last_updated_after']
     @config = config
-    @orders = []
   end
 
   def get_orders
-    statuses = %w(Unshipped PartiallyShipped Shipped)
+    statuses = %w(Unshipped PartiallyShipped)
     order_list = @client.orders.list_orders(last_updated_after: @last_updated, order_status: statuses)
 
-    if order_list.orders.nil?
-      nil
-    elsif order_list.orders.is_a? MWS::API::Response
-      get_line_items([order_list.orders])
-    else
-      get_line_items(order_list.orders)
-    end
+    filtered_orders_hash = remove_partially_shipped(order_list.orders)
 
-    @orders
+    get_line_items filtered_orders_hash
   end
 
   private
+  def remove_partially_shipped(orders)
+    orders = [orders] if orders.is_a? MWS::API::Response
+    orders.to_a.
+      select { |order_hash|  order_hash['order_status'] != 'PartiallyShipped' }
+  end
+
   def get_line_items(order_list)
+    orders = []
     order_list.each_with_index do |order, index|
       new_order = Order.new(order, @config)
 
@@ -34,8 +34,10 @@ class AmazonClient
 
       item_response.order_items.each { |item| new_order.line_items << Item.new(item) }
 
-      @orders << new_order
-      break if @orders.size == 30
+      orders << new_order
+      break if orders.size == 30
     end
+    orders
   end
 end
+
