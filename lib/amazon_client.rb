@@ -22,7 +22,7 @@ class AmazonClient
   def remove_partially_shipped(orders)
     orders = [orders] if orders.is_a? MWS::API::Response
     orders.to_a.
-      select { |order_hash|  order_hash['order_status'] != 'PartiallyShipped' }
+      reject { |order_hash|  order_hash['order_status'] == 'PartiallyShipped' }
   end
 
   def get_line_items(order_list)
