@@ -29,7 +29,7 @@ class Order
       payload:
       { order:
         { amazon_order_id: @order_hash['amazon_order_id'],
-          number: '',
+          number: @order_hash['amazon_order_id'],
           channel: @order_hash['sales_channel'],
           currency: @order_hash['order_total']['currency_code'],
           status: @order_hash['order_status'],
