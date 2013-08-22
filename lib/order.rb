@@ -81,7 +81,7 @@ class Order
       @amazon_tax         += item.item_tax
       @gift_wrap          += item.gift_wrap
       @gift_wrap_tax      += item.gift_wrap_tax
-      @items_total        += item.price
+      @items_total        += item.total_price
     end
   end
 

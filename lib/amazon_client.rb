@@ -13,6 +13,9 @@ class AmazonClient
     statuses = %w(Unshipped PartiallyShipped)
     order_list = @client.orders.list_orders(last_updated_after: @last_updated, order_status: statuses)
 
+    # For individual order checking
+    # order_list = @client.orders.get_order(:amazon_order_id => "102-5181852-0591444")
+
     filtered_orders_hash = remove_partially_shipped(order_list.orders)
 
     get_line_items filtered_orders_hash

@@ -18,4 +18,9 @@ describe Item do
     spree_sku = subject.send(:convert_tommy_john_sku, amazon_sku)
     spree_sku.should eq '2001SSBL'
   end
+
+  describe '#unit_price' do
+    its(:unit_price) { should be 3.0 }
+  end
 end
+
