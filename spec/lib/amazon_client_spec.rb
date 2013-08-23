@@ -41,4 +41,16 @@ describe AmazonClient do
       expect(orders).to be_empty
     end
   end
+
+  context 'when fulfillment_channel is not MFN' do
+    it 'ignores orders' do
+      VCR.use_cassette('amazon_client_fulfillment_channel_mfn') do
+        config['amazon.last_updated_after'] = '2013-07-15'
+        client = AmazonClient.new(config, message)
+
+        orders = client.get_orders
+        expect(orders).to be_empty
+      end
+    end
+  end
 end

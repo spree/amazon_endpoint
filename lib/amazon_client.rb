@@ -16,16 +16,26 @@ class AmazonClient
     # For individual order checking
     # order_list = @client.orders.get_order(:amazon_order_id => "102-5181852-0591444")
 
-    filtered_orders_hash = remove_partially_shipped(order_list.orders)
+    filtered_orders_hash = filter_orders(order_list.orders)
 
     get_line_items filtered_orders_hash
   end
 
   private
-  def remove_partially_shipped(orders)
+  def filter_orders(orders)
     orders = [orders] if orders.is_a? MWS::API::Response
+    orders = remove_partially_shipped(orders)
+    remove_amazon_fulfilled_orders(orders)
+  end
+
+  def remove_amazon_fulfilled_orders(orders)
     orders.to_a.
-      reject { |order_hash|  order_hash['order_status'] == 'PartiallyShipped' }
+      reject { |order_hash| order_hash['fulfillment_channel'] != 'MFN' }
+  end
+
+  def remove_partially_shipped(orders)
+    orders.to_a.
+      reject { |order_hash| order_hash['order_status'] == 'PartiallyShipped' }
   end
 
   def get_line_items(order_list)
