@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 describe AmazonEndpoint do
 
   let(:config) { [{ name: "amazon.marketplace_id",     value: 'ATVPDKIKX0DER'},
@@ -22,16 +23,33 @@ describe AmazonEndpoint do
     AmazonEndpoint
   end
 
-  before(:all) { Timecop.freeze('2013-08-16 08:55:14-05:00') }
-  after(:all)  { Timecop.return }
+  describe '/get_orders' do
+    before { Timecop.freeze('2013-08-16 08:55:14-05:00') }
+    after  { Timecop.return }
 
-  it 'gets orders from amazon' do
-   VCR.use_cassette('amazon_client_valid_orders') do
-     post '/get_orders', request.to_json, auth
+    it 'gets orders from amazon' do
+      VCR.use_cassette('amazon_client_valid_orders') do
+        post '/get_orders', request.to_json, auth
 
-     last_response.status.should == 200
-     last_response.body.should match /1234567/
-   end
+        last_response.status.should == 200
+        last_response.body.should match /1234567/
+      end
+    end
+  end
+
+  describe '/get_order_by_number' do
+    before { Timecop.freeze('2013-08-23 17:25:14-05:00') }
+    after  { Timecop.return }
+
+    it 'gets order by number from amazon' do
+      VCR.use_cassette('amazon_client_valid_order_by_number') do
+        request[:payload][:amazon_order_id] = '102-1580746-9061828'
+        post '/get_order_by_number', request.to_json, auth
+
+        last_response.status.should == 200
+        last_response.body.should match /1234567/
+      end
+    end
   end
 end
 

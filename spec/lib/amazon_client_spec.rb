@@ -9,8 +9,8 @@ describe AmazonClient do
 
   let(:message) { { message_id: 'XXX' } }
 
-  before(:all) { Timecop.freeze('2013-08-16 08:55:14-05:00') }
-  after(:all)  { Timecop.return }
+  before { Timecop.freeze('2013-08-16 08:55:14-05:00') }
+  after  { Timecop.return }
 
   it 'gets multiple orders from amazon' do
     VCR.use_cassette('amazon_client_valid_orders') do
@@ -50,6 +50,19 @@ describe AmazonClient do
 
         orders = client.get_orders
         expect(orders).to be_empty
+      end
+    end
+  end
+
+  describe '#get_order_by_number' do
+    before { Timecop.freeze('2013-08-23 17:25:14-05:00') }
+    after  { Timecop.return }
+    it 'gets order by number' do
+      VCR.use_cassette('amazon_client_valid_order_by_number') do
+        client = AmazonClient.new(config, message)
+
+        orders = client.get_order_by_number('102-1580746-9061828')
+        expect(orders).to have(1).items
       end
     end
   end
