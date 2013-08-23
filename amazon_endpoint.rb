@@ -10,7 +10,9 @@ class AmazonEndpoint < EndpointBase
 
     begin
       orders = amazon_client.get_orders
-      response = Builder.new(orders).build_response
+      parameters = { parameters: [{ name: 'amazon.last_updated_after',
+                                    value: orders.last.last_update_date }] }
+      response = Builder.new(orders).build_response(parameters)
       code = 200
     rescue => e
       code, response = handle_error(e)

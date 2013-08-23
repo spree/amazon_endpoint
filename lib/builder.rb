@@ -3,11 +3,8 @@ class Builder
     @orders = orders
   end
 
-  def build_response
+  def build_response(response={})
     return nil if @orders.empty?
-
-    response = { parameters: [{ name: 'amazon.last_updated_after',
-                                value: @orders.last.last_update_date }] }
 
     response[:messages] = @orders.collect &:to_message
 
