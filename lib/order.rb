@@ -63,8 +63,10 @@ class Order
     #   "address1": null
     #
     # @order_hash['buyer_name'].to_s buyer_name can be nil as well
-    { firstname:  @order_hash['buyer_name'].to_s.split(' ').first.to_s,
-      lastname:   @order_hash['buyer_name'].to_s.split(' ').last.to_s,
+    firstname, lastname = shipping_address_names
+
+    { firstname:  firstname,
+      lastname:   lastname,
       address1:   @order_hash['shipping_address']['address_line1'].to_s,
       address2:   @order_hash['shipping_address']['address_line2'].to_s,
       city:       @order_hash['shipping_address']['city'],
@@ -72,6 +74,14 @@ class Order
       phone:      order_phone_number,
       country:    @order_hash['shipping_address']['country_code'],
       state:      order_full_state }
+  end
+
+  def shipping_address_names
+    names = @order_hash['shipping_address']['name'].to_s.split(' ')
+    # Pablo Henrique Sirio Tejero Cantero
+    # => ["Pablo", "Henrique Sirio Tejero Cantero"]
+    [names.first.to_s,            # Pablo
+     names[1..-1].to_a.join(' ')] # Henrique Sirio Tejero Cantero
   end
 
   def order_phone_number

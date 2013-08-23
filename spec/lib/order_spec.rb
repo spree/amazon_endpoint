@@ -20,6 +20,15 @@ describe Order do
       expect(subject.to_message[:payload][:order][:shipping_address][:state]).to eq 'Maryland'
     end
 
+    describe '#shipping_address_names' do
+      it 'sets firstname and lastname properly' do
+        expect(subject.to_message[:payload][:order][:shipping_address][:firstname]).
+          to eq 'Wesley'
+        expect(subject.to_message[:payload][:order][:shipping_address][:lastname]).
+          to eq 'Scott Ketchum'
+      end
+    end
+
     describe '#assemble_address' do
       it 'sets address2' do
         expect(subject.to_message[:payload][:order][:shipping_address][:address2]).
