@@ -68,9 +68,18 @@ class Order
       address1:   @order_hash['shipping_address']['address_line1'].to_s,
       city:       @order_hash['shipping_address']['city'],
       zipcode:    @order_hash['shipping_address']['postal_code'],
-      phone:      @order_hash['shipping_address']['phone'],
+      phone:      order_phone_number,
       country:    @order_hash['shipping_address']['country_code'],
       state:      order_full_state }
+  end
+
+  def order_phone_number
+    # https://basecamp.com/1795324/projects/3492877-tommy-john/messages/14737577-amazon-orders#comment_86881056
+    phone_number = @order_hash['shipping_address']['phone'].to_s.strip
+    if phone_number.empty?
+      return '000-000-0000'
+    end
+    phone_number
   end
 
   def roll_up_item_values

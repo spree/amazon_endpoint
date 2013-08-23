@@ -40,8 +40,7 @@ module Factories
          "ship_service_level"=>"Std Cont US Street Addr",
          "marketplace_id"=>"ATVPDKIKX0DER",
          "shipping_address"=>
-          {"phone"=>"2409971905",
-           "postal_code"=>"20837-3004",
+          {"postal_code"=>"20837-3004",
            "name"=>"Wesley Scott Ketchum",
            "country_code"=>"US",
            "state_or_region"=>"MD",

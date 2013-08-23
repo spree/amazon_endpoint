@@ -20,6 +20,22 @@ describe Order do
       expect(subject.to_message[:payload][:order][:shipping_address][:state]).to eq 'Maryland'
     end
 
+    context 'when phone number is present' do
+      subject { Factories.orders.first }
+      it 'uses amazon response phone number' do
+        expect(subject.to_message[:payload][:order][:shipping_address][:phone]).
+          to eq '2409971905'
+      end
+    end
+
+    context 'when phone number is absent' do
+      subject { Factories.orders.last }
+      it 'uses a placeholder' do
+        expect(subject.to_message[:payload][:order][:shipping_address][:phone]).
+          to eq '000-000-0000'
+      end
+    end
+
     context 'when lookup parameters is absent' do
       it 'returns shipping method from amazon' do
         expect(subject.to_message[:payload][:order][:shipments].
