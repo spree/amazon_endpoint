@@ -20,19 +20,33 @@ describe Order do
       expect(subject.to_message[:payload][:order][:shipping_address][:state]).to eq 'Maryland'
     end
 
-    context 'when phone number is present' do
-      subject { Factories.orders.first }
+    describe '#assemble_address' do
+      it 'sets address2' do
+        expect(subject.to_message[:payload][:order][:shipping_address][:address2]).
+          to eq 'APTO 1'
+      end
+
+      context 'when address2 is abset' do
+        subject { Factories.orders.last }
+        it 'uses blank address2' do
+          expect(subject.to_message[:payload][:order][:shipping_address][:address2]).
+            to be_empty
+        end
+      end
+    end
+
+    describe '#order_phone_number' do
       it 'uses amazon response phone number' do
         expect(subject.to_message[:payload][:order][:shipping_address][:phone]).
           to eq '2409971905'
       end
-    end
 
-    context 'when phone number is absent' do
-      subject { Factories.orders.last }
-      it 'uses a placeholder' do
-        expect(subject.to_message[:payload][:order][:shipping_address][:phone]).
-          to eq '000-000-0000'
+      context 'when phone number is absent' do
+        subject { Factories.orders.last }
+        it 'uses a placeholder' do
+          expect(subject.to_message[:payload][:order][:shipping_address][:phone]).
+            to eq '000-000-0000'
+        end
       end
     end
 

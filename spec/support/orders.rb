@@ -21,6 +21,7 @@ module Factories
            "country_code"=>"US",
            "state_or_region"=>"MD",
            "address_line1"=>"19944 SPURRIER AVE",
+           "address_line2"=>"APTO 1",
            "city"=>"POOLESVILLE"},
            "sales_channel"=>"Amazon.com",
         "shipped_by_amazon_tfm"=>"false",

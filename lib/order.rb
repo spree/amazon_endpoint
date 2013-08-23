@@ -66,6 +66,7 @@ class Order
     { firstname:  @order_hash['buyer_name'].to_s.split(' ').first.to_s,
       lastname:   @order_hash['buyer_name'].to_s.split(' ').last.to_s,
       address1:   @order_hash['shipping_address']['address_line1'].to_s,
+      address2:   @order_hash['shipping_address']['address_line2'].to_s,
       city:       @order_hash['shipping_address']['city'],
       zipcode:    @order_hash['shipping_address']['postal_code'],
       phone:      order_phone_number,
