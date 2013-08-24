@@ -64,11 +64,12 @@ class Order
     #
     # @order_hash['buyer_name'].to_s buyer_name can be nil as well
     firstname, lastname = shipping_address_names
+    address1,  address2 = shipping_addresses
 
     { firstname:  firstname,
       lastname:   lastname,
-      address1:   @order_hash['shipping_address']['address_line1'].to_s,
-      address2:   @order_hash['shipping_address']['address_line2'].to_s,
+      address1:   address1.to_s,
+      address2:   address2.to_s,
       city:       @order_hash['shipping_address']['city'],
       zipcode:    @order_hash['shipping_address']['postal_code'],
       phone:      order_phone_number,
@@ -82,6 +83,17 @@ class Order
     # => ["Pablo", "Henrique Sirio Tejero Cantero"]
     [names.first.to_s,            # Pablo
      names[1..-1].to_a.join(' ')] # Henrique Sirio Tejero Cantero
+  end
+
+  def shipping_addresses
+    # Promotes address2 to address1 when address1 is absent.
+    [
+      @order_hash['shipping_address']['address_line1'],
+      @order_hash['shipping_address']['address_line2'],
+      @order_hash['shipping_address']['address_line3']
+    ].
+      compact.
+      reject { |address| address.empty? }
   end
 
   def order_phone_number

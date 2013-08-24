@@ -26,10 +26,29 @@ describe Order do
           to eq 'Wesley'
         expect(subject.to_message[:payload][:order][:shipping_address][:lastname]).
           to eq 'Scott Ketchum'
+     end
+    end
+
+    describe '#shipping_addresses' do
+      context 'when address1 is absent' do
+        context 'and address2 is present' do
+          subject { Factories.orders.last }
+
+          it 'promotes address2 to address1' do
+            expect(subject.to_message[:payload][:order][:shipping_address][:address1]).
+              to eq '19944 SPURRIER AVE'
+            expect(subject.to_message[:payload][:order][:shipping_address][:address2]).
+              to be_empty
+          end
+        end
       end
     end
 
     describe '#assemble_address' do
+      it 'sets address1' do
+        expect(subject.to_message[:payload][:order][:shipping_address][:address1]).
+          to eq '19944 SPURRIER AVE'
+      end
       it 'sets address2' do
         expect(subject.to_message[:payload][:order][:shipping_address][:address2]).
           to eq 'APTO 1'
