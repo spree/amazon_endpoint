@@ -24,7 +24,11 @@ describe AmazonEndpoint do
   end
 
   describe '/get_orders' do
-    before { Timecop.freeze('2013-08-16 08:55:14-05:00') }
+    before do
+      now = Time.new(2013, 8, 16, 10, 55, 14, "-03:00")
+      Timecop.freeze(now)
+    end
+
     after  { Timecop.return }
 
     it 'gets orders from amazon' do
@@ -38,7 +42,11 @@ describe AmazonEndpoint do
   end
 
   describe '/get_order_by_number' do
-    before { Timecop.freeze('2013-08-23 17:25:14-05:00') }
+    before do
+      now = Time.new(2013, 8, 23, 19, 25, 14, "-03:00")
+      Timecop.freeze(now)
+    end
+
     after  { Timecop.return }
 
     it 'gets order by number from amazon' do
