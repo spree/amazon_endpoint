@@ -65,7 +65,7 @@
       {
         "name": "amazon.marketplace_id",
         "value": "Amazon Marketplace ID"
-      },
+      }
       ]
     },
     "recommends": {
