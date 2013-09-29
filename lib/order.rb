@@ -157,8 +157,10 @@ class Order
   end
 
   def order_full_state
-    states_hash[@order_hash['shipping_address']['state_or_region'].upcase] ||
-      @order_hash['shipping_address']['state_or_region']
+    state  = @order_hash['shipping_address']['state_or_region'].to_s
+    # D.C. => DC
+    state_key = state.gsub('.', '').upcase
+    states_hash[state_key] || state
   end
 
   def states_hash
