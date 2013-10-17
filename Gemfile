@@ -5,6 +5,7 @@ gem 'ruby-mws'
 
 group :development do
   gem 'pry'
+  gem 'shotgun'
 end
 
 group :test do

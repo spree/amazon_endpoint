@@ -115,6 +115,8 @@ GEM
       rash
       ruby-hmac
     safe_yaml (0.9.5)
+    shotgun (0.9)
+      rack (>= 1.0)
     simple_oauth (0.1.9)
     sinatra (1.4.3)
       rack (~> 1.4)
@@ -179,6 +181,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   rspec
   ruby-mws
+  shotgun
   terminal-notifier-guard
   timecop
   unicorn
