@@ -38,6 +38,20 @@ class AmazonEndpoint < EndpointBase
     process_result code, merged_response(response)
   end
 
+  post '/confirm_shipment' do
+    feed = AmazonFeed.new(config)
+    @base_response = { message_id: @message[:message_id] }
+
+    begin
+      id = feed.submit(@message)
+      code = 200
+    rescue => e
+      code, response = handle_error(e)
+    end
+
+    process_result code, merged_response(response)
+  end
+
   private
 
   def handle_error(e)
