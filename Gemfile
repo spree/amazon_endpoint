@@ -5,8 +5,12 @@ gem 'ruby-mws'
 gem 'model_un'
 
 group :development do
-  gem 'pry'
   gem 'shotgun'
+end
+
+group :development, :test do
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :test do
