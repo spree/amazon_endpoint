@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'capistrano', '>= 3.0.0.pre13'
 gem 'ruby-mws'
+gem 'model_un'
 
 group :development do
   gem 'pry'

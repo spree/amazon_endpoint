@@ -92,8 +92,8 @@ class Order
       @order_hash['shipping_address']['address_line2'],
       @order_hash['shipping_address']['address_line3']
     ].
-      compact.
-      reject { |address| address.empty? }
+    compact.
+    reject { |address| address.empty? }
   end
 
   def order_phone_number
@@ -158,65 +158,19 @@ class Order
 
   def order_full_state
     state  = @order_hash['shipping_address']['state_or_region'].to_s
-    # D.C. => DC
-    state_key = state.gsub('.', '').upcase
-    states_hash[state_key] || state
+    if @order_hash['shipping_address']['country_code'].to_s.upcase != 'US'
+      return state
+    end
+    convert_us_state_name(state)
   end
 
-  def states_hash
-    { 'AL' => 'Alabama',
-      'AK' => 'Alaska',
-      'AZ' => 'Arizona',
-      'AR' => 'Arkansas',
-      'CA' => 'California',
-      'CO' => 'Colorado',
-      'CT' => 'Connecticut',
-      'DC' => 'District of Columbia',
-      'DE' => 'Delaware',
-      'FL' => 'Florida',
-      'GA' => 'Georgia',
-      'HI' => 'Hawaii',
-      'ID' => 'Idaho',
-      'IL' => 'Illinois',
-      'IN' => 'Indiana',
-      'IA' => 'Iowa',
-      'KS' => 'Kansas',
-      'KY' => 'Kentucky',
-      'LA' => 'Louisiana',
-      'ME' => 'Maine',
-      'MD' => 'Maryland',
-      'MA' => 'Massachusetts',
-      'MI' => 'Michigan',
-      'MN' => 'Minnesota',
-      'MS' => 'Mississippi',
-      'MO' => 'Missouri',
-      'MT' => 'Montana',
-      'NE' => 'Nebraska',
-      'NV' => 'Nevada',
-      'NH' => 'New Hampshire',
-      'NJ' => 'New Jersey',
-      'NM' => 'New Mexico',
-      'NY' => 'New York',
-      'NC' => 'North Carolina',
-      'ND' => 'North Dakota',
-      'OH' => 'Ohio',
-      'OK' => 'Oklahoma',
-      'OR' => 'Oregon',
-      'PA' => 'Pennsylvania',
-      'RI' => 'Rhode Island',
-      'SC' => 'South Carolina',
-      'SD' => 'South Dakota',
-      'TN' => 'Tennessee',
-      'TX' => 'Texas',
-      'UT' => 'Utah',
-      'VT' => 'Vermont',
-      'VA' => 'Virginia',
-      'WA' => 'Washington',
-      'WV' => 'West Virginia',
-      'WI' => 'Wisconsin',
-      'WY' => 'Wyoming',
-      'AA' => 'U.S. Armed Forces – Americas',
-      'AE' => 'U.S. Armed Forces – Europe',
-      'AP' => 'U.S. Armed Forces – Pacific' }
+  def convert_us_state_name(state_abbr)
+    exceptions = { 'AA'   => 'U.S. Armed Forces – Americas',
+                   'AE'   => 'U.S. Armed Forces – Europe',
+                   'AP'   => 'U.S. Armed Forces – Pacific',
+                   'D.C.' => 'District Of Columbia' }
+
+    exceptions[state_abbr] || ModelUN.convert_state_abbr(state_abbr)
   end
 end
+
