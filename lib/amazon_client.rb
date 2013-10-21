@@ -9,27 +9,26 @@ class AmazonClient
     @config = config
   end
 
-  def get_order_by_number(amazon_order_id)
+  def order_by_number(amazon_order_id)
     order_list = @client.orders.get_order(amazon_order_id: amazon_order_id)
 
     filtered_orders_hash = filter_orders(order_list.orders)
 
-    get_line_items filtered_orders_hash
+    line_items(filtered_orders_hash)
   end
 
-  def get_orders
+  def orders
     statuses = %w(Unshipped PartiallyShipped)
-    order_list = @client.orders.list_orders(last_updated_after: @last_updated, order_status: statuses)
 
-    # For individual order checking
-    # order_list = @client.orders.get_order(amazon_order_id: '102-5181852-0591444')
+    order_list = @client.orders.list_orders(last_updated_after: @last_updated, order_status: statuses)
 
     filtered_orders_hash = filter_orders(order_list.orders)
 
-    get_line_items filtered_orders_hash
+    line_items(filtered_orders_hash)
   end
 
   private
+
   def filter_orders(orders)
     orders = [orders] if orders.is_a? MWS::API::Response
     orders = remove_partially_shipped(orders)
@@ -46,7 +45,7 @@ class AmazonClient
       reject { |order_hash| order_hash['order_status'] == 'PartiallyShipped' }
   end
 
-  def get_line_items(order_list)
+  def line_items(order_list)
     orders = []
     order_list.each_with_index do |order, index|
       new_order = Order.new(order, @config)

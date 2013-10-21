@@ -22,8 +22,7 @@ describe AmazonClient do
       config['amazon.last_updated_after'] = '2013-06-12'
       client = AmazonClient.new(config, message)
 
-      orders = client.get_orders
-      orders.count.should > 1
+      expect(client.orders).to have(2).items
    end
   end
 
@@ -32,8 +31,7 @@ describe AmazonClient do
       config['amazon.last_updated_after'] = '2013-07-15'
       client = AmazonClient.new(config, message)
 
-      orders = client.get_orders
-      expect(orders).to have(1).items
+      expect(client.orders).to have(1).item
     end
   end
 
@@ -42,8 +40,7 @@ describe AmazonClient do
       config['amazon.last_updated_after'] = '2013-08-16T09:55:14Z'
       client = AmazonClient.new(config, message)
 
-      orders = client.get_orders
-      expect(orders).to be_empty
+      expect(client.orders).to be_empty
     end
   end
 
@@ -53,26 +50,27 @@ describe AmazonClient do
         config['amazon.last_updated_after'] = '2013-07-15'
         client = AmazonClient.new(config, message)
 
-        orders = client.get_orders
-        expect(orders).to be_empty
+        expect(client.orders).to be_empty
       end
     end
   end
 
-  describe '#get_order_by_number' do
+  describe '#order_by_number' do
     before do
-      now = Time.new(2013, 8, 23, 19, 25, 14, "-03:00")
+      now = Time.new(2013, 8, 23, 19, 25, 14, '-03:00')
       Timecop.freeze(now)
     end
 
     after  { Timecop.return }
+
     it 'gets order by number' do
       VCR.use_cassette('amazon_client_valid_order_by_number') do
         client = AmazonClient.new(config, message)
 
-        orders = client.get_order_by_number('102-1580746-9061828')
+        orders = client.order_by_number('102-1580746-9061828')
         expect(orders).to have(1).items
       end
     end
   end
 end
+

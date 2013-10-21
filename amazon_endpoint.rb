@@ -9,7 +9,7 @@ class AmazonEndpoint < EndpointBase
     @base_response = { message_id: @message[:message_id] }
 
     begin
-      orders = amazon_client.get_orders
+      orders = amazon_client.orders
       parameters = { parameters: [{ name: 'amazon.last_updated_after',
                                     value: orders.last.last_update_date }] }
       response = Builder.new(orders).build_response(parameters)
@@ -28,7 +28,7 @@ class AmazonEndpoint < EndpointBase
     @base_response = { message_id: @message[:message_id] }
 
     begin
-      orders = amazon_client.get_order_by_number(@message[:payload]['amazon_order_id'])
+      orders = amazon_client.order_by_number(@message[:payload]['amazon_order_id'])
       response = Builder.new(orders).build_response
       code = 200
     rescue => e
