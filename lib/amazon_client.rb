@@ -1,5 +1,4 @@
 class AmazonClient
-
   def initialize(config, message)
     @client = MWS.new(aws_access_key_id: config['amazon.aws_access_key'],
                       secret_access_key: config['amazon.secret_key'],
@@ -14,7 +13,7 @@ class AmazonClient
 
     filtered_orders_hash = filter_orders(order_list.orders)
 
-    line_items(filtered_orders_hash)
+    order_line_items(filtered_orders_hash).first
   end
 
   def orders
@@ -24,7 +23,12 @@ class AmazonClient
 
     filtered_orders_hash = filter_orders(order_list.orders)
 
-    line_items(filtered_orders_hash)
+    order_line_items(filtered_orders_hash)
+  end
+
+  def inventory_by_sku(sku)
+    inventories = @client.inventory.list_inventory_supply(seller_skus: [sku])
+    inventory_items(inventories).first
   end
 
   private
@@ -45,7 +49,7 @@ class AmazonClient
       reject { |order_hash| order_hash['order_status'] == 'PartiallyShipped' }
   end
 
-  def line_items(order_list)
+  def order_line_items(order_list)
     orders = []
     order_list.each_with_index do |order, index|
       new_order = Order.new(order, @config)
@@ -58,6 +62,10 @@ class AmazonClient
       break if orders.size == 30
     end
     orders
+  end
+
+  def inventory_items(inventories)
+    inventories['inventory_supply_list'].to_a.map { |inventory| Inventory.new(inventory) }
   end
 end
 

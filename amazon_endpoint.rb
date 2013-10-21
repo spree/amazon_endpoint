@@ -28,8 +28,8 @@ class AmazonEndpoint < EndpointBase
     @base_response = { message_id: @message[:message_id] }
 
     begin
-      orders = amazon_client.order_by_number(@message[:payload]['amazon_order_id'])
-      response = Builder.new(orders).build_response
+      order = amazon_client.order_by_number(@message[:payload]['amazon_order_id'])
+      response = Builder.new([order]).build_response
       code = 200
     rescue => e
       code, response = handle_error(e)

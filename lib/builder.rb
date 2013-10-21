@@ -1,13 +1,14 @@
 class Builder
-  def initialize(orders)
-    @orders = orders
+  def initialize(collection)
+    @collection = collection
   end
 
-  def build_response(response={})
-    return nil if @orders.empty?
+  def build_response(response = {})
+    return nil if @collection.empty?
 
-    response[:messages] = @orders.collect &:to_message
+    response[:messages] = @collection.collect(&:to_message)
 
     response
   end
 end
+
