@@ -1,6 +1,6 @@
 class Builder
   def initialize(collection)
-    @collection = collection
+    @collection = collection.is_a?(Array) ? collection : [collection]
   end
 
   def build_response(response = {})
