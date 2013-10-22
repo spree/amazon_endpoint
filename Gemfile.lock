@@ -162,6 +162,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano (>= 3.0.0.pre13)
   capistrano-spree!
+  dotenv
   endpoint_base!
   foreman
   guard-rspec

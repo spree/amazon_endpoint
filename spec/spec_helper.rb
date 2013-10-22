@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler'
 
 Bundler.require(:default, :test)
+Dotenv.load
 
 require File.join(File.dirname(__FILE__), '..', 'amazon_endpoint.rb')
 Dir["./spec/support/**/*.rb"].each {|f| require f}
