@@ -21,7 +21,6 @@ class AmazonFeed
   end
 
   def request_uri
-    binding.pry
     'https://mws.amazonservices.com/?' << build_query(signature)
   end
 
@@ -37,7 +36,6 @@ class AmazonFeed
       'Version'          => '2009-01-01'
     }
 
-    binding.pry
     query['Signature'] = signature if signature
     # Sort hash in natural-byte order
     Hash[Helpers.escape_date_time_params(query).sort].to_query
