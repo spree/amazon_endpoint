@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe AmazonClient do
-  let(:config) { { 'amazon.marketplace_id'     => 'ATVPDKIKX0DER',
-                   "amazon.seller_id"          => 'A6WWS5LKYVEJ8',
-                   'amazon.last_updated_after' => '',
-                   'amazon.aws_access_key'     => 'AKIAIR24VLFSLJRUCXBQ',
-                   'amazon.secret_key'         => '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' } }
+
+  let(:config) { { 'amazon.marketplace_id'     => ENV['MWS_MARKETPLACE'],
+                   "amazon.seller_id"          => ENV['MWS_MERCHANT'],
+                   'amazon.aws_access_key'     => ENV['MWS_KEY'],
+                   'amazon.secret_key'         => ENV['MWS_SECRET_KEY'],
+                   'amazon.last_updated_after' => '' } }
 
   let(:message) { { message_id: 'XXX' } }
 

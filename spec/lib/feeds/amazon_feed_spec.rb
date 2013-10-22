@@ -2,8 +2,9 @@ require 'spec_helper'
 
 module Feeds
   describe AmazonFeed do
-    let(:config) {{ 'amazon.aws_access_key' => ENV['MWS_KEY'], 'amazon.secret_key' => ENV['MWS_SECRET_KEY'],
-                    'amazon.seller_id' => ENV['MWS_MERCHANT'] }}
+    let(:config) {{ 'amazon.aws_access_key' => ENV['MWS_KEY'],
+                    'amazon.secret_key'     => ENV['MWS_SECRET_KEY'],
+                    'amazon.seller_id'      => ENV['MWS_MERCHANT'] } }
 
     context '#submit' do
       it 'should submit a feed' do
