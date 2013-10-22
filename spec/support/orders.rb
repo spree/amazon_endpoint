@@ -97,5 +97,43 @@ module Factories
        "condition_subtype_id"=>"Refurbished",
        "shipping_discount"=>{"amount"=>"0.00", "currency_code"=>"USD"}}]
     end
+
+    def shipment
+      {
+          "number" => "H03606064322",
+          "order_number" => "103-6652650-4045858",
+          "email" => "spree@example.com",
+          "cost" => 0.0,
+          "status" => "ready",
+          "stock_location" => nil,
+          "shipping_method" => "Economy (5-10 Business Days - $0.00)",
+          "tracking" => "915293072790129",
+          "updated_at" => nil,
+          "shipped_at" => nil,
+          "shipping_address"=> {
+          "firstname"=> "Brian",
+          "lastname"=> "Quinn",
+          "address1"=> "2 Wisconsin Cir.",
+          "address2"=> "",
+          "zipcode"=> "20815",
+          "city"=> "Chevy Chase",
+          "state"=> "Maryland",
+          "country"=> "US",
+          "phone"=> "555-123-123"
+          },
+          "items" => [
+            {
+              "name" => "test",
+              "sku" => "27368845791002",
+              "external_ref" => "",
+              "quantity" => 2,
+              "price" => 1.25,
+              "variant_id" => 2,
+              "options" => {
+              }
+            }
+          ]
+      }
+    end
   end
 end

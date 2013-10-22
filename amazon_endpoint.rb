@@ -43,7 +43,8 @@ class AmazonEndpoint < EndpointBase
     @base_response = { message_id: @message[:message_id] }
 
     begin
-      id = feed.submit(@message)
+      order = OrderFulfillment.new(message[:payload]['shipment'])
+      id = feed.submit('order_fulfillment', doc: order.to_xml)
       code = 200
     rescue => e
       code, response = handle_error(e)

@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'capistrano', '>= 3.0.0.pre13'
 gem 'ruby-mws'
+gem 'httparty'
+gem 'nokogiri'
 
 group :development do
   gem 'pry'
