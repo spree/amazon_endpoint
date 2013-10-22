@@ -4,9 +4,15 @@ gem 'capistrano', '>= 3.0.0.pre13'
 gem 'ruby-mws'
 gem 'httparty'
 gem 'nokogiri'
+gem 'model_un'
 
 group :development do
+  gem 'shotgun'
+end
+
+group :development, :test do
   gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :test do

@@ -25,7 +25,7 @@ describe AmazonEndpoint do
 
   describe '/get_orders' do
     before do
-      now = Time.new(2013, 8, 16, 10, 55, 14, "-03:00")
+      now = Time.new(2013, 8, 16, 10, 55, 14, '-03:00')
       Timecop.freeze(now)
     end
 
@@ -35,15 +35,15 @@ describe AmazonEndpoint do
       VCR.use_cassette('amazon_client_valid_orders') do
         post '/get_orders', request.to_json, auth
 
-        last_response.status.should == 200
-        last_response.body.should match /1234567/
+        expect(last_response).to be_ok
+        expect(json_response['message_id']).to eq('1234567')
       end
     end
   end
 
   describe '/get_order_by_number' do
     before do
-      now = Time.new(2013, 8, 23, 19, 25, 14, "-03:00")
+      now = Time.new(2013, 8, 23, 19, 25, 14, '-03:00')
       Timecop.freeze(now)
     end
 
@@ -54,8 +54,29 @@ describe AmazonEndpoint do
         request[:payload][:amazon_order_id] = '102-1580746-9061828'
         post '/get_order_by_number', request.to_json, auth
 
-        last_response.status.should == 200
-        last_response.body.should match /1234567/
+        expect(last_response).to be_ok
+        expect(json_response['message_id']).to eq('1234567')
+      end
+    end
+  end
+
+  describe '/get_inventory_by_sku' do
+    before do
+      now = Time.new(2013, 10, 21, 17, 30, 14, '-03:00')
+      Timecop.freeze(now)
+    end
+
+    after  { Timecop.return }
+
+    it 'gets inventory by sku from amazon' do
+      VCR.use_cassette('amazon_client_inventory_by_sku') do
+        request[:payload][:sku] = 'OX-M0NP-AOD1'
+        post '/get_inventory_by_sku', request.to_json, auth
+
+        expect(last_response).to be_ok
+        expect(json_response['message_id']).to eq('1234567')
+        expect(json_response['messages']).to have(1).item
+        expect(json_response['messages'].first['payload']['sku']).to eq('OX-M0NP-AOD1')
       end
     end
   end

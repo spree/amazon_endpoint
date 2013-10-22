@@ -1,19 +1,17 @@
 require 'spec_helper'
 
 describe Builder do
-  let(:orders) { Factories.orders }
+  let(:collection) { Factories.orders }
 
-  subject { Builder.new orders }
+  subject { Builder.new(collection) }
 
   describe '#build_response' do
-    context 'with orders' do
-      it 'builds a response' do
-        response = subject.build_response
-        expect(response[:messages]).to have(2).items
-      end
+    it 'builds a response' do
+      response = subject.build_response
+      expect(response[:messages]).to have(2).items
     end
 
-    context 'without orders' do
+    context 'when collection is empty' do
       subject { Builder.new [] }
 
       it 'returns nil' do
