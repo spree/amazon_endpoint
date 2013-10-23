@@ -9,26 +9,31 @@
     "path": "/get_orders",
     "description": "Get orders from Amazon",
     "requires": {
-      "paramaters": [
+      "parameters": [
       {
         "name": "amazon.aws_access_key",
-        "value": "AWS Access Key ID"
+        "description": "AWS Access Key ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.secret_key",
-        "value": "AWS Secret Key"
+        "description": "AWS Secret Key",
+        "data_type": "string"
       },
       {
         "name": "amazon.seller_id",
-        "value": "Amazon Seller ID"
+        "description": "Amazon Seller ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.marketplace_id",
-        "value": "Amazon Marketplace ID"
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.last_updated_after",
-        "value": "Date of last order imported"
+        "description": "Date of last order imported",
+        "data_type": "string"
       }
       ]
     },
@@ -49,22 +54,26 @@
     "path": "/confirm_shipment",
     "description": "Confirm an order inside of Amazon",
     "requires": {
-      "paramaters": [
+      "parameters": [
       {
         "name": "amazon.aws_access_key",
-        "value": "AWS Access Key ID"
+        "description": "AWS Access Key ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.secret_key",
-        "value": "AWS Secret Key"
+        "description": "AWS Secret Key",
+        "data_type": "string"
       },
       {
         "name": "amazon.seller_id",
-        "value": "Amazon Seller ID"
+        "description": "Amazon Seller ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.marketplace_id",
-        "value": "Amazon Marketplace ID"
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
       }
       ]
     },
@@ -84,22 +93,26 @@
     "path": "/feed_status",
     "description": "Check the status of a submitted feed",
     "requires": {
-      "paramaters": [
+      "parameters": [
       {
         "name": "amazon.aws_access_key",
-        "value": "AWS Access Key ID"
+        "description": "AWS Access Key ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.secret_key",
-        "value": "AWS Secret Key"
+        "description": "AWS Secret Key",
+        "data_type": "string"
       },
       {
         "name": "amazon.seller_id",
-        "value": "Amazon Seller ID"
+        "description": "Amazon Seller ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.marketplace_id",
-        "value": "Amazon Marketplace ID"
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
       }
       ]
     },
@@ -123,22 +136,26 @@
     "description": "Get order by number from Amazon",
     "requires": {
       "amazon_order_id": "Amazon Order ID",
-      "paramaters": [
+      "parameters": [
       {
         "name": "amazon.aws_access_key",
-        "value": "AWS Access Key ID"
+        "description": "AWS Access Key ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.secret_key",
-        "value": "AWS Secret Key"
+        "description": "AWS Secret Key",
+        "data_type": "string"
       },
       {
         "name": "amazon.seller_id",
-        "value": "Amazon Seller ID"
+        "description": "Amazon Seller ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.marketplace_id",
-        "value": "Amazon Marketplace ID"
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
       }
       ]
     },
@@ -160,22 +177,26 @@
     "description": "Get inventory by sku from Amazon",
     "requires": {
       "sku": "Item sku",
-      "paramaters": [
+      "parameters": [
       {
         "name": "amazon.aws_access_key",
-        "value": "AWS Access Key ID"
+        "description": "AWS Access Key ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.secret_key",
-        "value": "AWS Secret Key"
+        "description": "AWS Secret Key",
+        "data_type": "string"
       },
       {
         "name": "amazon.seller_id",
-        "value": "Amazon Seller ID"
+        "description": "Amazon Seller ID",
+        "data_type": "string"
       },
       {
         "name": "amazon.marketplace_id",
-        "value": "Amazon Marketplace ID"
+        "description": "Amazon Marketplace ID",
+        "data_type": "string"
       }
       ]
     },
