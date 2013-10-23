@@ -16,6 +16,15 @@ class AmazonFeed
     status_message(feed_id)
   end
 
+  def status(feed_id)
+    @action = 'GetFeedSubmissionResult'
+    @feed_id = feed_id
+
+    res = HTTParty.post(request_uri)
+    Feeds::Parser.parse_result(res)
+    notification(feed_id)
+  end
+
   private
 
   def signature
@@ -45,6 +54,7 @@ class AmazonFeed
 
     query["Signature"] = signature if signature
     query["FeedType"] = @feed_type if @feed_type
+    query['FeedSubmissionId'] = @feed_id if @feed_id
     # Sort hash in natural-byte order
     Hash[Helpers.escape_date_time_params(query).sort].to_query
   end
@@ -63,6 +73,17 @@ class AmazonFeed
         message: 'amazon:feed:status',
         payload: {
           feed_id: id
+        }
+      ]
+    }
+  end
+
+  def notification(id)
+    {
+      notifications: [
+        {
+          subject: 'Feed Complete',
+          description: "Succesfully processed feed # #{id}"
         }
       ]
     }
