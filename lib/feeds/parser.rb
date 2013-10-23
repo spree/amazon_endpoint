@@ -1,12 +1,13 @@
 module Feeds
   class SubmissionError < StandardError; end
+  class RequestThrottled < StandardError; end
 
   class Parser
     class << self
 
       def parse_submission(response)
         doc = Nokogiri::XML(response).remove_namespaces!
-        raise SubmissionError, doc.xpath('//Message').text if doc.root.name == 'ErrorResponse'
+        validate!(doc)
         id = doc.xpath('//FeedSubmissionId').text
         status_message(id)
       end
@@ -29,6 +30,11 @@ module Feeds
       end
 
       private
+
+      def validate!(doc)
+        raise RequestThrottled, doc.xpath('//Message').text if doc.xpath('//Code').text == 'RequestThrottled'
+        raise SubmissionError,  doc.xpath('//Message').text if doc.root.name == 'ErrorResponse'
+      end
 
       def status_message(id)
         { messages:

@@ -11,9 +11,15 @@ module Feeds
         end
       end
 
-      context '#unsuccessful response' do
-        it 'should raise an error' do
+      context 'when unsuccessful response' do
+        it 'raise SubmissionError' do
           expect { Parser.parse_submission(Responses.submission_error) }.to raise_error(SubmissionError)
+        end
+      end
+
+      context 'when request throttled' do
+        it 'raises RequestThrottled' do
+          expect { Parser.parse_submission(Responses.request_throttled) }.to raise_error(RequestThrottled)
         end
       end
     end

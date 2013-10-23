@@ -72,5 +72,19 @@ module Responses
         </Message>
         </AmazonEnvelope>'
     end
+
+    def request_throttled
+      <<-EOF
+        <?xml version="1.0"?>
+        <ErrorResponse xmlns="http://mws.amazonaws.com/doc/2009-01-01/">
+          <Error>
+            <Type></Type>
+            <Code>RequestThrottled</Code>
+            <Message>Request is throttled</Message>
+          </Error>
+          <RequestID>7150b6dd-24e7-4edd-ba07-d2cf1f80429c</RequestID>
+        </ErrorResponse>
+      EOF
+    end
   end
 end
