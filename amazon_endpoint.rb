@@ -79,7 +79,7 @@ class AmazonEndpoint < EndpointBase
       code, response = handle_error(e)
     end
 
-    process_result
+    process_result code, @base_response.merge(response.to_h)
   end
 
   private

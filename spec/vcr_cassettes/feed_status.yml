@@ -44,6 +44,6 @@ http_interactions:
       encoding: UTF-8
       string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<AmazonEnvelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
         xsi:noNamespaceSchemaLocation=\"amzn-envelope.xsd\">\n\t<Header>\n\t\t<DocumentVersion>1.02</DocumentVersion>\n\t\t<MerchantIdentifier>M_WESKETCHUM_1357503</MerchantIdentifier>\n\t</Header>\n\t<MessageType>ProcessingReport</MessageType>\n\t<Message>\n\t\t<MessageID>1</MessageID>\n\t\t<ProcessingReport>\n\t\t\t<DocumentTransactionID>8253017998</DocumentTransactionID>\n\t\t\t<StatusCode>Complete</StatusCode>\n\t\t\t<ProcessingSummary>\n\t\t\t\t<MessagesProcessed>1</MessagesProcessed>\n\t\t\t\t<MessagesSuccessful>1</MessagesSuccessful>\n\t\t\t\t<MessagesWithError>0</MessagesWithError>\n\t\t\t\t<MessagesWithWarning>0</MessagesWithWarning>\n\t\t\t</ProcessingSummary>\n\t\t</ProcessingReport>\n\t</Message>\n</AmazonEnvelope>"
-    http_version: 
+    http_version:
   recorded_at: Wed, 23 Oct 2013 01:39:01 GMT
 recorded_with: VCR 2.6.0
