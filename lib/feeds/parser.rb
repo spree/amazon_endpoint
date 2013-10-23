@@ -33,7 +33,8 @@ module Feeds
       def status_message(id)
         { messages:
           [ message: 'amazon:feed:status',
-            payload: { feed_id: id }]
+            payload: { feed_id: id },
+            delay: 30 ]
         }
       end
 

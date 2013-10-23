@@ -25,11 +25,8 @@ describe AmazonEndpoint do
   describe '/get_orders' do
     before do
       now = Time.new(2013, 8, 16, 10, 55, 14, '-03:00')
-      # Timecop.freeze(now)
       Time.stub(now: now)
     end
-
-    # after  { Timecop.return }
 
     it 'gets orders from amazon' do
       VCR.use_cassette('amazon_client_valid_orders') do
@@ -44,11 +41,8 @@ describe AmazonEndpoint do
   describe '/get_order_by_number' do
     before do
       now = Time.new(2013, 8, 23, 19, 25, 14, '-03:00')
-      # Timecop.freeze(now)
       Time.stub(now: now)
     end
-
-    # after  { Timecop.return }
 
     it 'gets order by number from amazon' do
       VCR.use_cassette('amazon_client_valid_order_by_number') do
@@ -64,11 +58,8 @@ describe AmazonEndpoint do
   describe '/get_inventory_by_sku' do
     before do
       now = Time.new(2013, 10, 21, 18, 30, 14, '-02:00')
-      # Timecop.freeze(now)
       Time.stub(now: now)
     end
-
-    # after  { Timecop.return }
 
     it 'gets inventory by sku from amazon' do
       VCR.use_cassette('amazon_client_inventory_by_sku') do
@@ -92,7 +83,7 @@ describe AmazonEndpoint do
     it 'gets feed status' do
       VCR.use_cassette('feed_status') do
         request = { message_id: '1234', message: 'amazon:feed:status',
-                    payload: { feed_id: '8253017998' ,parameters: config }}
+                    payload: { feed_id: '8253017998', parameters: config } }
 
         post '/feed_status', request.to_json, auth
         expect(last_response).to be_ok
@@ -101,16 +92,57 @@ describe AmazonEndpoint do
         expect(json_response['notifications'].first['description']).to eq('Succesfully processed feed #8253017998')
       end
     end
+
+    context 'when errors' do
+      before do
+        now = Time.new(2013, 10, 23, 14, 44, 11, '-03:00')
+        Time.stub(now: now)
+      end
+
+      it 'returns a notification error' do
+        VCR.use_cassette('inventory_feed_status_error') do
+          request = { message_id: '1234', message: 'amazon:feed:status',
+                      payload: { feed_id: '8259737688', parameters: config } }
+
+          post '/feed_status', request.to_json, auth
+          expect(last_response).to be_ok
+          expect(json_response['message_id']).to eq('1234')
+          expect(json_response).to_not have_key('messages')
+          expect(json_response['notifications']).to have(1).item
+          expect(json_response['notifications'].first['description']).to include('Feed #8259737688 Not Processed')
+        end
+      end
+    end
+
+    context 'when not processed' do
+      before do
+        now = Time.new(2013, 10, 23, 14, 44, 11, '-03:00')
+        Time.stub(now: now)
+      end
+
+      it 're-schedules message status checker' do
+        VCR.use_cassette('inventory_feed_status_not_processed') do
+          request = { message_id: '1234',
+                      message: 'amazon:feed:status',
+                      payload: { feed_id: '8259716402', parameters: config } }
+
+
+          post '/feed_status', request.to_json, auth
+          expect(last_response).to be_ok
+          expect(json_response['message_id']).to eq('1234')
+          expect(json_response).to_not have_key('notifications')
+          expect(json_response['messages']).to have(1).item
+          expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259716402' }, 'delay' => 30)
+        end
+      end
+    end
   end
 
   describe '/confirm_shipment' do
     before do
       now = Time.new(2013, 10, 22, 15, 51, 11, '-04:00')
-      # Timecop.freeze(now)
       Time.stub(now: now)
     end
-
-    # after  { Timecop.return }
 
     it 'confirms shipment' do
       VCR.use_cassette('submit_feed') do
@@ -120,7 +152,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first).to include({ 'payload' => { 'feed_id' => '8253017998' } })
+        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8253017998' }, 'delay' => 30)
       end
     end
   end
@@ -128,11 +160,8 @@ describe AmazonEndpoint do
   describe '/update_inventory_availabitity' do
     before do
       now = Time.new(2013, 10, 23, 14, 41, 11, '-03:00')
-      # Timecop.freeze(now)
       Time.stub(now: now)
     end
-
-    # after  { Timecop.return }
 
     it 'updates inventory availability' do
       VCR.use_cassette('submit_item_feed') do
@@ -143,7 +172,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first).to include({ 'payload' => { 'feed_id' => '8259603164' } })
+        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259603164' }, 'delay' => 30)
       end
     end
   end
