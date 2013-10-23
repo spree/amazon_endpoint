@@ -41,7 +41,7 @@ module Feeds
         { notifications:
           [{ level: 'info',
              subject: 'Feed Complete',
-             description: "Succesfully processed feed # #{id}" }]
+             description: "Succesfully processed feed ##{id}" }]
         }
       end
 

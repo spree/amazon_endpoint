@@ -1,6 +1,5 @@
 module Feeds
   class InventoryAvailabitity
-
     def initialize(item, id)
       @merchant_id = id
       @item        = item
@@ -33,3 +32,4 @@ module Feeds
     end
   end
 end
+

@@ -7,7 +7,7 @@ module Feeds
       context 'successful response' do
         it 'should return feed:status message' do
           msg = Parser.parse_submission(Responses.successful_submission)
-          expected = { messages: [message: 'amazon:feed:status', payload: { feed_id: "8253017998" }] }
+          expected = { messages: [message: 'amazon:feed:status', payload: { feed_id: '8253017998' }] }
           msg.should eq expected
         end
       end
@@ -38,7 +38,7 @@ module Feeds
           expected = {:notifications=>
                       [{:level=>"info",
                         :subject=>"Feed Complete",
-                        :description=>"Succesfully processed feed # 8253017998"}]}
+                        :description=>"Succesfully processed feed #8253017998"}]}
           message.should eq expected
         end
       end

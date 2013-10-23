@@ -98,7 +98,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234')
         expect(json_response['notifications']).to have(1).item
-        expect(json_response['notifications'].first['description']).to eq('Succesfully processed feed # 8253017998')
+        expect(json_response['notifications'].first['description']).to eq('Succesfully processed feed #8253017998')
       end
     end
   end

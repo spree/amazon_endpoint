@@ -55,7 +55,7 @@ module Feeds
         it 'should return the status of a feed' do
           VCR.use_cassette('feed_status') do
             res = AmazonFeed.new(config).status('8253017998')
-            expect(res[:notifications].first[:description]).to eq 'Succesfully processed feed # 8253017998'
+            expect(res[:notifications].first[:description]).to eq 'Succesfully processed feed #8253017998'
           end
         end
       end
@@ -72,7 +72,7 @@ module Feeds
         it 'should return the status of a feed' do
           VCR.use_cassette('inventory_feed_status') do
             res = AmazonFeed.new(config).status('8259593438')
-            expect(res[:notifications].first[:description]).to eq 'Succesfully processed feed # 8259593438'
+            expect(res[:notifications].first[:description]).to eq 'Succesfully processed feed #8259593438'
           end
         end
 
