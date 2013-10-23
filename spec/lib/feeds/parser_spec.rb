@@ -22,11 +22,11 @@ module Feeds
     describe '#parse_result' do
       context 'error processing feed' do
         it 'should return notification error' do
-          message = Parser.parse_result(Responses.status_error)
+          message = Parser.parse_result('8252984128', Responses.status_error)
           expected = {:notifications=> [
-                       { :level=>"error",
-                         :subject=>"Feed Error",
-                        :description=> "Feed #8252984128 Not Processed. The quantities you provided for order id (103-6652650-4045858) were larger than the quantities that could be fulfilled. Please review the quantity from the order report and take into account any items that have been cancelled or already fulfilled.\n        "}]}
+            { :level=>"error",
+              :subject=>"Feed Error",
+              :description=> "Feed #8252984128 Not Processed. The quantities you provided for order id (103-6652650-4045858) were larger than the quantities that could be fulfilled. Please review the quantity from the order report and take into account any items that have been cancelled or already fulfilled.\n        "}]}
 
           message.should eq expected
         end
@@ -34,11 +34,11 @@ module Feeds
 
       context 'successfully processed' do
         it 'should return notification info' do
-          message = Parser.parse_result(Responses.successful_result)
+          message = Parser.parse_result('8253017998', Responses.successful_result)
           expected = {:notifications=>
-                        [{:level=>"info",
-                          :subject=>"Feed Complete",
-                          :description=>"Succesfully processed feed # 8253017998"}]}
+                      [{:level=>"info",
+                        :subject=>"Feed Complete",
+                        :description=>"Succesfully processed feed # 8253017998"}]}
           message.should eq expected
         end
       end

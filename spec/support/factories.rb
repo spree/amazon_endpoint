@@ -138,7 +138,7 @@ module Factories
 
     def item
       {
-        "sku" => "ROR-001234",
+        "sku" => "2Y-0BPV-TWZY",
         "quantity" => 20
       }
     end

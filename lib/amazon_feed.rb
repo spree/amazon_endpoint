@@ -19,7 +19,7 @@ class AmazonFeed
     @feed_id = feed_id
 
     res = HTTParty.post(request_uri)
-    msg = Feeds::Parser.parse_result(res)
+    msg = Feeds::Parser.parse_result(feed_id, res)
   end
 
   private

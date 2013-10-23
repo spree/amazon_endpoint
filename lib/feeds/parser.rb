@@ -1,4 +1,6 @@
 module Feeds
+  class SubmissionError < StandardError; end
+
   class Parser
     class << self
 
@@ -9,20 +11,25 @@ module Feeds
         status_message(id)
       end
 
-      def parse_result(response)
+      def parse_result(feed_id, response)
         doc = Nokogiri::XML(response).remove_namespaces!
         errors = doc.xpath('//MessagesWithError').text.to_i
-        id = doc.xpath('//DocumentTransactionID').text
 
-        if errors > 0
+        case
+        when doc.xpath('//Code').text == 'FeedProcessingResultNotReady'
+          # Not ready, check again later
+          status_message(feed_id)
+        when errors > 0
+          # Errors while processing the feed
           msg = doc.xpath('//ResultDescription').text
-          error_result(id, msg)
+          error_result(feed_id, msg)
         else
-          msg = successful_result(id)
+          msg = successful_result(feed_id)
         end
       end
 
       private
+
       def status_message(id)
         { messages:
           [ message: 'amazon:feed:status',
@@ -47,6 +54,4 @@ module Feeds
       end
     end
   end
-
-  class SubmissionError < StandardError; end
 end
