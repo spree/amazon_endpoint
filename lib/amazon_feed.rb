@@ -20,8 +20,7 @@ class AmazonFeed
     @feed_id = feed_id
 
     res = HTTParty.post(request_uri)
-    Feeds::Parser.parse_result(res)
-    notification(feed_id)
+    msg = Feeds::Parser.parse_result(res)
   end
 
   private
@@ -72,17 +71,6 @@ class AmazonFeed
         message: 'amazon:feed:status',
         payload: {
           feed_id: id
-        }
-      ]
-    }
-  end
-
-  def notification(id)
-    {
-      notifications: [
-        {
-          subject: 'Feed Complete',
-          description: "Succesfully processed feed # #{id}"
         }
       ]
     }

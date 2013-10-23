@@ -11,12 +11,31 @@ module Feeds
       def parse_result(response)
         doc = Nokogiri::XML(response).remove_namespaces!
         errors = doc.xpath('//MessagesWithError').text.to_i
+        id = doc.xpath('//DocumentTransactionID').text
 
         if errors > 0
-          #raise error or something
+          msg = doc.xpath('//ResultDescription').text
+          error_result(id, msg)
         else
-          return doc.xpath('//DocumentTransactionID').text
+          msg = successful_result(id)
         end
+      end
+
+      private
+      def successful_result(id)
+        { notifications:
+          [{ level: 'info',
+             subject: 'Feed Complete',
+             description: "Succesfully processed feed # #{id}" }]
+        }
+      end
+
+      def error_result(id, msg)
+        { notifications:
+          [{ level: 'error',
+             subject: 'Feed Error',
+             description: "Feed ##{id} Not Processed. #{msg}" }]
+        }
       end
     end
   end

@@ -38,5 +38,39 @@ module Responses
         <RequestID>53466fee-9497-4ca0-884f-4281475962a0</RequestID>
       </ErrorResponse>'
     end
+
+    def status_error
+      '<?xml version="1.0" encoding="UTF-8"?>
+      <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+      <Header>
+        <DocumentVersion>1.02</DocumentVersion>
+        <MerchantIdentifier>M_WESKETCHUM_1357503</MerchantIdentifier>
+      </Header>
+      <MessageType>ProcessingReport</MessageType>
+      <Message>
+        <MessageID>1</MessageID>
+        <ProcessingReport>
+        <DocumentTransactionID>8252984128</DocumentTransactionID>
+        <StatusCode>Complete</StatusCode>
+        <ProcessingSummary>
+        <MessagesProcessed>1</MessagesProcessed>
+        <MessagesSuccessful>0</MessagesSuccessful>
+        <MessagesWithError>1</MessagesWithError>
+        <MessagesWithWarning>0</MessagesWithWarning>
+        </ProcessingSummary>
+        <Result>
+        <MessageID>1</MessageID>
+        <ResultCode>Error</ResultCode>
+        <ResultMessageCode>18021</ResultMessageCode>
+        <ResultDescription>The quantities you provided for order id (103-6652650-4045858) were larger than the quantities that could be fulfilled. Please review the quantity from the order report and take into account any items that have been cancelled or already fulfilled.
+        </ResultDescription>
+        <AdditionalInfo>
+        <AmazonOrderID>103-6652650-4045858</AmazonOrderID>
+        </AdditionalInfo>
+        </Result>
+        </ProcessingReport>
+        </Message>
+        </AmazonEnvelope>'
+    end
   end
 end
