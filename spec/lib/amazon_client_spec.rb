@@ -12,11 +12,12 @@ describe AmazonClient do
 
   describe '#orders' do
     before do
-      now = Time.new(2013, 8, 16, 10, 55, 14, "-03:00")
-      Timecop.freeze(now)
+      now = Time.new(2013, 8, 16, 10, 55, 14, '-03:00')
+      # Timecop.freeze(now)
+      Time.stub(now: now)
     end
 
-    after  { Timecop.return }
+    # after  { Timecop.return }
 
     it 'gets multiple orders from amazon' do
       VCR.use_cassette('amazon_client_valid_orders') do
@@ -60,10 +61,11 @@ describe AmazonClient do
   describe '#order_by_number' do
     before do
       now = Time.new(2013, 8, 23, 19, 25, 14, '-03:00')
-      Timecop.freeze(now)
+      # Timecop.freeze(now)
+      Time.stub(now: now)
     end
 
-    after  { Timecop.return }
+    # after  { Timecop.return }
 
     it 'gets order by number' do
       VCR.use_cassette('amazon_client_valid_order_by_number') do
@@ -78,11 +80,12 @@ describe AmazonClient do
 
   describe '#inventory_by_sku' do
     before do
-      now = Time.new(2013, 10, 21, 17, 30, 14, '-03:00')
-      Timecop.freeze(now)
+      now = Time.new(2013, 10, 21, 18, 30, 14, '-02:00')
+      # Timecop.freeze(now)
+      Time.stub(now: now)
     end
 
-    after  { Timecop.return }
+    # after  { Timecop.return }
 
     it 'returns inventory by sku' do
       VCR.use_cassette('amazon_client_inventory_by_sku') do

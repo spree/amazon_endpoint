@@ -18,10 +18,12 @@ class AmazonFeed
   end
 
   private
+
   def signature
     digest = OpenSSL::Digest::Digest.new('sha256')
     Base64.encode64(OpenSSL::HMAC.digest(digest, @secret_key, canonical)).strip
   end
+
 
   def canonical
     ['POST', "mws.amazonservices.com", "/", build_query].join("\n")
