@@ -132,7 +132,7 @@ describe AmazonEndpoint do
           expect(json_response['message_id']).to eq('1234')
           expect(json_response).to_not have_key('notifications')
           expect(json_response['messages']).to have(1).item
-          expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259716402' }, 'delay' => 30)
+          expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259716402' }, 'delay' => 120)
         end
       end
     end
@@ -152,7 +152,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8253017998' }, 'delay' => 30)
+        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8253017998' }, 'delay' => 120)
       end
     end
   end
@@ -172,7 +172,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259603164' }, 'delay' => 30)
+        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259603164' }, 'delay' => 120)
       end
     end
   end

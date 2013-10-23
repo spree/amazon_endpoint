@@ -7,7 +7,7 @@ module Feeds
       context 'successful response' do
         it 'should return feed:status message' do
           msg = Parser.parse_submission(Responses.successful_submission)
-          expect(msg).to eq({ messages: [message: 'amazon:feed:status', payload: { feed_id: '8253017998' }, delay: 30] })
+          expect(msg).to eq({ messages: [message: 'amazon:feed:status', payload: { feed_id: '8253017998' }, delay: 120] })
         end
       end
 

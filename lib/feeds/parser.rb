@@ -34,7 +34,7 @@ module Feeds
         { messages:
           [ message: 'amazon:feed:status',
             payload: { feed_id: id },
-            delay: 30 ]
+            delay: 120 ]
         }
       end
 
