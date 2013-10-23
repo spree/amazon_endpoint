@@ -15,8 +15,8 @@ module Feeds
 
       it 'should submit a feed' do
         VCR.use_cassette('submit_feed') do
-          doc = OrderFulfillment.new(Factories.shipment, ENV['MWS_MERCHANT']).to_xml
-          res = AmazonFeed.new(config).submit('_POST_ORDER_FULFILLMENT_DATA_', doc)
+          order = OrderFulfillment.new(Factories.shipment, ENV['SELLER_ID'])
+          res = AmazonFeed.new(config).submit(order.feed_type, order.to_xml)
           expect(res[:messages].first[:payload][:feed_id]).to eq '8253017998'
         end
       end

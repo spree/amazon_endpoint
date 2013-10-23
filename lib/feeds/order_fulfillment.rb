@@ -41,5 +41,9 @@ module Feeds
 
       builder.to_xml
     end
+
+    def feed_type
+      '_POST_ORDER_FULFILLMENT_DATA_'
+    end
   end
 end
