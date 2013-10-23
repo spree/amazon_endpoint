@@ -5,9 +5,10 @@ module Feeds
 
     describe '#parse_submission' do
       context 'successful response' do
-        it 'should return the feed id' do
-          id = Parser.parse_submission(Responses.successful_submission)
-          id.should eq "8253017998"
+        it 'should return feed:status message' do
+          msg = Parser.parse_submission(Responses.successful_submission)
+          expected = { messages: [message: 'amazon:feed:status', payload: { feed_id: "8253017998" }] }
+          msg.should eq expected
         end
       end
 

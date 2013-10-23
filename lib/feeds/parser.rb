@@ -5,7 +5,8 @@ module Feeds
       def parse_submission(response)
         doc = Nokogiri::XML(response).remove_namespaces!
         raise SubmissionError, doc.xpath('//Message').text if doc.root.name == 'ErrorResponse'
-        doc.xpath('//FeedSubmissionId').text
+        id = doc.xpath('//FeedSubmissionId').text
+        status_message(id)
       end
 
       def parse_result(response)
@@ -22,6 +23,13 @@ module Feeds
       end
 
       private
+      def status_message(id)
+        { messages:
+          [ message: 'amazon:feed:status',
+            payload: { feed_id: id }]
+        }
+      end
+
       def successful_result(id)
         { notifications:
           [{ level: 'info',
