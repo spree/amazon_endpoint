@@ -6,7 +6,7 @@ module Feeds
                     'amazon.secret_key'     => ENV['SECRET_KEY'],
                     'amazon.seller_id'      => ENV['SELLER_ID'] } }
 
-    context '#submit' do
+    describe '#submit' do
       before do
         now = Time.new(2013, 10, 22, 15, 51, 11, '-04:00')
         # Timecop.freeze(now)

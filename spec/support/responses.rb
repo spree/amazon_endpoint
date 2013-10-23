@@ -27,5 +27,16 @@ module Responses
         </Message>
     </AmazonEnvelope>'
     end
+
+    def submission_error
+      '<ErrorResponse xmlns="https://mws.amazonservices.com/">
+        <Error>
+          <Type>Sender</Type>
+          <Code>InvalidParameterValue</Code>
+          <Message>Invalid query string provided - AWSAccessKeyId123=&amp;Action=SubmitFeed&amp;FeedType=_POST_ORDER_FULFILLMENT_DATA_&amp;SellerId=12344&amp;Signature=hV2s4TYWPnj4eJbDynEQ399KZlgpnM2K3udPrpm9F5o=&amp;SignatureMethod=HmacSHA256&amp;SignatureVersion=2&amp;Timestamp=2013-10-22T11:15:40-04:00&amp;Version=2009-01-01 is not valid; the value of a query string parameter may not contain a &apos;=&apos; delimiter</Message>
+        </Error>
+        <RequestID>53466fee-9497-4ca0-884f-4281475962a0</RequestID>
+      </ErrorResponse>'
+    end
   end
 end

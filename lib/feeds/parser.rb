@@ -4,6 +4,7 @@ module Feeds
 
       def parse_submission(response)
         doc = Nokogiri::XML(response).remove_namespaces!
+        raise SubmissionError, doc.xpath('//Message').text if doc.root.name == 'ErrorResponse'
         doc.xpath('//FeedSubmissionId').text
       end
 
@@ -19,4 +20,6 @@ module Feeds
       end
     end
   end
+
+  class SubmissionError < StandardError; end
 end

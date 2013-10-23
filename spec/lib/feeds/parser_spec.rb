@@ -4,9 +4,17 @@ module Feeds
   describe Parser do
 
     describe '#parse_submission' do
-      it 'should return the feed id' do
-        id = Parser.parse_submission(Responses.successful_submission)
-        id.should eq "8253017998"
+      context 'successful response' do
+        it 'should return the feed id' do
+          id = Parser.parse_submission(Responses.successful_submission)
+          id.should eq "8253017998"
+        end
+      end
+
+      context '#unsuccessful response' do
+        it 'should raise an error' do
+          expect { Parser.parse_submission(Responses.submission_error) }.to raise_error(SubmissionError)
+        end
       end
     end
 
