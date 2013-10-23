@@ -45,6 +45,79 @@
     }
   },
   {
+    "name": "confirm_shipment",
+    "path": "/confirm_shipment",
+    "description": "Confirm an order inside of Amazon",
+    "requires": {
+      "paramaters": [
+      {
+        "name": "amazon.aws_access_key",
+        "value": "AWS Access Key ID"
+      },
+      {
+        "name": "amazon.secret_key",
+        "value": "AWS Secret Key"
+      },
+      {
+        "name": "amazon.seller_id",
+        "value": "Amazon Seller ID"
+      },
+      {
+        "name": "amazon.marketplace_id",
+        "value": "Amazon Marketplace ID"
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["shipment:confirm"]
+    },
+    "produces": {
+      "messages": [
+      {
+        "message": "amazon:feed:status"
+      }
+      ]
+    }
+  },
+  {
+    "name": "feed_status",
+    "path": "/feed_status",
+    "description": "Check the status of a submitted feed",
+    "requires": {
+      "paramaters": [
+      {
+        "name": "amazon.aws_access_key",
+        "value": "AWS Access Key ID"
+      },
+      {
+        "name": "amazon.secret_key",
+        "value": "AWS Secret Key"
+      },
+      {
+        "name": "amazon.seller_id",
+        "value": "Amazon Seller ID"
+      },
+      {
+        "name": "amazon.marketplace_id",
+        "value": "Amazon Marketplace ID"
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["amazon:feed:status"]
+    },
+    "produces": {
+      "messages": [
+      {
+        "message": "notification:info"
+      },
+      {
+        "message": "notification:error"
+      }
+      ]
+    }
+  },
+  {
     "name": "get_order_by_number",
     "path": "/get_order_by_number",
     "description": "Get order by number from Amazon",
