@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe AmazonEndpoint do
+
   let(:config) { [{ name: "amazon.marketplace_id",     value: ENV['MARKETPLACE_ID'] },
                   { name: "amazon.seller_id",          value: ENV['SELLER_ID'] },
                   { name: 'amazon.last_updated_after', value: '2013-06-12' },
