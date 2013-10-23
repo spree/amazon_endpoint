@@ -112,7 +112,7 @@ describe AmazonEndpoint do
 
     # after  { Timecop.return }
 
-    xit 'confirms shipment' do
+    it 'confirms shipment' do
       VCR.use_cassette('submit_feed') do
         request[:payload][:shipment] = Factories.shipment
         post '/confirm_shipment', request.to_json, auth
@@ -120,7 +120,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first['payload']['sku']).to eq('OX-M0NP-AOD1')
+        expect(json_response['messages'].first['payload']['feed_id']).to eq('8253017998')
       end
     end
   end

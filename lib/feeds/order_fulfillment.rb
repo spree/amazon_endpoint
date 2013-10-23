@@ -1,5 +1,6 @@
 module Feeds
   class OrderFulfillment
+    attr_reader :feed_type
 
     def initialize(shipment, id)
       @merchant_id = id
