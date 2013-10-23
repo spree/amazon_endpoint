@@ -1,12 +1,17 @@
 class AmazonFeed
+
   def initialize(config)
     @access_key = config['amazon.aws_access_key']
     @secret_key = config['amazon.secret_key']
-    @seller_id  = config['amazon.seller_id']
-    @timestamp  = Time.now
+    @seller_id = config['amazon.seller_id']
+    @timestamp = Time.now
   end
 
   def submit(type, doc)
+    binding.pry
+    @action = 'SubmitFeed'
+    @feed_type = type
+
     res = HTTParty.post(request_uri, request_params(type, doc))
     feed_id = Feeds::Parser.parse_submission(res)
     status_message(feed_id)
@@ -19,34 +24,34 @@ class AmazonFeed
   end
 
   def canonical
-    ['POST', 'mws.amazonservices.com', '/', build_query].join('\n')
+    ['POST', "mws.amazonservices.com", "/", build_query].join("\n")
   end
 
   def request_uri
-    'https://mws.amazonservices.com/?' << build_query(signature)
+    "https://mws.amazonservices.com/?" << build_query(signature)
   end
 
-  def build_query(signature = nil)
+  def build_query(signature=nil)
     query = {
-      'AWSAccessKeyId'   => @access_key,
-      'Action'           => 'SubmitFeed',
-      'FeedType'         => '_POST_ORDER_FULFILLMENT_DATA_',
-      'SellerId'         => @seller_id,
-      'SignatureMethod'  => 'HmacSHA256',
-      'SignatureVersion' => '2',
-      'Timestamp'        => @timestamp,
-      'Version'          => '2009-01-01'
+      "AWSAccessKeyId" => @access_key,
+      "Action" => @action,
+      "SellerId" => @seller_id,
+      "SignatureMethod" => 'HmacSHA256',
+      "SignatureVersion" => '2',
+      "Timestamp" => @timestamp,
+      "Version" => "2009-01-01"
     }
 
-    query['Signature'] = signature if signature
+    query["Signature"] = signature if signature
+    query["FeedType"] = @feed_type if @feed_type
     # Sort hash in natural-byte order
     Hash[Helpers.escape_date_time_params(query).sort].to_query
   end
 
   def request_params(type, doc)
     {
-      format: 'xml',
-      headers: { 'Content-MD5' => Digest::MD5.base64digest(doc) },
+      format: "xml",
+      headers: { "Content-MD5" => Digest::MD5.base64digest(doc)},
       body: doc
     }
   end
@@ -66,12 +71,12 @@ class AmazonFeed
     def self.escape_date_time_params(params={})
       params.map do |key, value|
         case value.class.name
-        when 'Time', 'Date', 'DateTime'
-          { key => value.iso8601 }
-        when 'Hash'
-          { key => escape_date_time_params(value) }
+        when "Time", "Date", "DateTime"
+          {key => value.iso8601}
+        when "Hash"
+          {key => escape_date_time_params(value)}
         else
-          { key => value }
+          {key => value}
         end
       end.reduce({}, :merge)
     end
