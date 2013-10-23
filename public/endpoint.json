@@ -92,6 +92,7 @@
     "name": "feed_status",
     "path": "/feed_status",
     "description": "Check the status of a submitted feed",
+    "required": true,
     "requires": {
       "parameters": [
       {
