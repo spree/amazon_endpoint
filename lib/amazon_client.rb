@@ -4,6 +4,7 @@ class AmazonClient
                       secret_access_key: config['amazon.secret_key'],
                       seller_id:         config['amazon.seller_id'],
                       marketplace_id:    config['amazon.marketplace_id'])
+
     @last_updated = config['amazon.last_updated_after']
     @config = config
   end

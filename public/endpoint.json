@@ -190,6 +190,36 @@
       }
       ]
     }
+  },
+  {
+    "name": "update_inventory_availabitity",
+    "path": "/update_inventory_availabitity",
+    "description": "Update Amazon Inventory Availability",
+    "requires": {
+      "sku": "Item sku",
+      "quantity": "Item quantity",
+      "paramaters": [
+      {
+        "name": "amazon.aws_access_key",
+        "value": "AWS Access Key ID"
+      },
+      {
+        "name": "amazon.secret_key",
+        "value": "AWS Secret Key"
+      },
+      {
+        "name": "amazon.seller_id",
+        "value": "Amazon Seller ID"
+      },
+      {
+        "name": "amazon.marketplace_id",
+        "value": "Amazon Marketplace ID"
+      }
+      ]
+    },
+    "recommends": {
+      "messages": ["stock:actual"]
+    }
   }
   ]
 }

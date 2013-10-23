@@ -82,6 +82,21 @@ class AmazonEndpoint < EndpointBase
     process_result code, @base_response.merge(response.to_h)
   end
 
+  post '/update_inventory_availabitity' do
+    feed = AmazonFeed.new(@config)
+    @base_response = { message_id: @message[:message_id] }
+
+    begin
+      inventory = Feeds::InventoryAvailabitity.new(@message[:payload], @config['amazon.seller_id'])
+      response = feed.submit(inventory.feed_type, inventory.to_xml)
+      code = 200
+    rescue => e
+      code, response = handle_error(e)
+    end
+
+    process_result code, @base_response.merge(response.to_h)
+  end
+
   private
 
   def handle_error(e)

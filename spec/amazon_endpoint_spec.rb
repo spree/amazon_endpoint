@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe AmazonEndpoint do
 
-  let(:config) { [{ name: "amazon.marketplace_id",     value: ENV['MARKETPLACE_ID'] },
-                  { name: "amazon.seller_id",          value: ENV['SELLER_ID'] },
-                  { name: 'amazon.last_updated_after', value: '2013-06-12' },
+  let(:config) { [{ name: 'amazon.marketplace_id',     value: ENV['MARKETPLACE_ID'] },
+                  { name: 'amazon.seller_id',          value: ENV['SELLER_ID'] },
                   { name: 'amazon.aws_access_key',     value: ENV['AWS_ACCESS_KEY'] },
-                  { name: 'amazon.secret_key',         value: ENV['SECRET_KEY'] }] }
+                  { name: 'amazon.secret_key',         value: ENV['SECRET_KEY'] },
+                  { name: 'amazon.last_updated_after', value: '2013-06-12' }] }
 
   let(:message) { { message_id: '1234567' } }
 
@@ -78,7 +78,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first['payload']['sku']).to eq('OX-M0NP-AOD1')
+        expect(json_response['messages'].first).to include({ 'payload' => { 'sku' => 'OX-M0NP-AOD1', 'quantity' => '0' } })
       end
     end
   end
@@ -92,7 +92,7 @@ describe AmazonEndpoint do
     it 'gets feed status' do
       VCR.use_cassette('feed_status') do
         request = { message_id: '1234', message: 'amazon:feed:status',
-          payload: { feed_id: '8253017998' ,parameters: config }}
+                    payload: { feed_id: '8253017998' ,parameters: config }}
 
         post '/feed_status', request.to_json, auth
         expect(last_response).to be_ok
@@ -120,7 +120,30 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first['payload']['feed_id']).to eq('8253017998')
+        expect(json_response['messages'].first).to include({ 'payload' => { 'feed_id' => '8253017998' } })
+      end
+    end
+  end
+
+  describe '/update_inventory_availabitity' do
+    before do
+      now = Time.new(2013, 10, 23, 14, 41, 11, '-03:00')
+      # Timecop.freeze(now)
+      Time.stub(now: now)
+    end
+
+    # after  { Timecop.return }
+
+    it 'updates inventory availability' do
+      VCR.use_cassette('submit_item_feed') do
+        request[:payload].merge!(Factories.item)
+
+        post '/update_inventory_availabitity', request.to_json, auth
+
+        expect(last_response).to be_ok
+        expect(json_response['message_id']).to eq('1234567')
+        expect(json_response['messages']).to have(1).item
+        expect(json_response['messages'].first).to include({ 'payload' => { 'feed_id' => '8259603164' } })
       end
     end
   end
