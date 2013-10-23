@@ -8,7 +8,6 @@ class AmazonFeed
   end
 
   def submit(type, doc)
-    binding.pry
     @action = 'SubmitFeed'
     @feed_type = type
 
