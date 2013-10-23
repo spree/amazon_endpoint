@@ -135,5 +135,12 @@ module Factories
           ]
       }
     end
+
+    def item
+      {
+        "sku" => "ROR-001234",
+        "quantity" => 20
+      }
+    end
   end
 end
