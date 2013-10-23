@@ -3,7 +3,7 @@ module Feeds
 
     def initialize(shipment, id)
       @merchant_id = id
-      @shipment = shipment
+      @shipment    = shipment
     end
 
     def to_xml

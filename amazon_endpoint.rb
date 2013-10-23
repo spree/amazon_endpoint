@@ -54,11 +54,11 @@ class AmazonEndpoint < EndpointBase
   end
 
   post '/confirm_shipment' do
-    feed = AmazonFeed.new(config)
+    feed = AmazonFeed.new(@config)
     @base_response = { message_id: @message[:message_id] }
 
     begin
-      order = OrderFulfillment.new(message[:payload]['shipment'])
+      order = Feeds::OrderFulfillment.new(@message[:payload]['shipment'], @config['amazon.seller_id'])
       response = feed.submit('order_fulfillment', doc: order.to_xml)
       code = 200
     rescue => e
@@ -69,7 +69,7 @@ class AmazonEndpoint < EndpointBase
   end
 
   post '/feed_status' do
-    feed = AmazonFeed.new(config)
+    feed = AmazonFeed.new(@config)
     @base_response = { message_id: @message[:message_id] }
 
     begin
