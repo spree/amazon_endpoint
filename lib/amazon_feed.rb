@@ -7,7 +7,9 @@ class AmazonFeed
   end
 
   def submit(type, doc)
-    HTTParty.post(request_uri, request_params(type, doc))
+    res = HTTParty.post(request_uri, request_params(type, doc))
+    feed_id = Feeds::Parser.parse_submission(res)
+    status_message(feed_id)
   end
 
   private
@@ -46,6 +48,17 @@ class AmazonFeed
       format: 'xml',
       headers: { 'Content-MD5' => Digest::MD5.base64digest(doc) },
       body: doc
+    }
+  end
+
+  def status_message(id)
+    {
+      messages: [
+        message: 'amazon:feed:status',
+        payload: {
+          feed_id: id
+        }
+      ]
     }
   end
 

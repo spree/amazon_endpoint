@@ -14,14 +14,14 @@ module Feeds
             xml.MerchantIdentifier @merchant_id
           }
           xml.MessageType 'OrderFulfillment'
-          xml.PurgeAndReplace 'False'
+          xml.PurgeAndReplace 'false'
           xml.Message {
             xml.MessageID 1
             xml.OperationType 'Update'
             xml.OrderFulfillment {
               xml.AmazonOrderID @shipment['order_number']
-              xml.MerchantFulfillmentID @shipment['order_number']
-              xml.FulfillmentDate Time.now.strftime('%Y-%d-%mT%H:%M:%S')
+              xml.MerchantFulfillmentID @shipment['order_number'].gsub(/\D/, '')
+              xml.FulfillmentDate Time.now.strftime('%Y-%m-%dT%H:%M:%S')
               xml.FulfillmentData  {
                 xml.CarrierName @shipment['shipping_method']
                 xml.ShippingMethod @shipment['shipping_method']

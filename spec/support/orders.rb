@@ -126,7 +126,7 @@ module Factories
               "name" => "test",
               "sku" => "27368845791002",
               "external_ref" => "",
-              "quantity" => 2,
+              "quantity" => 1,
               "price" => 1.25,
               "variant_id" => 2,
               "options" => {
