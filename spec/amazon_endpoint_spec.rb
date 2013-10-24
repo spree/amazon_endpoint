@@ -93,6 +93,23 @@ describe AmazonEndpoint do
       end
     end
 
+    context 'when throttled' do
+      it 'rescheduler the original message' do
+        request = { message_id: '1234', message: 'amazon:feed:status',
+                    payload: { feed_id: '8253017998', parameters: config } }
+
+        AmazonFeed.any_instance.stub(:status).and_raise(Feeds::RequestThrottled)
+
+        post '/feed_status', request.to_json, auth
+
+        expect(last_response).to be_ok
+        expect(json_response['message_id']).to eq('1234')
+        expect(json_response).to_not have_key('messages')
+        expect(json_response).to_not have_key('notifications')
+        expect(json_response['delay']).to eq 120
+      end
+    end
+
     context 'when errors' do
       before do
         now = Time.new(2013, 10, 23, 14, 44, 11, '-03:00')
@@ -155,6 +172,21 @@ describe AmazonEndpoint do
         expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8253017998' }, 'delay' => 120)
       end
     end
+
+    context 'when throttled' do
+      it 'rescheduler the original message' do
+        AmazonFeed.any_instance.stub(:submit).and_raise(Feeds::RequestThrottled)
+
+        request[:payload][:shipment] = Factories.shipment
+        post '/confirm_shipment', request.to_json, auth
+
+        expect(last_response).to be_ok
+        expect(json_response['message_id']).to eq('1234567')
+        expect(json_response).to_not have_key('messages')
+        expect(json_response).to_not have_key('notifications')
+        expect(json_response['delay']).to eq 120
+      end
+    end
   end
 
   describe '/update_inventory_availabitity' do
@@ -173,6 +205,22 @@ describe AmazonEndpoint do
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
         expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259603164' }, 'delay' => 120)
+      end
+    end
+
+    context 'when throttled' do
+      it 'rescheduler the original message' do
+        AmazonFeed.any_instance.stub(:submit).and_raise(Feeds::RequestThrottled)
+
+        request[:payload].merge!(Factories.item)
+
+        post '/update_inventory_availabitity', request.to_json, auth
+
+        expect(last_response).to be_ok
+        expect(json_response['message_id']).to eq('1234567')
+        expect(json_response).to_not have_key('messages')
+        expect(json_response).to_not have_key('notifications')
+        expect(json_response['delay']).to eq 120
       end
     end
   end

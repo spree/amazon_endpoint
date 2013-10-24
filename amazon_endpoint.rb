@@ -61,6 +61,9 @@ class AmazonEndpoint < EndpointBase
       order = Feeds::OrderFulfillment.new(@message[:payload]['shipment'], @config['amazon.seller_id'])
       response = feed.submit(order.feed_type, order.to_xml)
       code = 200
+    rescue Feeds::RequestThrottled => e
+      response = { delay: 120 }
+      code = 200
     rescue => e
       code, response = handle_error(e)
     end
@@ -74,6 +77,9 @@ class AmazonEndpoint < EndpointBase
 
     begin
       response = feed.status(@message[:payload]['feed_id'])
+      code = 200
+    rescue Feeds::RequestThrottled => e
+      response = { delay: 120 }
       code = 200
     rescue => e
       code, response = handle_error(e)
@@ -89,6 +95,9 @@ class AmazonEndpoint < EndpointBase
     begin
       inventory = Feeds::InventoryAvailabitity.new(@message[:payload], @config['amazon.seller_id'])
       response = feed.submit(inventory.feed_type, inventory.to_xml)
+      code = 200
+    rescue Feeds::RequestThrottled => e
+      response = { delay: 120 }
       code = 200
     rescue => e
       code, response = handle_error(e)
