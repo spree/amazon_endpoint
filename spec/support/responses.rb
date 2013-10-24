@@ -101,5 +101,19 @@ module Responses
         </ErrorResponse>
       EOF
     end
+
+    def request_quota_exceeded
+      <<-EOF
+      <?xml version="1.0" standalone="no"?>
+      <ErrorResponse>
+        <Error>
+          <Type/>
+          <Code>QuotaExceeded</Code>
+          <Message>You exceeded your quota of 30.0 requests per 1 hour for operation Feeds/2009-01-01/SubmitFeed.  Your quota will reset on Thu Oct 24 00:42:00 UTC 2013</Message>
+        </Error>
+        <RequestID>761536d8-2d63-4fbb-94b4-e189fff7efd0</RequestID>
+      </ErrorResponse>
+      EOF
+    end
   end
 end
