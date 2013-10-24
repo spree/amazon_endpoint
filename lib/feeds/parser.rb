@@ -1,6 +1,7 @@
 module Feeds
   class SubmissionError < StandardError; end
   class RequestThrottled < StandardError; end
+  class FeedProcessingResultNotReady < StandardError; end
 
   class Parser
     class << self
@@ -14,33 +15,30 @@ module Feeds
 
       def parse_result(feed_id, response)
         doc = Nokogiri::XML(response).remove_namespaces!
-        errors = doc.xpath('//MessagesWithError').text.to_i
-
-        case
-        when doc.xpath('//Code').text == 'FeedProcessingResultNotReady'
-          # Not ready, check again later
-          status_message(feed_id)
-        when errors > 0
-          # Errors while processing the feed
-          msg = doc.xpath('//ResultDescription').text
-          error_result(feed_id, msg)
-        else
-          msg = successful_result(feed_id)
-        end
+        validate!(doc)
+        successful_result(feed_id)
       end
 
       private
 
       def validate!(doc)
-        raise RequestThrottled, doc.xpath('//Message').text if doc.xpath('//Code').text == 'RequestThrottled'
-        raise SubmissionError,  doc.xpath('//Message').text if doc.root.name == 'ErrorResponse'
+        case
+        when doc.xpath('//Code').text == 'FeedProcessingResultNotReady'
+          raise FeedProcessingResultNotReady, "#{doc.xpath('//Message').text}\n#{doc.to_s}"
+        when doc.xpath('//Code').text == 'RequestThrottled'
+          raise RequestThrottled, "#{doc.xpath('//Message').text}\n#{doc.to_s}"
+        when doc.root.name == 'ErrorResponse'
+          raise SubmissionError,  "#{doc.xpath('//Message').text}\n#{doc.to_s}"
+        when doc.xpath('//MessagesWithError').text.to_i > 0
+          raise SubmissionError,  "#{doc.xpath('//ResultDescription').text}\n#{doc.to_s}"
+        end
       end
 
       def status_message(id)
         { messages:
           [ message: 'amazon:feed:status',
             payload: { feed_id: id },
-            delay: 120 ]
+            delay: 2.minutes ]
         }
       end
 
@@ -51,14 +49,7 @@ module Feeds
              description: "Succesfully processed feed ##{id}" }]
         }
       end
-
-      def error_result(id, msg)
-        { notifications:
-          [{ level: 'error',
-             subject: 'Feed Error',
-             description: "Feed ##{id} Not Processed. #{msg}" }]
-        }
-      end
     end
   end
 end
+

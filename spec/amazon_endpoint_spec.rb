@@ -106,7 +106,7 @@ describe AmazonEndpoint do
         expect(json_response['message_id']).to eq('1234')
         expect(json_response).to_not have_key('messages')
         expect(json_response).to_not have_key('notifications')
-        expect(json_response['delay']).to eq 120
+        expect(json_response['delay']).to eq 10.minutes
       end
     end
 
@@ -122,11 +122,11 @@ describe AmazonEndpoint do
                       payload: { feed_id: '8259737688', parameters: config } }
 
           post '/feed_status', request.to_json, auth
-          expect(last_response).to be_ok
+          expect(last_response).to_not be_ok
           expect(json_response['message_id']).to eq('1234')
           expect(json_response).to_not have_key('messages')
           expect(json_response['notifications']).to have(1).item
-          expect(json_response['notifications'].first['description']).to include('Feed #8259737688 Not Processed')
+          expect(json_response['notifications'].first['subject']).to include('This SKU does not exist in the Amazon.com catalog')
         end
       end
     end
@@ -146,10 +146,10 @@ describe AmazonEndpoint do
 
           post '/feed_status', request.to_json, auth
           expect(last_response).to be_ok
-          expect(json_response['message_id']).to eq('1234')
+          expect(json_response['message_id']).to eq '1234'
+          expect(json_response['delay']).to eq 2.minutes
           expect(json_response).to_not have_key('notifications')
-          expect(json_response['messages']).to have(1).item
-          expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259716402' }, 'delay' => 120)
+          expect(json_response).to_not have_key('messages')
         end
       end
     end
@@ -169,7 +169,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8253017998' }, 'delay' => 120)
+        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8253017998' }, 'delay' => 2.minutes)
       end
     end
 
@@ -184,7 +184,7 @@ describe AmazonEndpoint do
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response).to_not have_key('messages')
         expect(json_response).to_not have_key('notifications')
-        expect(json_response['delay']).to eq 120
+        expect(json_response['delay']).to eq 10.minutes
       end
     end
   end
@@ -204,7 +204,7 @@ describe AmazonEndpoint do
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response['messages']).to have(1).item
-        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259603164' }, 'delay' => 120)
+        expect(json_response['messages'].first).to eq('message' => 'amazon:feed:status', 'payload' => { 'feed_id' => '8259603164' }, 'delay' => 2.minutes)
       end
     end
 
@@ -220,7 +220,7 @@ describe AmazonEndpoint do
         expect(json_response['message_id']).to eq('1234567')
         expect(json_response).to_not have_key('messages')
         expect(json_response).to_not have_key('notifications')
-        expect(json_response['delay']).to eq 120
+        expect(json_response['delay']).to eq 10.minutes
       end
     end
   end

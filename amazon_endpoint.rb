@@ -62,7 +62,7 @@ class AmazonEndpoint < EndpointBase
       response = feed.submit(order.feed_type, order.to_xml)
       code = 200
     rescue Feeds::RequestThrottled => e
-      response = { delay: 120 }
+      response = { delay: 10.minutes }
       code = 200
     rescue => e
       code, response = handle_error(e)
@@ -78,8 +78,11 @@ class AmazonEndpoint < EndpointBase
     begin
       response = feed.status(@message[:payload]['feed_id'])
       code = 200
+    rescue Feeds::FeedProcessingResultNotReady => e
+      response = { delay: 2.minutes }
+      code = 200
     rescue Feeds::RequestThrottled => e
-      response = { delay: 120 }
+      response = { delay: 10.minutes }
       code = 200
     rescue => e
       code, response = handle_error(e)
@@ -97,7 +100,7 @@ class AmazonEndpoint < EndpointBase
       response = feed.submit(inventory.feed_type, inventory.to_xml)
       code = 200
     rescue Feeds::RequestThrottled => e
-      response = { delay: 120 }
+      response = { delay: 10.minutes }
       code = 200
     rescue => e
       code, response = handle_error(e)

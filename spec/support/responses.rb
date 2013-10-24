@@ -86,5 +86,20 @@ module Responses
         </ErrorResponse>
       EOF
     end
+
+    def submission_not_processed
+      <<-EOF
+        <?xml version="1.0"?>
+        <ErrorResponse xmlns="http://mws.amazonaws.com/doc/2009-01-01/">
+          <Error>
+            <Type>Sender</Type>
+            <Code>FeedProcessingResultNotReady</Code>
+            <Message>Feed Submission Result is not ready for Feed Submission Id: 8259716402</Message>
+            <Detail/>
+          </Error>
+          <RequestID>b8171705-29d9-4638-a83b-b6681c37a21a</RequestID>
+        </ErrorResponse>
+      EOF
+    end
   end
 end
