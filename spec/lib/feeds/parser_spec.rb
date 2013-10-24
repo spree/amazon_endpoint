@@ -22,6 +22,12 @@ module Feeds
           expect { Parser.parse_submission(Responses.request_throttled) }.to raise_error(RequestThrottled)
         end
       end
+
+      context 'when request quota_exceeded' do
+        it 'raises QuotaExceeded' do
+          expect { Parser.parse_submission(Responses.request_quota_exceeded) }.to raise_error(QuotaExceeded)
+        end
+      end
     end
 
     describe '#parse_result' do
@@ -40,6 +46,12 @@ module Feeds
       context 'when request throttled' do
         it 'raises RequestThrottled' do
           expect { Parser.parse_result('8252984128', Responses.request_throttled) }.to raise_error(RequestThrottled)
+        end
+      end
+
+      context 'when request quota_exceeded' do
+        it 'raises QuotaExceeded' do
+          expect { Parser.parse_result('8252984128', Responses.request_quota_exceeded) }.to raise_error(QuotaExceeded)
         end
       end
 

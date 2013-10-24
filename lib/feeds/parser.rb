@@ -2,6 +2,7 @@ module Feeds
   class SubmissionError < StandardError; end
   class RequestThrottled < StandardError; end
   class FeedProcessingResultNotReady < StandardError; end
+  class QuotaExceeded < StandardError; end
 
   class Parser
     class << self
@@ -27,6 +28,8 @@ module Feeds
           raise FeedProcessingResultNotReady, "#{doc.xpath('//Message').text}\n#{doc.to_s}"
         when doc.xpath('//Code').text == 'RequestThrottled'
           raise RequestThrottled, "#{doc.xpath('//Message').text}\n#{doc.to_s}"
+        when doc.xpath('//Code').text == 'QuotaExceeded'
+          raise QuotaExceeded, "#{doc.xpath('//Message').text}\n#{doc.to_s}"
         when doc.root.name == 'ErrorResponse'
           raise SubmissionError,  "#{doc.xpath('//Message').text}\n#{doc.to_s}"
         when doc.xpath('//MessagesWithError').text.to_i > 0

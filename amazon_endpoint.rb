@@ -64,6 +64,9 @@ class AmazonEndpoint < EndpointBase
     rescue Feeds::RequestThrottled => e
       response = { delay: 10.minutes }
       code = 200
+    rescue Feeds::QuotaExceeded => e
+      response = { delay: 20.minutes }
+      code = 200
     rescue => e
       code, response = handle_error(e)
     end
@@ -84,6 +87,9 @@ class AmazonEndpoint < EndpointBase
     rescue Feeds::RequestThrottled => e
       response = { delay: 10.minutes }
       code = 200
+    rescue Feeds::QuotaExceeded => e
+      response = { delay: 20.minutes }
+      code = 200
     rescue => e
       code, response = handle_error(e)
     end
@@ -101,6 +107,9 @@ class AmazonEndpoint < EndpointBase
       code = 200
     rescue Feeds::RequestThrottled => e
       response = { delay: 10.minutes }
+      code = 200
+    rescue Feeds::QuotaExceeded => e
+      response = { delay: 20.minutes }
       code = 200
     rescue => e
       code, response = handle_error(e)
