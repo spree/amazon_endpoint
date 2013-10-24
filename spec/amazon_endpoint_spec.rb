@@ -95,16 +95,17 @@ describe AmazonEndpoint do
 
     context 'when throttled' do
       it 'rescheduler the original message' do
+        AmazonFeed.any_instance.stub(:status).and_raise(Feeds::RequestThrottled)
+        Feeds::RequestThrottled.any_instance.stub(delay_in_seconds: 8.minutes)
+
         request = { message_id: '1234', message: 'amazon:feed:status',
                     payload: { feed_id: '8253017998', parameters: config } }
-
-        AmazonFeed.any_instance.stub(:status).and_raise(Feeds::RequestThrottled)
 
         post '/feed_status', request.to_json, auth
 
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234')
-        expect(json_response['delay']).to eq 10.minutes
+        expect(json_response['delay']).to eq 8.minutes
         expect(json_response).to_not have_key('messages')
         expect(json_response).to_not have_key('notifications')
       end
@@ -112,10 +113,10 @@ describe AmazonEndpoint do
 
     context 'when request quota exceeded' do
       it 'rescheduler the original message' do
+        AmazonFeed.any_instance.stub(:status).and_raise(Feeds::QuotaExceeded)
+
         request = { message_id: '1234', message: 'amazon:feed:status',
                     payload: { feed_id: '8253017998', parameters: config } }
-
-        AmazonFeed.any_instance.stub(:status).and_raise(Feeds::QuotaExceeded)
 
         post '/feed_status', request.to_json, auth
 
@@ -193,6 +194,7 @@ describe AmazonEndpoint do
     context 'when throttled' do
       it 'rescheduler the original message' do
         AmazonFeed.any_instance.stub(:submit).and_raise(Feeds::RequestThrottled)
+        Feeds::RequestThrottled.any_instance.stub(delay_in_seconds: 12.minutes)
 
         request[:payload][:shipment] = Factories.shipment
 
@@ -200,7 +202,7 @@ describe AmazonEndpoint do
 
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
-        expect(json_response['delay']).to eq 10.minutes
+        expect(json_response['delay']).to eq 12.minutes
         expect(json_response).to_not have_key('messages')
         expect(json_response).to_not have_key('notifications')
       end
@@ -261,6 +263,7 @@ describe AmazonEndpoint do
     context 'when throttled' do
       it 'rescheduler the original message' do
         AmazonFeed.any_instance.stub(:submit).and_raise(Feeds::RequestThrottled)
+        Feeds::RequestThrottled.any_instance.stub(delay_in_seconds: 20.minutes)
 
         request[:payload].merge!(Factories.item)
 
@@ -268,7 +271,7 @@ describe AmazonEndpoint do
 
         expect(last_response).to be_ok
         expect(json_response['message_id']).to eq('1234567')
-        expect(json_response['delay']).to eq 10.minutes
+        expect(json_response['delay']).to eq 20.minutes
         expect(json_response).to_not have_key('messages')
         expect(json_response).to_not have_key('notifications')
       end

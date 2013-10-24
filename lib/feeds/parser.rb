@@ -1,10 +1,16 @@
 module Feeds
   class SubmissionError < StandardError; end
-  class RequestThrottled < StandardError; end
   class FeedProcessingResultNotReady < StandardError; end
+
+  class RequestThrottled < StandardError
+    def delay_in_seconds
+      @delay_in_seconds ||= rand(8..20).minutes
+    end
+  end
+
   class QuotaExceeded < StandardError
-    def reset_quota_in_minutes
-      @reset_quota_in_minutes ||= begin
+    def reset_quota_in_seconds
+      @reset_quota_in_seconds ||= begin
                                     if matches = /.+reset on (.+)/.match(message)
                                       return (Time.parse(matches[1]) - Time.now.utc).to_i
                                     end

@@ -69,7 +69,7 @@ module Feeds
   end
 
   describe Feeds::QuotaExceeded do
-    describe '#reset_quota_in_minutes' do
+    describe '#reset_quota_in_seconds' do
       before do
         now = Time.new(2013, 10, 24, 01, 00, 00, '+00:00')
         Time.stub(now: now)
@@ -78,14 +78,24 @@ module Feeds
       it 'returns next reset quota' do
         e = described_class.
           new('You exceeded your quota of 30.0 requests per 1 hour for operation Feeds/2009-01-01/SubmitFeed.  Your quota will reset on Thu Oct 24 01:30:00 UTC 2013')
-        expect(e.reset_quota_in_minutes).to eq 30.minutes
+        expect(e.reset_quota_in_seconds).to eq 30.minutes
       end
 
       context 'when regex does not match' do
         it 'returns default' do
           e = described_class.new('I am Amazon MWS trolling you with an unexpected QuotaExceeded message')
-          expect(e.reset_quota_in_minutes).to eq 20.minutes
+          expect(e.reset_quota_in_seconds).to eq 20.minutes
         end
+      end
+    end
+  end
+
+  describe Feeds::RequestThrottled do
+    describe '#delay_in_seconds' do
+      it 'returns a random delay 8..20' do
+        e = described_class.new
+        e.stub(:rand).with(8..20).and_return(1)
+        expect(e.delay_in_seconds).to eq 1.minute
       end
     end
   end
