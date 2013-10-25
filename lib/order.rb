@@ -170,8 +170,6 @@ class Order
                    'AP'   => 'U.S. Armed Forces – Pacific',
                    'D.C.' => 'District Of Columbia' }
 
-    return exceptions[state_abbr] if exceptions.key?(state_abbr)
-
     exceptions[state_abbr] || ModelUN.convert_state_abbr(state_abbr)
   end
 end
