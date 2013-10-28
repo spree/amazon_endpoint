@@ -78,7 +78,14 @@
       ]
     },
     "recommends": {
-      "messages": ["shipment:confirm"]
+      "messages": ["shipment:confirm"],
+      "filters": [
+       {
+        "path": "payload.order.channel",
+        "operator": "eq",
+        "value": "Amazon.com"
+       }
+      ]
     },
     "produces": {
       "messages": [
