@@ -7,13 +7,16 @@ class AmazonEndpoint < EndpointBase
     amazon_client = AmazonClient.new(@config, @message)
     @base_response = { message_id: @message[:message_id] }
 
+
     begin
       orders = amazon_client.orders
-      # updates last_updated_at
-      parameters = { parameters: [{ name: 'amazon.last_updated_after',
-                                    value: orders.last.last_update_date }] }
+      if orders.any?
+        # updates last_updated_at
+        parameters = { parameters: [{ name: 'amazon.last_updated_after',
+                                      value: orders.last.last_update_date }] }
 
-      response = Builder.new(orders).build_response(parameters)
+        response = Builder.new(orders).build_response(parameters)
+      end
 
       code = 200
     rescue => e

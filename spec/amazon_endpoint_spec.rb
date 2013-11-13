@@ -36,6 +36,19 @@ describe AmazonEndpoint do
         expect(json_response['message_id']).to eq('1234567')
       end
     end
+
+    context 'when no orders' do
+      before do
+        AmazonClient.any_instance.stub(orders: [])
+      end
+
+      it 'does not fail' do
+        post '/get_orders', request.to_json, auth
+
+        expect(last_response).to be_ok
+        expect(json_response).to eq('message_id' => '1234567')
+      end
+    end
   end
 
   describe '/get_order_by_number' do
