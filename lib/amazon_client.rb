@@ -1,9 +1,11 @@
 class AmazonClient
   def initialize(config, message)
+    host = (config['amazon.services_host'].nil? || config['amazon.services_host'].empty?) ? 'mws.amazonservices.com' : config['amazon.services_host']
     @client = MWS.new(aws_access_key_id: config['amazon.aws_access_key'],
                       secret_access_key: config['amazon.secret_key'],
                       seller_id:         config['amazon.seller_id'],
-                      marketplace_id:    config['amazon.marketplace_id'])
+                      marketplace_id:    config['amazon.marketplace_id'],
+                      host:              host)
 
     @last_updated = config['amazon.last_updated_after']
     @config = config
