@@ -34,6 +34,11 @@
         "name": "last_updated_after",
         "description": "Date of last order imported",
         "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
       }
       ]
     },
@@ -73,6 +78,11 @@
       {
         "name": "marketplace_id",
         "description": "Amazon Marketplace ID",
+        "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
         "data_type": "string"
       }
       ]
@@ -121,6 +131,11 @@
         "name": "marketplace_id",
         "description": "Amazon Marketplace ID",
         "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
       }
       ]
     },
@@ -164,6 +179,11 @@
         "name": "marketplace_id",
         "description": "Amazon Marketplace ID",
         "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
       }
       ]
     },
@@ -205,6 +225,11 @@
         "name": "marketplace_id",
         "description": "Amazon Marketplace ID",
         "data_type": "string"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
       }
       ]
     },
@@ -243,6 +268,11 @@
       {
         "name": "marketplace_id",
         "value": "Amazon Marketplace ID"
+      },
+      {
+        "name": "services_host",
+        "description": "Amazon services host (default: mws.amazonservices.com)",
+        "data_type": "string"
       }
       ]
     },
