@@ -9,6 +9,22 @@ describe AmazonClient do
 
   let(:message) { { message_id: 'XXX' } }
 
+  describe '#initialize' do
+    it 'uses default host' do
+      expect(MWS).to receive(:new).with(hash_including(host: 'mws.amazonservices.com'))
+
+      AmazonClient.new(config, message)
+    end
+
+    it 'uses `amazon.services_host` defined host' do
+      config['amazon.services_host'] = 'mws.amazonservices.co.uk'
+
+      expect(MWS).to receive(:new).with(hash_including(host: 'mws.amazonservices.co.uk'))
+
+      AmazonClient.new(config, message)
+    end
+  end
+
   describe '#orders' do
     before do
       now = Time.new(2013, 8, 16, 10, 55, 14, '-03:00')
