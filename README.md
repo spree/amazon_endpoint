@@ -1,6 +1,6 @@
 # Amazon Endpoint
 
-For a detailted explanation check out the [Spree Guides - Amazon Endpoint](http://guides.spreecommerce.com/integration/amazon_integration.html).
+For a detailed explanation check out the [Spree Guides - Amazon Endpoint](http://guides.spreecommerce.com/integration/amazon_integration.html).
 
 ## Return Orders
 
