@@ -25,7 +25,7 @@ module Responses
       <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
         <Header>
           <DocumentVersion>1.02</DocumentVersion>
-          <MerchantIdentifier>M_WESKETCHUM_1357503</MerchantIdentifier>
+          <MerchantIdentifier>M_BOBBOB_1357503</MerchantIdentifier>
         </Header>
         <MessageType>ProcessingReport</MessageType>
         <Message>
@@ -64,7 +64,7 @@ module Responses
       <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
         <Header>
           <DocumentVersion>1.02</DocumentVersion>
-          <MerchantIdentifier>M_WESKETCHUM_1357503</MerchantIdentifier>
+          <MerchantIdentifier>M_BOBBOB_1357503</MerchantIdentifier>
         </Header>
         <MessageType>ProcessingReport</MessageType>
         <Message>

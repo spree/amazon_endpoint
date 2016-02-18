@@ -23,9 +23,9 @@ describe Order do
     describe '#shipping_address_names' do
       it 'sets firstname and lastname properly' do
         expect(subject.to_message[:payload][:order][:shipping_address][:firstname]).
-          to eq 'Wesley'
+          to eq 'bob'
         expect(subject.to_message[:payload][:order][:shipping_address][:lastname]).
-          to eq 'Scott Ketchum'
+          to eq 'bob'
      end
     end
 
@@ -36,7 +36,7 @@ describe Order do
 
           it 'promotes address2 to address1' do
             expect(subject.to_message[:payload][:order][:shipping_address][:address1]).
-              to eq '19944 SPURRIER AVE'
+              to eq '1234 east west'
             expect(subject.to_message[:payload][:order][:shipping_address][:address2]).
               to be_empty
           end
@@ -47,7 +47,7 @@ describe Order do
     describe '#assemble_address' do
       it 'sets address1' do
         expect(subject.to_message[:payload][:order][:shipping_address][:address1]).
-          to eq '19944 SPURRIER AVE'
+          to eq '1234 east west'
       end
       it 'sets address2' do
         expect(subject.to_message[:payload][:order][:shipping_address][:address2]).
@@ -66,7 +66,7 @@ describe Order do
     describe '#order_phone_number' do
       it 'uses amazon response phone number' do
         expect(subject.to_message[:payload][:order][:shipping_address][:phone]).
-          to eq '2409971905'
+          to eq '1234567899'
       end
 
       context 'when phone number is absent' do
